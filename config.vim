@@ -64,8 +64,9 @@ set smartindent
 " while searching shows per character typed
 set incsearch
 
-" do you want to highlight searches?
-" set hlsearch
+" do you want to highlight searches? I don't personally
+" Looking to find a better way in the future though
+set nohlsearch
 
 " searches are case sensitive unless they contain at least one capital letter
 set ignorecase
@@ -122,6 +123,7 @@ set noswapfile
 " be smart when using tabs
 set smarttab
 set tabstop=4
+set shiftwidth=4
 
 " set 7 lines to the cursor when moving vertically
 set so=7
@@ -138,6 +140,10 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " smart way to move between splits
 map <C-j> <C-w>j
 map <C-k> <C-w>k
-map <C-k> <C-w>k
+map <C-h> <C-w>h
 map <C-l> <C-w>l
 
+" I like to move around buffers this way
+map gn :bn<CR>
+map gp :bp<CR>
+map gd :bd<CR>

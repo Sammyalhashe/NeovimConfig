@@ -40,6 +40,7 @@ endfunction
 " Misc plugins
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
+Plug 'kien/ctrlp.vim'
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -49,5 +50,12 @@ Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
+" python
+let g:python = '/usr/bin/python3.8'
+if filereadable(g:python)
+	let g:python3 = g:python
+endif
+
 source ~/.config/nvim/config.vim
-source ~/.config/nvim/lightline_conf.vim
+source ~/.config/nvim/plugin_confs/lightline_conf.vim
+source ~/.config/nvim/plugin_confs/ctrlp_conf.vim
