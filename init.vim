@@ -38,9 +38,14 @@ function! DoRemote(arg)
 endfunction
 
 " Misc plugins
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kien/ctrlp.vim'
+Plug 'christoomey/vim-tmux-navigator'
+
+" Autocomplete
+Plug 'ervandew/supertab'
 
 " Colors
 Plug 'morhetz/gruvbox'
