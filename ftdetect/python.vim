@@ -1,4 +1,4 @@
 " not required in python files
 autocmd! FileType python setl nosmartindent
 
-set colorcolumn=80 " for PEP
+autocmd! FileType python setl colorcolumn=80 " for PEP
