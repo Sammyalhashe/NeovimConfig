@@ -44,8 +44,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'kien/ctrlp.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
-" Autocomplete
+" Autocomplete + linting DONE: check if allowed (abid uses it)
 Plug 'ervandew/supertab'
+Plug 'w0rp/ale'
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -64,3 +65,4 @@ endif
 source ~/.config/nvim/config.vim
 source ~/.config/nvim/plugin_confs/lightline_conf.vim
 source ~/.config/nvim/plugin_confs/ctrlp_conf.vim
+source ~/.config/nvim/plugin_confs/ale_config.vim
