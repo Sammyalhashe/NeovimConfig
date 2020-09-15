@@ -131,6 +131,8 @@ set so=7
 " Return to last edit position when opening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" tells vim to automatically change dir to the pwd of the current file
+autocmd BufEnter * if expand("%:p:h") !~ "^/tmp" | silent! lcd %:p:h | endif
 
 " remap tabs when going through selection lists
 " inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
