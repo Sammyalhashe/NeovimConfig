@@ -1,8 +1,20 @@
 " NOTE: from Abid's (trainer) config
 " Explicitly set the python linters and fixers
-let b:ale_linters = {'python': ['pylint']}
-let g:ale_fixers = {'python': ['black']}
 
+
+call ale#linter#Define('python', {
+			\   'name': 'pyls',
+			\   'lsp': 'socket',
+			\   'address_callback': {-> '127.0.0.1:10777'},
+			\   'address': {-> '127.0.0.1:10777'},
+			\   'language': 'python',
+			\   'project_root': 'ale#python#FindProjectRoot',
+			\   'completion_filter': 'ale#completion#python#CompletionItemFilter',
+			\})
+
+let b:ale_linters = {'python': ['pyls', 'pylint']}
+let g:ale_fixers = {'python': ['black']}
+set completeopt-=preview
 
 let g:ale_lint_on_text_changed = 'never'
 
@@ -11,4 +23,8 @@ let g:ale_sign_warning = '•'
 
 " ALE completion
 let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
 set omnifunc=ale#completion#OmniFunc
+
+nnoremap <silent> ggd :ALEGoToDefinition<CR>
+nnoremap <silent> ggr :ALEFindReferences<CR>
