@@ -1,7 +1,7 @@
 " vim: foldmethod=marker
 
 " leader key
-let mapleader=";"
+let mapleader="\<space>"
 let maplocalleader="\<space>"
 
 " terminal mapping
@@ -16,6 +16,7 @@ set termguicolors
 map <silent> <leader><cr> :noh<cr>
 
 " enable syntax highlighting
+filetype plugin on
 syntax enable
 
 " enable filetype plugins
@@ -149,3 +150,18 @@ map <C-l> <C-w>l
 map gn :bn<CR>
 map gp :bp<CR>
 map gd :bd<CR>
+
+" make vim transparent to work with my background
+hi NORMAL guibg=NONE ctermbg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
+hi GitGutterAdd ctermbg=NONE guibg=NONE
+hi GitGutterDelete ctermbg=NONE guibg=NONE
+hi GitGutterChange ctermbg=NONE guibg=NONE
+hi ALEWarningSign ctermbg=NONE guibg=NONE
+hi ALEErrorSign ctermbg=NONE guibg=NONE
+
+" move text with ALT[jk]
+nmap <A-j> mz:m+<cr>`z
+nmap <A-k> mz:m-2<cr>`z
+vmap <A-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
