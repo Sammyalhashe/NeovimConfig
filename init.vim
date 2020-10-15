@@ -1,5 +1,12 @@
 " vim: foldmethod=marker
 
+" terminal colors
+if $TERM == "screen-256color" || $TERM == "xterm-256color"
+	set t_C0=256
+	set t_8f=^[[38;2;%lu;%lu;%lum
+	set t_8b=^[[48;2;%lu;%lu;%lum
+endif
+
 " set default folder
 let g:DIR = expand('~/.config/nvim/')
 
@@ -42,6 +49,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
+Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
+Plug 'ryanoasis/vim-devicons', { 'tag': 'v0.10.0' }
 " Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
@@ -49,14 +58,16 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " Autocomplete + linting DONE: check if allowed (abid uses it)
 " Plug 'ervandew/supertab'
-Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', { 'tag': 'v0.0.74' }
+" Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim'
+" Plug 'neoclide/coc.nvim', { 'tag': 'v0.0.74' }
 
 " Colors
 Plug 'morhetz/gruvbox'
+Plug 'overcache/NeoSolarized'
 
 " Status line
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
@@ -70,5 +81,8 @@ source ~/.config/nvim/config.vim
 source ~/.config/nvim/plugin_confs/lightline_conf.vim
 source ~/.config/nvim/plugin_confs/fzf.vim
 " source ~/.config/nvim/plugin_confs/ctrlp_conf.vim
-source ~/.config/nvim/plugin_confs/ale_config.vim
+" source ~/.config/nvim/plugin_confs/ale_config.vim
 source ~/.config/nvim/plugin_confs/coc.vim
+source ~/.config/nvim/plugin_confs/statusline.vim
+source ~/.config/nvim/plugin_confs/tabline.vim
+" source ~/.config/nvim/plugin_confs/anyfold.vim

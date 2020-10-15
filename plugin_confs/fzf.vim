@@ -1,9 +1,9 @@
-nnoremap <leader>e :GFiles!<CR>
+nnoremap <leader>e :GFiles<CR>
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>ag :Ag!<CR>
-nnoremap <leader>li :Lines!<CR>
-nnoremap <leader>/ :BLines!<CR>
-nnoremap <leader>? :Rg!<CR>
+nnoremap <leader>ag :Ag<CR>
+nnoremap <leader>li :Lines<CR>
+nnoremap <leader>/ :BLines<CR>
+nnoremap <leader>? :Rg<CR>
 
 if has('nvim')
 	" let g:fzf_layout = {'window' : 'call FloatingFZF()'}

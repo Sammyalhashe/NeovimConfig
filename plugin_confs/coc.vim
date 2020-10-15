@@ -13,7 +13,7 @@ function! s:show_docs()
 	if (index(['vim', 'help'], &filetype) >= 0)
 		execute 'h ' . expand('<cword>')
 	else
-		CocAction('doHover')
+		call CocAction('doHover')
 	endif
 endfunction
 

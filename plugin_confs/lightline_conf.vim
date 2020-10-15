@@ -7,7 +7,7 @@ endif
 set noshowmode " unecessary with this plugin
 
 let g:lightline = {
-			\ 'colorscheme': 'gruvbox',
+			\ 'colorscheme': 'solarized',
 			\ 'active': {
 			\ 	'left': [['mode', 'paste'], ['readonly', 'filename', 'modified', 'charvaluehex', 'sammy']]
 			\ },

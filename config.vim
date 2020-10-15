@@ -1,8 +1,10 @@
 " vim: foldmethod=marker
 
-" leader key
+
+" leader key {{{1
 let mapleader="\<space>"
 let maplocalleader="\<space>"
+" }}}1
 
 " terminal mapping
 tnoremap <ESC> <C-\><C-n>
@@ -74,9 +76,10 @@ set ignorecase
 set smartcase
 
 " background
-set background=dark
+set background=light
 
 " colorscheme
+" colorscheme NeoSolarized
 colorscheme gruvbox
 
 " clipboard
@@ -152,16 +155,19 @@ map gp :bp<CR>
 map gd :bd<CR>
 
 " make vim transparent to work with my background
-hi NORMAL guibg=NONE ctermbg=NONE
-hi SignColumn ctermbg=NONE guibg=NONE
-hi GitGutterAdd ctermbg=NONE guibg=NONE
-hi GitGutterDelete ctermbg=NONE guibg=NONE
-hi GitGutterChange ctermbg=NONE guibg=NONE
-hi ALEWarningSign ctermbg=NONE guibg=NONE
-hi ALEErrorSign ctermbg=NONE guibg=NONE
+" hi NORMAL guibg=NONE ctermbg=NONE
+" hi SignColumn ctermbg=NONE guibg=NONE
+" hi GitGutterAdd ctermbg=NONE guibg=NONE
+" hi GitGutterDelete ctermbg=NONE guibg=NONE
+" hi GitGutterChange ctermbg=NONE guibg=NONE
+" hi ALEWarningSign ctermbg=NONE guibg=NONE
+" hi ALEErrorSign ctermbg=NONE guibg=NONE
 
 " move text with ALT[jk]
 nmap <A-j> mz:m+<cr>`z
 nmap <A-k> mz:m-2<cr>`z
 vmap <A-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+" folding
+source ~/.config/nvim/folding.vim
