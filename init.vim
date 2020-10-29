@@ -12,6 +12,13 @@ let g:DIR = expand('~/.config/nvim/')
 
 " set clipboard
 set clipboard^=unnamed,unnamedplus
+let s:clip = '/c/Windows/System32/clip.exe'
+if executable(s:clip)
+	augroup WSLYank
+		autocmd!
+		autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+	augroup END
+endif
 
 " set the os
 if !exists("g:os")
@@ -45,6 +52,7 @@ function! DoRemote(arg)
 endfunction
 
 " Misc plugins
+Plug 'https://gitlab.com/Sammyalhashe/sammys-vim-agenda'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
