@@ -149,6 +149,14 @@ map <C-k> <C-w>k
 map <C-h> <C-w>h
 map <C-l> <C-w>l
 
+" increase/decrease split size
+" vertical splits
+map <silent> <A-]> :vert resize +5<cr>
+map <silent> <A-[> :vert resize -5<cr>
+" horizontal splits
+map <silent> <A-=> :resize +5<cr>
+map <silent> <A--> :resize -5<cr>
+
 " I like to move around buffers this way
 map gn :bn<CR>
 map gp :bp<CR>
