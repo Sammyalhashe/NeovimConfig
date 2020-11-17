@@ -125,6 +125,7 @@ set nowb
 set noswapfile
 
 " be smart when using tabs
+set expandtab
 set smarttab
 set tabstop=4
 set shiftwidth=4
