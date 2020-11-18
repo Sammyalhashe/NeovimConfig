@@ -73,6 +73,7 @@ Plug 'neoclide/coc.nvim'
 " Colors
 Plug 'morhetz/gruvbox'
 Plug 'overcache/NeoSolarized'
+Plug 'arcticicestudio/nord-vim', { 'tag': 'v0.11.0'  }
 
 " Status line
 " Plug 'itchyny/lightline.vim'

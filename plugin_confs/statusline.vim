@@ -79,8 +79,8 @@ function! Statusline() abort
   let l:statusline = s:sep(l:mode, extend({'before': ''}, s:st_mode))
   let l:git_status = s:git_statusline()
   let l:statusline .= s:sep_if(l:git_status, !empty(l:git_status))
-  let l:statusline .= s:sep(s:get_path(), &modified ? s:st_warn : {})            "File path
-  let l:statusline .= s:sep_if(' + ', &modified, s:st_warn)                      "Modified indicator
+  let l:statusline .= s:sep(s:get_path(), &modified ? s:st_err : {})            "File path
+  let l:statusline .= s:sep_if(' + ', &modified, s:st_mode)                      "Modified indicator
   let l:statusline .= s:sep_if(' - ', !&modifiable, s:st_err)                   "Modifiable indicator
   let l:statusline .= s:sep(WebDevIconsGetFileFormatSymbol() . "\u2765")            		"File format
   let l:statusline .= s:sep_if('%w', &previewwindow)                            "Preview indicator
