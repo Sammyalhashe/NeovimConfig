@@ -1,5 +1,9 @@
 " vim: foldmethod=marker
 
+" show spaces/tabs
+set list
+set lcs=tab:\|\
+set lcs+=space:·
 
 " leader key {{{1
 let mapleader="\<space>"
