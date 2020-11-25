@@ -78,7 +78,10 @@ Plug 'junegunn/goyo.vim'
 "     \ 'branch': 'next',
 "     \ 'do': 'bash install.sh',
 "     \ }
-Plug 'natebosch/vim-lsc'
+" Plug 'natebosch/vim-lsc'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -102,7 +105,7 @@ source ~/.config/nvim/plugin_confs/fzf.vim
 " source ~/.config/nvim/plugin_confs/ctrlp_conf.vim
 " source ~/.config/nvim/plugin_confs/ale_config.vim
 " source ~/.config/nvim/plugin_confs/coc.vim
-source ~/.config/nvim/plugin_confs/lcn.vim
+source ~/.config/nvim/plugin_confs/lsp.vim
 source ~/.config/nvim/plugin_confs/statusline.vim
 source ~/.config/nvim/plugin_confs/tabline.vim
 " source ~/.config/nvim/plugin_confs/anyfold.vim
