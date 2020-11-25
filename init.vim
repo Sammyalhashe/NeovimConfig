@@ -1,5 +1,8 @@
 " vim: foldmethod=marker
 
+
+set backspace=indent,eol,start
+
 " terminal colors
 if $TERM == "screen-256color" || $TERM == "xterm-256color"
 	set t_C0=256
@@ -64,6 +67,7 @@ Plug 'ryanoasis/vim-devicons', { 'tag': 'v0.10.0' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/goyo.vim'
 
 " Autocomplete + linting DONE: check if allowed (abid uses it)
 " Plug 'ervandew/supertab'
