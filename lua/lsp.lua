@@ -20,12 +20,15 @@ local custom_attach = function(client)
     map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
     map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
     map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
-    map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+    map('n','<leader>ac','<cmd>lua vim.lsp.buf.code_action()<CR>')
     map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
     map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
     map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
     map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
     map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+    map('n','[q',':cnext<CR>')
+    map('n',']q',':cprev<CR>')
+    map('n',']h',':ClangdSwitchSourceHeader<CR>')
 end
 
 nvim_lsp.clangd.setup{on_attach=custom_attach}

@@ -1,5 +1,11 @@
 " vim: foldmethod=marker
 
+" colorcolumn for bde style consistency
+set colorcolumn=80
+
+" disable autocommenting for all filetypes and sessions
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 " show spaces/tabs
 set list
 set lcs=tab:\|\
@@ -90,7 +96,7 @@ set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme nord
+colorscheme gruvbox
 
 " clipboard
 set clipboard^=unnamed
@@ -190,3 +196,9 @@ vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " folding
 source ~/.config/nvim/folding.vim
+
+" bde-format
+function! BDEFmt()
+    let _ = system("bde-format -i " . expand('%:p'))
+endfunction
+autocmd FileType cpp,c map <C-f> :call BDEFmt()<CR>:edit<CR>
