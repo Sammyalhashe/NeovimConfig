@@ -110,4 +110,4 @@ source ~/.config/nvim/plugin_confs/lsp.vim
 source ~/.config/nvim/plugin_confs/treesitter.vim
 source ~/.config/nvim/plugin_confs/statusline.vim
 source ~/.config/nvim/plugin_confs/tabline.vim
-" source ~/.config/nvim/plugin_confs/anyfold.vim
+source ~/.config/nvim/plugin_confs/close_brackets.vim
