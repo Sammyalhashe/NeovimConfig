@@ -32,3 +32,5 @@ local custom_attach = function(client)
 end
 
 nvim_lsp.clangd.setup{on_attach=custom_attach}
+
+

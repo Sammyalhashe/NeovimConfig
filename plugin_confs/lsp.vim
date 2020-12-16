@@ -9,3 +9,9 @@ set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
+
+inoremap <silent><expr> <cr> <sid>handle_cr()
+
+function! s:handle_cr() abort
+  return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endfunction

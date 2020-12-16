@@ -60,7 +60,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 " Plug 'airblade/vim-gitgutter'
 " Plug 'jiangmiao/auto-pairs'
-Plug 'rstacruz/vim-closer'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
 Plug 'ryanoasis/vim-devicons', { 'tag': 'v0.10.0' }
 " Plug 'kien/ctrlp.vim'
@@ -68,6 +67,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim'
+Plug 'moveaxesp/bdeformat'
 
 " Autocomplete + linting DONE: check if allowed (abid uses it)
 " Plug 'ervandew/supertab'
@@ -81,6 +81,7 @@ Plug 'junegunn/goyo.vim'
 " Plug 'natebosch/vim-lsc'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 
 " Colors
@@ -106,6 +107,7 @@ source ~/.config/nvim/plugin_confs/fzf.vim
 " source ~/.config/nvim/plugin_confs/ale_config.vim
 " source ~/.config/nvim/plugin_confs/coc.vim
 source ~/.config/nvim/plugin_confs/lsp.vim
+source ~/.config/nvim/plugin_confs/treesitter.vim
 source ~/.config/nvim/plugin_confs/statusline.vim
 source ~/.config/nvim/plugin_confs/tabline.vim
 " source ~/.config/nvim/plugin_confs/anyfold.vim
