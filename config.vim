@@ -92,7 +92,7 @@ set ignorecase
 set smartcase
 
 " background
-set background=dark
+set background=light
 
 " colorscheme
 " colorscheme NeoSolarized

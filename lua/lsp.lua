@@ -39,8 +39,8 @@ local custom_attach = function(client)
     map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     map('n','[q',':cnext<CR>')
     map('n',']q',':cprev<CR>')
-    map('n',']g','<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-    map('n','[g','<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+    map('n',']g','<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>')
+    map('n','[g','<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>')
     map('n',']h',':ClangdSwitchSourceHeader<CR>')
 end
 

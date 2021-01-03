@@ -14,7 +14,8 @@ function! s:set_statusline_colors() abort
   let s:normal_bg = synIDattr(hlID('Normal'), 'bg')
   let s:normal_fg = synIDattr(hlID('Normal'), 'fg')
   let s:warning_fg = synIDattr(hlID(&background ==? 'dark' ? 'GruvboxYellow' : 'WarningMsg'), 'fg')
-  let s:error_fg = synIDattr(hlID('ErrorMsg'), &background ==? 'dark' ? 'bg' : 'fg')
+  " let s:error_fg = synIDattr(hlID('ErrorMsg'), &background ==? 'dark' ? 'bg' : 'fg')
+  let s:error_fg = synIDattr(hlID('ErrorMsg'), 'bg')
 
   silent! exe 'hi StItem guibg='.s:normal_fg.' guifg='.s:normal_bg.' gui=NONE'
   silent! exe 'hi StSep guifg='.s:normal_fg.' guibg=NONE gui=NONE'
@@ -91,6 +92,10 @@ function! Statusline() abort
   let l:statusline .= s:sep_if(l:anzu, !empty(l:anzu))                          "Search status
   let l:ft = &filetype
   let l:statusline .= s:rsep_if(l:ft . ' ' . WebDevIconsGetFileTypeSymbol(), !empty(l:ft))                              "Filetype
+  if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+      let l:statusline .= s:rsep("\u26d4 " . luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])"), s:st_err)
+      let l:statusline .= s:rsep("\u26A0 " . luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])"), s:st_warn)
+  end
   let l:statusline .= s:rsep(': %c', s:st_mode)                                "Column number
   let l:statusline .= s:rsep(': %l/%L', s:st_mode)                              "Current line number/Total line numbers
   let l:statusline .= s:rsep('%p%%', s:st_mode)                                  "Percentage
