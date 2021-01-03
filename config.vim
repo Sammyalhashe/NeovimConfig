@@ -202,3 +202,7 @@ function! BDEFmt()
     let _ = system("bde-format -i " . expand('%:p'))
 endfunction
 autocmd FileType cpp,c map <C-f> :call BDEFmt()<CR>:edit<CR>
+
+" lua command
+lua lsp = require('lsp')
+nmap <leader>di :lua lsp.get_diagnostics()<CR>

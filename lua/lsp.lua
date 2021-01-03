@@ -5,8 +5,19 @@ local map = function(type, key, value)
     vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
 end
 
+local get_diagnostics = function()
+    local diags = vim.lsp.diagnostic.get_all()
+    for k,v in pairs(diags) do
+        print(k, v)
+        for i in pairs(v) do
+            print(i, v[i])
+        end
+    end
+end
+
 local custom_attach = function(client)
     print("LSP started.");
+    get_diagnostics();
     require'completion'.on_attach(client)
     -- require'diagnostic'.on_attach(client)
 
@@ -28,9 +39,14 @@ local custom_attach = function(client)
     map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     map('n','[q',':cnext<CR>')
     map('n',']q',':cprev<CR>')
+    map('n',']g','<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+    map('n','[g','<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     map('n',']h',':ClangdSwitchSourceHeader<CR>')
 end
 
 nvim_lsp.clangd.setup{on_attach=custom_attach}
+nvim_lsp.pyls.setup{on_attach=custom_attach}
 
-
+return {
+    get_diagnostics = get_diagnostics,
+}
