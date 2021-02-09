@@ -92,7 +92,7 @@ set ignorecase
 set smartcase
 
 " background
-set background=light
+set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
@@ -189,10 +189,17 @@ map gd :bd<CR>
 " hi ALEErrorSign ctermbg=NONE guibg=NONE
 
 " move text with ALT[jk]
-nmap <A-j> mz:m+<cr>`z
-nmap <A-k> mz:m-2<cr>`z
-vmap <A-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
+if !has("macunix")
+    nmap <A-j> mz:m+<cr>`z
+    nmap <A-k> mz:m-2<cr>`z
+    vmap <A-j> :m'>+<cr>`<my`>mzgv`yo`z
+    vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
+else
+    nmap ∆ mz:m+<cr>`z
+    nmap ˚ mz:m-2<cr>`z
+    vmap ∆ :m'>+<cr>`<my`>mzgv`yo`z
+    vmap ˚ :m'<-2<cr>`>my`<mzgv`yo`z
+endif
 
 " folding
 source ~/.config/nvim/folding.vim
@@ -206,3 +213,6 @@ autocmd FileType cpp,c map <C-f> :call BDEFmt()<CR>:edit<CR>
 " lua command
 lua lsp = require('lsp')
 nmap <leader>di :lua lsp.get_diagnostics()<CR>
+
+" rhubarb
+let g:github_enterprise_urls = ['https://bbgithub.dev.bloomberg.com']

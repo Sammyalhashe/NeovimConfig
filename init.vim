@@ -58,6 +58,7 @@ endfunction
 Plug 'https://gitlab.com/Sammyalhashe/sammys-vim-agenda'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 " Plug 'airblade/vim-gitgutter'
 " Plug 'jiangmiao/auto-pairs'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
@@ -79,6 +80,8 @@ Plug 'moveaxesp/bdeformat'
 "     \ 'do': 'bash install.sh',
 "     \ }
 " Plug 'natebosch/vim-lsc'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
