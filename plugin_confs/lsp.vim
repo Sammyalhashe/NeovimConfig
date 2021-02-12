@@ -16,7 +16,7 @@ function! s:handle_cr() abort
   return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endfunction
 
-let g:completion_matching_strategy_list = ['fuzzy']
+" let g:completion_matching_strategy_list = ['fuzzy']
 let g:completion_enable_snippet = 'Neosnippet'
 
 " Plugin key-mappings.

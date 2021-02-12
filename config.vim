@@ -96,7 +96,7 @@ set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme gruvbox
+colorscheme nord
 
 " clipboard
 set clipboard^=unnamed
@@ -168,11 +168,16 @@ map <C-l> <C-w>l
 
 " increase/decrease split size
 " vertical splits
-map <silent> <A-]> :vert resize +5<cr>
-map <silent> <A-[> :vert resize -5<cr>
+map <silent> ‘ :vert resize +5<cr>
+map <silent> “ :vert resize -5<cr>
 " horizontal splits
-map <silent> <A-=> :resize +5<cr>
-map <silent> <A--> :resize -5<cr>
+map <silent> æ :resize +5<cr>
+map <silent> … :resize -5<cr>
+" map <silent> <A-]> :vert resize +5<cr>
+" map <silent> <A-[> :vert resize -5<cr>
+" " horizontal splits
+" map <silent> <A-=> :resize +5<cr>
+" map <silent> <A--> :resize -5<cr>
 
 " I like to move around buffers this way
 map gn :bn<CR>

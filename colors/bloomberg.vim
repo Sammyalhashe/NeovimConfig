@@ -1,19 +1,14 @@
 " Vim colorscheme template file
-" Author: Gerardo Galindez <gerardo.galindez@gmail.com>
-" Maintainer: Gerardo Galindez <gerardo.galindez@gmail.com>
-" Notes: To check the meaning of the highlight groups, :help 'highlight'
+" Author: Sammy Al Hashemi <salhashemi2@bloomberg.net>
+" Maintainer: Sammy Al Hashemi <salhashemi2@bloomberg.net>
+" Notes: This is very much WIP
 
-" --------------------------------
 set background=dark
-" - or ---------------------------
-" set background=light
-" --------------------------------
 
 highlight clear
 if exists("syntax_on")
         syntax reset
 endif
-let g:colors_name="bloomberg"
 
 "----------------------------------------------------------------
 " General settings                                              |
@@ -25,17 +20,17 @@ let g:colors_name="bloomberg"
 " --------------------------------
 " Editor settings
 " --------------------------------
-hi Normal          ctermfg=12   ctermbg=0    cterm=none guifg=#f49f31 guibg=#000000
-hi Cursor          ctermfg=1    ctermbg=0    cterm=none guifg=#4dc7f9 guibg=#000000
-hi iCursor          ctermfg=1    ctermbg=0    cterm=none guifg=#4dc7f9 guibg=#000000
-hi CursorLine      ctermfg=none    ctermbg=none    term=bold cterm=underline
+hi Normal          ctermfg=12   ctermbg=0    cterm=none guifg=#f49f31
+hi Cursor          ctermfg=1    ctermbg=0    cterm=none guifg=#4dc7f9
+hi iCursor          ctermfg=1    ctermbg=0    cterm=none guifg=#4dc7f9
+hi CursorLine      ctermfg=none    ctermbg=none    cterm=underline 
 hi LineNr          ctermfg=none    ctermbg=none    cterm=none guifg=#d7d7d7
 hi CursorLineNR    ctermfg=none    ctermbg=none    cterm=none
 
 " -----------------
 " - Number column -
 " -----------------
-hi CursorColumn    ctermfg=none    ctermbg=none    cterm=none
+hi CursorColumn    ctermfg=Red    ctermbg=none    cterm=none
 hi FoldColumn      ctermfg=none    ctermbg=none    cterm=none
 hi SignColumn      ctermfg=none    ctermbg=none    cterm=none
 hi Folded          ctermfg=none    ctermbg=none    cterm=none
@@ -44,7 +39,7 @@ hi Folded          ctermfg=none    ctermbg=none    cterm=none
 " - Window/Tab delimiters - 
 " -------------------------
 hi VertSplit       ctermfg=none    ctermbg=none    cterm=none
-hi ColorColumn     ctermfg=none    ctermbg=none    cterm=none
+hi ColorColumn     ctermfg=none    ctermbg=none    cterm=none guibg=#b36200
 hi TabLine         ctermfg=none    ctermbg=none    cterm=none
 hi TabLineFill     ctermfg=none    ctermbg=none    cterm=none
 hi TabLineSel      ctermfg=none    ctermbg=none    cterm=none
@@ -59,7 +54,8 @@ hi IncSearch       ctermfg=none    ctermbg=none    cterm=none
 " -----------------
 " - Prompt/Status -
 " -----------------
-hi StatusLine      ctermfg=none    ctermbg=none    cterm=none
+hi MyStatusLineText guifg=#000000
+hi StatusLine      ctermfg=0    ctermbg=0    cterm=none
 hi StatusLineNC    ctermfg=none    ctermbg=none    cterm=none
 hi WildMenu        ctermfg=none    ctermbg=none    cterm=none
 hi Question        ctermfg=none    ctermbg=none    cterm=none
@@ -73,11 +69,11 @@ hi MoreMsg         ctermfg=none    ctermbg=none    cterm=none
 hi MatchParen      ctermfg=none    ctermbg=none    cterm=none
 hi Visual          ctermfg=none    ctermbg=none    cterm=none
 hi VisualNOS       ctermfg=none    ctermbg=none    cterm=none
-hi NonText         ctermfg=none    ctermbg=none    cterm=none
+hi NonText         ctermfg=none    ctermbg=none    cterm=none guifg=#838383
 
 hi Todo            ctermfg=none    ctermbg=none    cterm=none
 hi Underlined      ctermfg=none    ctermbg=none    cterm=none
-hi Error           ctermfg=none    ctermbg=none    cterm=none
+hi Error           ctermfg=none    ctermbg=none    cterm=none guifg=#60C487
 hi ErrorMsg        ctermfg=none    ctermbg=none    cterm=none
 hi WarningMsg      ctermfg=none    ctermbg=none    cterm=none
 hi Ignore          ctermfg=none    ctermbg=none    cterm=none
@@ -94,7 +90,7 @@ hi Number          ctermfg=none    ctermbg=none    cterm=none guifg=#b5cea8
 hi Boolean         ctermfg=none    ctermbg=none    cterm=none guifg=#acacae
 hi Float           ctermfg=none    ctermbg=none    cterm=none guifg=#acacae
 
-hi Identifier      ctermfg=none    ctermbg=none    cterm=none
+hi Identifier      ctermfg=none    ctermbg=none    cterm=none guifg=#f49f31
 hi Function        ctermfg=none    ctermbg=none    cterm=none guifg=#b180d7
 
 " --------------------------------
@@ -107,7 +103,7 @@ hi Label           ctermfg=none    ctermbg=none    cterm=none guifg=#75beff
 hi Operator        ctermfg=none    ctermbg=none    cterm=none guifg=#acacae
 hi Keyword         ctermfg=none    ctermbg=none    cterm=none guifg=#acacae
 hi Exception       ctermfg=none    ctermbg=none    cterm=none guifg=#acacae
-hi Comment         ctermfg=none    ctermbg=none    cterm=none guifg=#c5c5c5
+hi Comment         ctermfg=none    ctermbg=none    cterm=none guifg=#d54135
 
 hi Special         ctermfg=none    ctermbg=none    cterm=none guifg=#f49f31
 hi SpecialChar     ctermfg=none    ctermbg=none    cterm=none
@@ -125,10 +121,10 @@ hi Define          ctermfg=none    ctermbg=none    cterm=none guifg=#569cd6
 hi Macro           ctermfg=none    ctermbg=none    cterm=none guifg=#f49f31
 hi PreCondit       ctermfg=none    ctermbg=none    cterm=none
 
-hi Type            ctermfg=none    ctermbg=none    cterm=none guifg=#d16969
-hi StorageClass    ctermfg=none    ctermbg=none    cterm=none
+hi Type            ctermfg=none    ctermbg=none    cterm=none guifg=#60C487
+hi StorageClass    ctermfg=none    ctermbg=none    cterm=none guifg=#f49f31
 hi Structure       ctermfg=none    ctermbg=none    cterm=none guifg=#acacae
-hi Typedef         ctermfg=none    ctermbg=none    cterm=none
+hi Typedef         ctermfg=none    ctermbg=none    cterm=none guifg=#f49f31
 
 " --------------------------------
 " Diff
