@@ -69,6 +69,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
+Plug 'romainl/vim-qf'
 
 " Autocomplete + linting DONE: check if allowed (abid uses it)
 " Plug 'ervandew/supertab'
