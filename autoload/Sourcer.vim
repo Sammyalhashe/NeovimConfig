@@ -12,7 +12,6 @@ endfunction
 let s:plugin_cache = {}
 
 function! s:FilenameIncludes(fp, name) abort
-    echo a:fp
     return a:fp =~? 'plugged/' . a:name
 endfunction
 
