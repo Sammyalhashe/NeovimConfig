@@ -17,7 +17,6 @@ end
 
 local custom_attach = function(client)
     print("LSP started.");
-    get_diagnostics();
     require'completion'.on_attach(client)
     -- require'diagnostic'.on_attach(client)
 

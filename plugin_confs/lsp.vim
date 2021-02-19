@@ -17,7 +17,7 @@ function! s:handle_cr() abort
 endfunction
 
 " let g:completion_matching_strategy_list = ['fuzzy']
-let g:completion_enable_snippet = 'Neosnippet'
+" let g:completion_enable_snippet = 'Neosnippet'
 
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.

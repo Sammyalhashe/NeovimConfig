@@ -1,5 +1,6 @@
 " vim: foldmethod=marker
 
+let s:currdir = expand('<sfile>:h')
 
 set backspace=indent,eol,start
 
@@ -70,16 +71,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
 
-" Autocomplete + linting DONE: check if allowed (abid uses it)
-" Plug 'ervandew/supertab'
-" Plug 'w0rp/ale'
-" Plug 'neoclide/coc.nvim'
-" Plug 'neoclide/coc.nvim', { 'tag': 'v0.0.74' }
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
-" Plug 'natebosch/vim-lsc'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'neovim/nvim-lspconfig'
@@ -92,25 +83,18 @@ Plug 'morhetz/gruvbox'
 Plug 'overcache/NeoSolarized'
 Plug 'arcticicestudio/nord-vim', { 'tag': 'v0.11.0'  }
 
-" Status line
-" Plug 'itchyny/lightline.vim'
-
 call plug#end()
 
 " python
-let g:python = '/usr/bin/python3.8'
+if isdirectory('/bb')
+    let g:python = '/opt/bb/bin/python3.9'
+else
+    let g:python = '/usr/bin/python3.8'
+endif
 if filereadable(g:python)
 	let g:python3 = g:python
 endif
 
-source ~/.config/nvim/config.vim
-source ~/.config/nvim/plugin_confs/lightline_conf.vim
-source ~/.config/nvim/plugin_confs/fzf.vim
-" source ~/.config/nvim/plugin_confs/ctrlp_conf.vim
-" source ~/.config/nvim/plugin_confs/ale_config.vim
-" source ~/.config/nvim/plugin_confs/coc.vim
-source ~/.config/nvim/plugin_confs/lsp.vim
-source ~/.config/nvim/plugin_confs/treesitter.vim
-source ~/.config/nvim/plugin_confs/statusline.vim
-source ~/.config/nvim/plugin_confs/tabline.vim
-source ~/.config/nvim/plugin_confs/close_brackets.vim
+call Sourcer#Source(s:currdir, 'config.vim')
+
+
