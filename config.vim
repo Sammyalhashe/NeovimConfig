@@ -26,7 +26,10 @@ call Sourcer#SourcePluginConfs('lsp.vim')
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
 
 " my statusline
-call Sourcer#SourcePluginConfs('statusline.vim')
+call Sourcer#SourcePluginConfIfHavePlugin('vim-devicons', 'statusline.vim')
+
+" my tabline
+call Sourcer#SourcePluginConfs('tabline.vim')
 
 " vim-qf
 call Sourcer#SourcePluginConfIfHavePlugin("vim-qf", "qf.vim")
