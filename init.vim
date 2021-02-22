@@ -34,7 +34,7 @@ if !exists("g:os")
 endif
 
 if has('nvim')
-		if empty(glob(g:DIR . '/autoload/plug.vim'))
+		if empty(glob(s:currdir . '/autoload/plug.vim'))
 				silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 										\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 				autocmd VimEnter * PlugInstall
@@ -60,14 +60,10 @@ Plug 'https://gitlab.com/Sammyalhashe/sammys-vim-agenda'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-" Plug 'airblade/vim-gitgutter'
-" Plug 'jiangmiao/auto-pairs'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
 Plug 'ryanoasis/vim-devicons', { 'tag': 'v0.10.0' }
-" Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
