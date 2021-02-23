@@ -94,7 +94,7 @@ set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme nord
+colorscheme gruvbox
 
 " clipboard
 set clipboard^=unnamed

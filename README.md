@@ -1,4 +1,4 @@
- # Sammy's Neovim Config
+# Sammy's Neovim Config
 
 ## Dependencies
 - Latest version of neovim (or at least 0.5+)

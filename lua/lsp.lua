@@ -18,6 +18,7 @@ end
 local custom_attach = function(client)
     print("LSP started.");
     require'completion'.on_attach(client)
+    require('folding').on_attach()
     -- require'diagnostic'.on_attach(client)
 
     map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')

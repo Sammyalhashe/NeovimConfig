@@ -75,6 +75,8 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'pierreglaser/folding-nvim'
 
 
 " Colors

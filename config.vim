@@ -24,6 +24,7 @@ call Sourcer#SourcePluginConfs('lsp.vim')
 
 " treesitter
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
+call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "folding.vim")
 
 " my statusline
 call Sourcer#SourcePluginConfIfHavePlugin('vim-devicons', 'statusline.vim')
