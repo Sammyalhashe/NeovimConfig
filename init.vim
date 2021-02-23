@@ -94,6 +94,8 @@ if filereadable(g:python)
 	let g:python3 = g:python
 endif
 
+" Source rest of config
+call Sourcer#PlugInstallIfPluggedDoesntExist()
 call Sourcer#Source(s:currdir, 'config.vim')
 
 
