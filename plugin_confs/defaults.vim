@@ -180,4 +180,4 @@ map <silent> … :resize -5<cr>
 " I like to move around buffers this way
 map gn :bn<CR>
 map gp :bp<CR>
-map gd :bd<CR>
+map gdd :bd<CR>
