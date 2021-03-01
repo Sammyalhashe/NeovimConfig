@@ -42,7 +42,7 @@ function! Sourcer#SourcePluginConfIfHavePlugin(match, name) abort
 endfunction
 
 function! Sourcer#PlugInstallIfPluggedDoesntExist() abort
-    if !s:PluggedFolderExists()
+    if !s:PluggedFolderExists() && filereadable(expand('~/.config/nvim/autoload/plug.vim'))
         PlugInstall
     endif
 endfunction
