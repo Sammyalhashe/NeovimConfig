@@ -70,6 +70,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
 
+" Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
