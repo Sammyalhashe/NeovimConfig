@@ -4,10 +4,16 @@ set colorcolumn=80
 " disable autocommenting for all filetypes and sessions
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" fillchars between splits
+set fillchars+=vert:\|
+set fillchars+=stl:\=
+set fillchars+=stlnc:\=
+
 " show spaces/tabs
 set list
 set lcs=tab:\|\
 set lcs+=space:·
+set lcs+=eol:↲
 
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
