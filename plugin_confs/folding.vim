@@ -10,3 +10,5 @@ function! NeatFoldText()
 endfunction
 
 set foldtext=NeatFoldText()
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr

@@ -4,15 +4,23 @@ function! Sourcer#Source(fp, name) abort
     exec printf("source %s", l:expanded)
 endfunction
 
-function! Sourcer#SourcePluginConfs(name) abort
-    let l:plgconfs = globpath('~/.config/nvim', 'plugin_confs')
-    call Sourcer#Source(l:plgconfs, a:name)
-endfunction
 
 let s:plugin_cache = {}
 
 function! s:FilenameIncludes(fp, name) abort
     return a:fp =~? 'plugged/' . a:name
+endfunction
+
+function! Sourcer#PlugWrapper() abort
+endfunction
+
+function! s:PluggedFolderExists() abort
+    return isdirectory(expand('~/.config/nvim/plugged'))
+endfunction
+
+function! Sourcer#SourcePluginConfs(name) abort
+    let l:plgconfs = globpath('~/.config/nvim', 'plugin_confs')
+    call Sourcer#Source(l:plgconfs, a:name)
 endfunction
 
 function! Sourcer#PluginLoaded(name) abort
@@ -28,7 +36,13 @@ function! Sourcer#PluginLoaded(name) abort
 endfunction
 
 function! Sourcer#SourcePluginConfIfHavePlugin(match, name) abort
-    if Sourcer#PluginLoaded(a:match)
+    if s:PluggedFolderExists() && Sourcer#PluginLoaded(a:match)
         call Sourcer#SourcePluginConfs(a:name)
+    endif
+endfunction
+
+function! Sourcer#PlugInstallIfPluggedDoesntExist() abort
+    if !s:PluggedFolderExists() && filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+        PlugInstall
     endif
 endfunction

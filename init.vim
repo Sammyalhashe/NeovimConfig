@@ -16,6 +16,8 @@ let g:DIR = expand('~/.config/nvim/')
 
 " set clipboard
 set clipboard^=unnamed,unnamedplus
+
+" Set clipboard for windows
 let s:clip = '/c/Windows/System32/clip.exe'
 if executable(s:clip)
 	augroup WSLYank
@@ -34,7 +36,7 @@ if !exists("g:os")
 endif
 
 if has('nvim')
-		if empty(glob(g:DIR . '/autoload/plug.vim'))
+		if empty(glob(s:currdir . '/autoload/plug.vim'))
 				silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 										\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 				autocmd VimEnter * PlugInstall
@@ -60,24 +62,19 @@ Plug 'https://gitlab.com/Sammyalhashe/sammys-vim-agenda'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-" Plug 'airblade/vim-gitgutter'
-" Plug 'jiangmiao/auto-pairs'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
 Plug 'ryanoasis/vim-devicons', { 'tag': 'v0.10.0' }
-" Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
 
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
+Plug 'romgrk/nvim-treesitter-context'
 
 " Colors
 Plug 'morhetz/gruvbox'
@@ -96,6 +93,8 @@ if filereadable(g:python)
 	let g:python3 = g:python
 endif
 
+" Source rest of config
+call Sourcer#PlugInstallIfPluggedDoesntExist()
 call Sourcer#Source(s:currdir, 'config.vim')
 
 

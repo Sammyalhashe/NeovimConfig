@@ -4,10 +4,16 @@ set colorcolumn=80
 " disable autocommenting for all filetypes and sessions
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" fillchars between splits
+set fillchars+=vert:\|
+set fillchars+=stl:\=
+set fillchars+=stlnc:\=
+
 " show spaces/tabs
 set list
 set lcs=tab:\|\
 set lcs+=space:·
+set lcs+=eol:↲
 
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -94,7 +100,7 @@ set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme nord
+colorscheme gruvbox
 
 " clipboard
 set clipboard^=unnamed
@@ -180,4 +186,4 @@ map <silent> … :resize -5<cr>
 " I like to move around buffers this way
 map gn :bn<CR>
 map gp :bp<CR>
-map gd :bd<CR>
+map gdd :bd<CR>
