@@ -13,7 +13,7 @@ augroup END
 function! s:set_statusline_colors() abort
   let s:normal_bg = synIDattr(hlID('Normal'), 'bg')
   let s:normal_fg = synIDattr(hlID('Normal'), 'fg')
-  let s:warning_fg = synIDattr(hlID(&background ==? 'dark' ? 'GruvboxYellow' : 'WarningMsg'), 'fg')
+  let s:warning_fg = synIDattr(hlID(g:colors_name ==? 'gruvbox' && &background ==? 'dark' ? 'GruvboxYellow' : 'WarningMsg'), g:colors_name ==? 'gruvbox' && &background ==? 'dark' ? 'fg' : 'bg')
   " let s:error_fg = synIDattr(hlID('ErrorMsg'), &background ==? 'dark' ? 'bg' : 'fg')
   let s:error_fg = synIDattr(hlID('ErrorMsg'), 'bg')
 
@@ -21,7 +21,11 @@ function! s:set_statusline_colors() abort
   silent! exe 'hi StSep guifg='.s:normal_fg.' guibg=NONE gui=NONE'
   silent! exe 'hi StErr guibg='.s:error_fg.' guifg='.s:normal_bg.' gui=bold'
   silent! exe 'hi StErrSep guifg='.s:error_fg.' guibg=NONE gui=NONE'
-  silent! exe 'hi StWarn guibg='.s:warning_fg.' guifg='.s:normal_bg.' gui=bold'
+  if g:colors_name ==? 'gruvbox' && &background ==? 'dark'
+      silent! exe 'hi StWarn guibg='.s:warning_fg.' guifg='.s:normal_bg.' gui=bold'
+  else
+      silent! exe 'hi StWarn guibg='.s:warning_fg.' guifg='.s:normal_bg.' gui=bold'
+  endif
   silent! exe 'hi StWarnSep guifg='.s:warning_fg.' guibg=NONE gui=NONE'
   silent! exe 'hi Statusline guifg=NONE guibg='.s:normal_bg.' gui=NONE cterm=NONE'
 endfunction
@@ -59,6 +63,7 @@ function! s:sep_if(item, condition, ...) abort
     return ''
   endif
   let l:opts = get(a:, '1', {})
+
   return s:sep(a:item, l:opts)
 endfunction
 

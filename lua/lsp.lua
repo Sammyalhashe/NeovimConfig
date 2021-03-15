@@ -8,7 +8,6 @@ end
 local get_diagnostics = function()
     local diags = vim.lsp.diagnostic.get_all()
     for k,v in pairs(diags) do
-        print(k, v)
         for i in pairs(v) do
             print(i, v[i])
         end
@@ -43,8 +42,12 @@ local custom_attach = function(client)
     map('n',']h',':ClangdSwitchSourceHeader<CR>')
 end
 
-nvim_lsp.clangd.setup{on_attach=custom_attach}
-nvim_lsp.pyls.setup{on_attach=custom_attach}
+local servers = {'clangd', 'pyls'}
+for _, s in ipairs(servers) do
+    nvim_lsp[s].setup{on_attach=custom_attach}
+end
+-- nvim_lsp.clangd.setup{on_attach=custom_attach}
+-- nvim_lsp.pyls.setup{on_attach=custom_attach}
 
 return {
     get_diagnostics = get_diagnostics,
