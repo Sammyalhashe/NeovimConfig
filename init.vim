@@ -63,23 +63,29 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
-Plug 'ryanoasis/vim-devicons', { 'tag': 'v0.10.0' }
+" Plug 'ryanoasis/vim-devicons', { 'tag': 'v0.10.0' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
+Plug 'onsails/lspkind-nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'akinsho/nvim-bufferline.lua'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
+Plug 'norcalli/snippets.nvim'
 
 " Colors
 Plug 'morhetz/gruvbox'
 Plug 'overcache/NeoSolarized'
 Plug 'arcticicestudio/nord-vim', { 'tag': 'v0.11.0'  }
+Plug 'liuchengxu/space-vim-theme'
 
 call plug#end()
 

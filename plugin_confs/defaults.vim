@@ -1,3 +1,10 @@
+" spell check
+set spelllang=en,cjk
+nnoremap <silent> <C-s> :set spell!<CR>
+
+" prevent --INSERT-- from showing which conflicts with your statusline
+set noshowmode
+
 " colorcolumn for bde style consistency
 set colorcolumn=80
 
@@ -6,8 +13,8 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " fillchars between splits
 set fillchars+=vert:\|
-set fillchars+=stl:\=
-set fillchars+=stlnc:\=
+" set fillchars+=stl:\=
+" set fillchars+=stlnc:\=
 
 " show spaces/tabs
 set list
@@ -18,7 +25,8 @@ set lcs+=eol:↲
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-      set termguicolors
+    set termguicolors
+    lua require'bufferline'.setup{}
 endif
 
 " leader key {{{1
@@ -45,7 +53,7 @@ syntax enable
 filetype plugin on
 filetype indent on
 
-" more characters will be sent ot the screen for redrawing
+" more characters will be sent to the screen for redrawing
 set ttyfast
 
 " time waited for key press(es) to complete.
@@ -100,7 +108,7 @@ set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme gruvbox
+colorscheme space_vim_theme
 
 " clipboard
 set clipboard^=unnamed
@@ -187,3 +195,8 @@ map <silent> … :resize -5<cr>
 map gn :bn<CR>
 map gp :bp<CR>
 map gdd :bd<CR>
+
+" Terminal opening commands
+command! TT :tabnew | term
+command! ST :sp | term
+command! VT :vsp | term

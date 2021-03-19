@@ -27,16 +27,20 @@ call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "folding.vim")
 
 " my statusline
-call Sourcer#SourcePluginConfIfHavePlugin('vim-devicons', 'statusline.vim')
+" call Sourcer#SourcePluginConfIfHavePlugin('nvim-web-devicons', 'statusline.vim')
+call Sourcer#SourcePluginConfIfHavePlugin('galaxyline.nvim', 'galaxyline.vim')
 
 " my tabline
-call Sourcer#SourcePluginConfs('tabline.vim')
+" call Sourcer#SourcePluginConfs('tabline.vim')
 
 " vim-qf
 call Sourcer#SourcePluginConfIfHavePlugin("vim-qf", "qf.vim")
 
 " close brackets
 call Sourcer#SourcePluginConfs('close_brackets.vim')
+
+" lspkind
+call Sourcer#SourcePluginConfIfHavePlugin('lspkind-nvim', 'lspkind.vim')
 
 " rhubarb
 let g:github_enterprise_urls = ['https://bbgithub.dev.bloomberg.com']

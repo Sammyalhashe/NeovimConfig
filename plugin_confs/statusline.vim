@@ -88,7 +88,7 @@ function! Statusline() abort
   let l:statusline .= s:sep(s:get_path(), &modified ? s:st_err : {})            "File path
   let l:statusline .= s:sep_if(' + ', &modified, s:st_mode)                      "Modified indicator
   let l:statusline .= s:sep_if(' - ', !&modifiable, s:st_err)                   "Modifiable indicator
-  let l:statusline .= s:sep(WebDevIconsGetFileFormatSymbol() . "\u2765")            		"File format
+  " let l:statusline .= s:sep(WebDevIconsGetFileFormatSymbol() . "\u2765")            		"File format
   let l:statusline .= s:sep_if('%w', &previewwindow)                            "Preview indicator
   let l:statusline .= s:sep_if('%r', &readonly)                                 "Read only indicator
   let l:statusline .= s:sep_if('%q', &buftype ==? 'quickfix')                   "Quickfix list indicator
@@ -96,7 +96,7 @@ function! Statusline() abort
   let l:anzu = exists('*anzu#search_status') ? anzu#search_status() : ''
   let l:statusline .= s:sep_if(l:anzu, !empty(l:anzu))                          "Search status
   let l:ft = &filetype
-  let l:statusline .= s:rsep_if(l:ft . ' ' . WebDevIconsGetFileTypeSymbol(), !empty(l:ft))                              "Filetype
+  let l:statusline .= s:rsep_if(l:ft . ' ' . luaeval('require("nvim-web-devicons").get_icon("", "' . &ft .'", { default = true })') . ' ', !empty(l:ft))  "Filetype
   if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
       let l:statusline .= s:rsep("\u26d4 " . luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])"), s:st_err)
       let l:statusline .= s:rsep("\u26A0 " . luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])"), s:st_warn)
