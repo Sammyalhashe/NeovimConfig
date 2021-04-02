@@ -1,3 +1,4 @@
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 nnoremap <leader>e :GFiles<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>ag :Ag<CR>
@@ -8,6 +9,20 @@ nnoremap <leader>? :Rg<CR>
 if has('nvim')
 	" let g:fzf_layout = {'window' : 'call FloatingFZF()'}
 endif
+
+
+function! s:build_quickfix_list(lines)
+  echo 'qfix thing'
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 function! FloatingFZF()
 	" let buf = nvim_create_buf(v:false, v:true)
@@ -27,6 +42,6 @@ function! FloatingFZF()
 				\ 'anchor': 'NW',
 				\ 'style': 'minimal'
 				\ }
-
+    return opts
 endfunction
 

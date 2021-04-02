@@ -72,6 +72,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
@@ -88,14 +89,14 @@ Plug 'liuchengxu/space-vim-theme'
 
 call plug#end()
 
-" python
-if isdirectory('/bb')
-    let g:python = '/opt/bb/bin/python3.9'
+" check if bb is there
+if filereadable(s:currdir)
+    call Sourcer#Source(s:currdir, 'bb.vim')
 else
     let g:python = '/usr/bin/python3.8'
-endif
-if filereadable(g:python)
-	let g:python3 = g:python
+    if filereadable(g:python)
+        let g:python3 = g:python
+    endif
 endif
 
 " Source rest of config

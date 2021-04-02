@@ -9,7 +9,7 @@ set noshowmode
 set colorcolumn=80
 
 " disable autocommenting for all filetypes and sessions
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " fillchars between splits
 set fillchars+=vert:\|
@@ -36,6 +36,7 @@ let maplocalleader="\<space>"
 
 " terminal mapping
 tnoremap <ESC> <C-\><C-n>
+au TermOpen * setlocal nonumber
 
 " nvim is always nocompatible -> better safe than sorry
 set nocompatible
@@ -103,6 +104,9 @@ set nohlsearch
 set ignorecase
 set smartcase
 
+" search visual selection
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 " background
 set background=dark
 
@@ -165,7 +169,22 @@ set so=7
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " tells vim to automatically change dir to the pwd of the current file
-autocmd BufEnter * if expand("%:p:h") !~ "^/tmp" | silent! lcd %:p:h | endif
+let g:shouldChangePWD=0
+function! ToggleShouldChangePWD() abort
+    if g:shouldChangePWD
+        let g:shouldChangePWD=0
+        autocmd! ChangePWD BufEnter *
+    else
+        let g:shouldChangePWD=1
+        augroup ChangePWD
+            au!
+            autocmd BufEnter * if expand("%:p:h") !~ "^/tmp" | silent! lcd %:p:h | endif
+        augroup END
+    endif
+    echo 'Nvim will ' . (g:shouldChangePWD ? 'now ' : 'not ') . 'change to the pwd of the most recently opened file.'
+endfunction
+
+command! ToggleChangePWD :call ToggleShouldChangePWD()
 
 " remap tabs when going through selection lists
 " inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -212,3 +231,4 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <silent><leader>0 :tablast<cr>
+

@@ -4,6 +4,9 @@
 " source defaults
 call Sourcer#SourcePluginConfs('defaults.vim')
 
+" source surrounder
+call Sourcer#SourcePluginConfs('surrounder.vim')
+
 " source text_move
 call Sourcer#SourcePluginConfs('text_move.vim')
 
@@ -41,6 +44,3 @@ call Sourcer#SourcePluginConfs('close_brackets.vim')
 
 " lspkind
 call Sourcer#SourcePluginConfIfHavePlugin('lspkind-nvim', 'lspkind.vim')
-
-" rhubarb
-let g:github_enterprise_urls = ['https://bbgithub.dev.bloomberg.com']
