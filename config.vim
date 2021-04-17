@@ -1,6 +1,5 @@
 " vim: foldmethod=marker
 
-
 " source defaults
 call Sourcer#SourcePluginConfs('defaults.vim')
 
@@ -24,6 +23,7 @@ call Sourcer#SourcePluginConfIfHavePlugin("fzf", "fzf.vim")
 
 " lsp
 call Sourcer#SourcePluginConfs('lsp.vim')
+call Sourcer#SourcePluginConfs('nvim_compe.vim')
 
 " treesitter
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
@@ -44,3 +44,6 @@ call Sourcer#SourcePluginConfs('close_brackets.vim')
 
 " lspkind
 call Sourcer#SourcePluginConfIfHavePlugin('lspkind-nvim', 'lspkind.vim')
+
+" cppman
+call Sourcer#SourcePluginConfs('cppman.vim')

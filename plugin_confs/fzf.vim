@@ -44,4 +44,4 @@ function! FloatingFZF()
 				\ }
     return opts
 endfunction
-
+let $BAT_THEME = 'spacemacs'
