@@ -77,6 +77,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'norcalli/snippets.nvim'
@@ -84,7 +85,7 @@ Plug 'norcalli/snippets.nvim'
 " Colors
 Plug 'morhetz/gruvbox'
 Plug 'overcache/NeoSolarized'
-Plug 'arcticicestudio/nord-vim', { 'tag': 'v0.11.0'  }
+Plug 'arcticicestudio/nord-vim'
 Plug 'liuchengxu/space-vim-theme'
 
 call plug#end()

@@ -1,6 +1,5 @@
 " vim: foldmethod=marker
 
-
 " source defaults
 call Sourcer#SourcePluginConfs('defaults.vim')
 
@@ -24,6 +23,7 @@ call Sourcer#SourcePluginConfIfHavePlugin("fzf", "fzf.vim")
 
 " lsp
 call Sourcer#SourcePluginConfs('lsp.vim')
+call Sourcer#SourcePluginConfs('nvim_compe.vim')
 
 " treesitter
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
@@ -47,3 +47,6 @@ call Sourcer#SourcePluginConfIfHavePlugin('lspkind-nvim', 'lspkind.vim')
 
 " search_and_replace
 call Sourcer#SourcePluginConfs('search_and_replace.vim')
+
+" cppman
+call Sourcer#SourcePluginConfs('cppman.vim')
