@@ -55,6 +55,23 @@ end
 -- nvim_lsp.clangd.setup{on_attach=custom_attach}
 -- nvim_lsp.pyls.setup{on_attach=custom_attach}
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+ vim.lsp.diagnostic.on_publish_diagnostics, {
+   -- Enable underline, use default values
+   underline = true,
+   -- Enable virtual text only on Warning or above, override spacing to 2
+   virtual_text = {
+     spacing = 2,
+     severity_limit = "Warning",
+   },
+   signs = false,
+ }
+)
+vim.fn.sign_define("LspDiagnosticsSignError", {text = "", numhl = "LspDiagnosticsDefaultError"})
+vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", numhl = "LspDiagnosticsDefaultWarning"})
+vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "", numhl = "LspDiagnosticsDefaultInformation"})
+vim.fn.sign_define("LspDiagnosticsSignHint", {text = "", numhl = "LspDiagnosticsDefaultHint"})
+
 require'snippets'.snippets = {
   -- The _global dictionary acts as a global fallback.
   -- If a key is not found for the specific filetype, then

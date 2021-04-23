@@ -98,7 +98,7 @@ set incsearch
 
 " do you want to highlight searches? I don't personally
 " Looking to find a better way in the future though
-set nohlsearch
+" set nohlsearch
 
 " searches are case sensitive unless they contain at least one capital letter
 set ignorecase
@@ -108,11 +108,11 @@ set smartcase
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " background
-set background=dark
+set background=light
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme space_vim_theme
+colorscheme onhalflight
 
 " clipboard
 set clipboard^=unnamed

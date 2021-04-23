@@ -44,3 +44,6 @@ call Sourcer#SourcePluginConfs('close_brackets.vim')
 
 " lspkind
 call Sourcer#SourcePluginConfIfHavePlugin('lspkind-nvim', 'lspkind.vim')
+
+" search_and_replace
+call Sourcer#SourcePluginConfs('search_and_replace.vim')
