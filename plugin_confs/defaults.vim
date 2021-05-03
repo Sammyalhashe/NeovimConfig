@@ -108,11 +108,11 @@ set smartcase
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " background
-set background=light
+set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme onhalflight
+colorscheme onhalfdark
 
 " clipboard
 set clipboard^=unnamed

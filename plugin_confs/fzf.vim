@@ -1,5 +1,15 @@
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+function! BDEFiles() abort
+    let l:OLD_FZF_DEFAULT_COMMANDA=$FZF_DEFAULT_COMMAND
+    let $FZF_DEFAULT_COMMAND="find ~/Desktop/bde | ag"
+    exec ':Files<CR>'
+    let $FZF_DEFAULT_COMMAND=l:OLD_FZF_DEFAULT_COMMANDA
+endfunction
+
 nnoremap <leader>e :GFiles<CR>
+nnoremap <leader>d :Files ~/Desktop/bde<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>ag :Ag<CR>
 nnoremap <leader>li :Lines<CR>
@@ -44,4 +54,4 @@ function! FloatingFZF()
 				\ }
     return opts
 endfunction
-let $BAT_THEME = 'spacemacs'
+let $BAT_THEME = 'OneHalfLight'

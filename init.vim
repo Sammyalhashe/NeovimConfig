@@ -70,9 +70,11 @@ Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'gauteh/vim-cppman'
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'

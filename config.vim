@@ -50,3 +50,6 @@ call Sourcer#SourcePluginConfs('search_and_replace.vim')
 
 " cppman
 call Sourcer#SourcePluginConfs('cppman.vim')
+
+" tab management
+call Sourcer#SourcePluginConfs('tabManagement.vim')

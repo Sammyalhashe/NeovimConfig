@@ -9,6 +9,7 @@ require'compe'.setup({
       documentation = true,
       snippetSupport = true,
       calc = true,
+      treesitter = true,
       snippets_nvim = true,
     },
   })

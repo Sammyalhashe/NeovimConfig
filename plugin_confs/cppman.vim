@@ -1,14 +1,15 @@
-echo "cppman"
-function! s:JbzCppMan()
-    let old_isk = &iskeyword
-    setl iskeyword+=:
-    let str = expand("<cword>")
-    let &l:iskeyword = old_isk
-    execute 'Man ' . str
-endfunction
-command! JbzCppMan :call s:JbzCppMan()
+" function! s:JbzCppMan()
+"     let old_isk = &iskeyword
+"     setl iskeyword+=:
+"     let str = expand("<cword>")
+"     let &l:iskeyword = old_isk
+"     execute 'Man ' . str
+" endfunction
 
-augroup CPPMAN
-    au!
-    au FileType cpp nnoremap <buffer>K :JbzCppMan<CR>
-augroup END
+" function
+" command! JbzCppMan :call s:JbzCppMan()
+
+" augroup CPPMAN
+"     au!
+"     au FileType cpp nnoremap <buffer>K :JbzCppMan<CR>
+" augroup END
