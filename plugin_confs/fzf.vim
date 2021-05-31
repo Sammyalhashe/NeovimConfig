@@ -54,4 +54,4 @@ function! FloatingFZF()
 				\ }
     return opts
 endfunction
-let $BAT_THEME = 'OneHalfLight'
+let $BAT_THEME = 'OneHalfDark'

@@ -58,6 +58,7 @@ function! DoRemote(arg)
 endfunction
 
 " Misc plugins
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'https://gitlab.com/Sammyalhashe/sammys-vim-agenda'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -75,13 +76,15 @@ Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'gauteh/vim-cppman'
+Plug 'jceb/vim-orgmode'
+Plug 'vim-scripts/utl.vim'
+Plug 'inkarkat/vim-SyntaxRange'
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'romgrk/nvim-treesitter-context'
 Plug 'norcalli/snippets.nvim'
 
 " Colors

@@ -112,7 +112,7 @@ set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme onhalfdark
+colorscheme space_vim_theme
 
 " clipboard
 set clipboard^=unnamed
@@ -232,3 +232,11 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <silent><leader>0 :tablast<cr>
 
+" Open Org directory
+func! OpenOrgDir() abort
+    tabnew ~/Desktop/what-ive-learned/README.org
+    lcd %:p:h
+endfunc
+command! OpenOrg :silent! call OpenOrgDir()
+let g:org_agenda_files=['~/Desktop/what-ive-learned/*.org', '~/Desktop/what-ive-learned/projects/*.org']
+let g:org_export_emacs="/usr/local/bin/emacs"
