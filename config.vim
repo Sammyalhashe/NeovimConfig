@@ -53,3 +53,6 @@ call Sourcer#SourcePluginConfs('cppman.vim')
 
 " tab management
 call Sourcer#SourcePluginConfs('tabManagement.vim')
+
+" nvim-dashboard
+call Sourcer#SourcePluginConfIfHavePlugin('dashboard-nvim', 'dashboard.vim')

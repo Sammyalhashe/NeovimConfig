@@ -58,6 +58,7 @@ function! DoRemote(arg)
 endfunction
 
 " Misc plugins
+Plug 'glepnir/dashboard-nvim'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'https://gitlab.com/Sammyalhashe/sammys-vim-agenda'
 Plug 'tpope/vim-commentary'
