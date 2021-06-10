@@ -240,3 +240,6 @@ endfunc
 command! OpenOrg :silent! call OpenOrgDir()
 let g:org_agenda_files=['~/Desktop/what-ive-learned/*.org', '~/Desktop/what-ive-learned/projects/*.org']
 let g:org_export_emacs="/usr/local/bin/emacs"
+let g:org_todo_keywords = [['TODO(t)', 'LOOKINTO(l)', '|', 'DONE(d)'],
+  \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
+  \ ['CANCELED(c)']]
