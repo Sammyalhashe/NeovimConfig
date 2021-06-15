@@ -10,6 +10,7 @@ endfunction
 
 nnoremap <leader>e :GFiles<CR>
 nnoremap <leader>d :Files ~/Desktop/bde<CR>
+nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>ag :Ag<CR>
 nnoremap <leader>li :Lines<CR>
