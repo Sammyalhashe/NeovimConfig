@@ -109,5 +109,6 @@ endif
 " Source rest of config
 call Sourcer#PlugInstallIfPluggedDoesntExist()
 call Sourcer#Source(s:currdir, 'config.vim')
+call Sourcer#Source(s:currdir, 'neovide.vim')
 
 
