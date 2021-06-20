@@ -1,6 +1,6 @@
 " vim: foldmethod=marker
 
-let s:currdir = expand('<sfile>:h')
+let currdir = expand('<sfile>:h')
 
 set backspace=indent,eol,start
 
@@ -18,11 +18,11 @@ let g:DIR = expand('~/.config/nvim/')
 set clipboard^=unnamed,unnamedplus
 
 " Set clipboard for windows
-let s:clip = '/c/Windows/System32/clip.exe'
-if executable(s:clip)
+let clip = '/c/Windows/System32/clip.exe'
+if executable(clip)
 	augroup WSLYank
 		autocmd!
-		autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+		autocmd TextYankPost * if v:event.operator ==# 'y' | call system(clip, @0) | endif
 	augroup END
 endif
 
@@ -36,7 +36,7 @@ if !exists("g:os")
 endif
 
 if has('nvim')
-		if empty(glob(s:currdir . '/autoload/plug.vim'))
+		if empty(glob(currdir . '/autoload/plug.vim'))
 				silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 										\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 				autocmd VimEnter * PlugInstall
@@ -98,8 +98,8 @@ Plug 'liuchengxu/space-vim-theme'
 call plug#end()
 
 " check if bb is there
-if filereadable(s:currdir)
-    call Sourcer#Source(s:currdir, 'bb.vim')
+if filereadable(currdir)
+    call Sourcer#Source(currdir, 'bb.vim')
 else
     let g:python = '/usr/bin/python3.8'
     if filereadable(g:python)
@@ -109,7 +109,7 @@ endif
 
 " Source rest of config
 call Sourcer#PlugInstallIfPluggedDoesntExist()
-call Sourcer#Source(s:currdir, 'config.vim')
-call Sourcer#Source(s:currdir, 'neovide.vim')
+call Sourcer#Source(currdir, 'config.vim')
+call Sourcer#Source(currdir, 'neovide.vim')
 
 
