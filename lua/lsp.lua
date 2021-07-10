@@ -105,9 +105,9 @@ require'lspconfig'.sumneko_lua.setup {
   },
 }
 
-local servers = {'clangd', 'pyls', 'tsserver', 'vimls', 'bashls'}
+local servers = {'clangd', 'pylsp', 'tsserver', 'vimls', 'bashls'}
 for _, s in ipairs(servers) do
-    nvim_lsp[s].setup{on_attach=custom_attach}
+    nvim_lsp[s].setup{on_attach=custom_attach, }
 end
 
 return {
