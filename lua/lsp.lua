@@ -1,7 +1,6 @@
 local nvim_lsp = require'lspconfig'
 local configs = require'lspconfig/configs'
 local utils = require'utils'
-require('lspkind').init({ with_text = true, })
 require'snippets'.use_suggested_mappings()
 
 local get_diagnostics = function()

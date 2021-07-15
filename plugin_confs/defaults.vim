@@ -243,3 +243,6 @@ let g:org_export_emacs="/usr/local/bin/emacs"
 let g:org_todo_keywords = [['TODO(t)', 'LOOKINTO(l)', '|', 'DONE(d)'],
   \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
   \ ['CANCELED(c)']]
+
+" whichkey
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
