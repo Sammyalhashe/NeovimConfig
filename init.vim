@@ -80,6 +80,7 @@ Plug 'gauteh/vim-cppman'
 Plug 'jceb/vim-orgmode'
 Plug 'vim-scripts/utl.vim'
 Plug 'inkarkat/vim-SyntaxRange'
+Plug 'ray-x/lsp_signature.nvim'
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
