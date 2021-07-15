@@ -1,4 +1,4 @@
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag --noaffinity -g ""'
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
 function! BDEFiles() abort
@@ -7,6 +7,10 @@ function! BDEFiles() abort
     exec ':Files<CR>'
     let $FZF_DEFAULT_COMMAND=l:OLD_FZF_DEFAULT_COMMANDA
 endfunction
+
+" ag --nogroup --column --color  -- '^(?=.)'
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--nogroup --noaffinity --color --column', fzf#vim#with_preview(), <bang>0)
+
 
 nnoremap <leader>e :GFiles<CR>
 nnoremap <leader>d :Files ~/Desktop/bde<CR>
