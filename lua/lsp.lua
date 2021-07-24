@@ -17,6 +17,12 @@ local custom_attach = function(client)
     -- require'completion'.on_attach(client)
     -- require('folding').on_attach()
     -- require'diagnostic'.on_attach(client)
+    require'lsp_signature'.on_attach({
+        bind = true,
+        handler_opts = {
+            border = "single"
+        },
+    });
 
     utils.map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
     utils.map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -36,8 +42,8 @@ local custom_attach = function(client)
     utils.map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     utils.map('n','[q',':cnext<CR>')
     utils.map('n',']q',':cprev<CR>')
-    utils.map('n',']g','<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>')
-    utils.map('n','[g','<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>')
+    utils.map('n',']g','<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = true })<CR>')
+    utils.map('n','[g','<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = true })<CR>')
     utils.map('n',']h',':ClangdSwitchSourceHeader<CR>')
 end
 
@@ -105,7 +111,7 @@ require'lspconfig'.sumneko_lua.setup {
   },
 }
 
-local servers = {'clangd', 'pylsp', 'tsserver', 'vimls', 'bashls'}
+local servers = {'clangd', 'tsserver', 'vimls', 'bashls'}
 for _, s in ipairs(servers) do
     nvim_lsp[s].setup{on_attach=custom_attach, }
 end

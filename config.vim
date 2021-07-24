@@ -56,3 +56,6 @@ call Sourcer#SourcePluginConfs('tabManagement.vim')
 
 " nvim-dashboard
 call Sourcer#SourcePluginConfIfHavePlugin('dashboard-nvim', 'dashboard.vim')
+
+" todo-comments
+call Sourcer#SourcePluginConfIfHavePlugin("todo-comments.nvim", "todo-comments.vim")
