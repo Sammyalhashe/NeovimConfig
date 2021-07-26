@@ -42,5 +42,5 @@ function MoveToNextTab()
   exe "b".l:cur_buf
 endfunc
 
-nnoremap <C-m> :call MoveToNextTab()<CR>
-nnoremap <C-n> :call MoveToPrevTab()<CR>
+" nnoremap <C-m> :call MoveToNextTab()<CR>
+" nnoremap <C-n> :call MoveToPrevTab()<CR>
