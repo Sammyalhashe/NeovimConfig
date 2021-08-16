@@ -15,6 +15,9 @@ call Sourcer#SourcePluginConfs('session_management.vim')
 " folding
 call Sourcer#SourcePluginConfs('folding.vim')
 
+" timer
+call Sourcer#SourcePluginConfs('timer.vim')
+
 " bde-format
 call Sourcer#SourcePluginConfIfHavePlugin('bdeformat', 'bde_config.vim')
 
@@ -59,3 +62,6 @@ call Sourcer#SourcePluginConfIfHavePlugin('dashboard-nvim', 'dashboard.vim')
 
 " todo-comments
 call Sourcer#SourcePluginConfIfHavePlugin("todo-comments.nvim", "todo-comments.vim")
+
+" trouble
+call Sourcer#SourcePluginConfIfHavePlugin("trouble.nvim", "trouble.vim")
