@@ -112,7 +112,7 @@ set background=dark
 
 " colorscheme
 " colorscheme NeoSolarized
-colorscheme space_vim_theme
+colorscheme badwolf
 
 " clipboard
 set clipboard^=unnamed

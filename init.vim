@@ -83,6 +83,7 @@ Plug 'inkarkat/vim-SyntaxRange'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'folke/trouble.nvim'
 Plug 'folke/todo-comments.nvim'
 
 " Autocomplete/lsp
@@ -97,6 +98,7 @@ Plug 'morhetz/gruvbox'
 Plug 'overcache/NeoSolarized'
 Plug 'arcticicestudio/nord-vim'
 Plug 'liuchengxu/space-vim-theme'
+Plug 'sjl/badwolf'
 
 call plug#end()
 
