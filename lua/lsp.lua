@@ -1,7 +1,6 @@
 local nvim_lsp = require'lspconfig'
 local configs = require'lspconfig/configs'
 local utils = require'utils'
-require'snippets'.use_suggested_mappings()
 
 local get_diagnostics = function()
     local diags = vim.lsp.diagnostic.get_all()
@@ -14,9 +13,6 @@ end
 
 local custom_attach = function(client)
     print("LSP started.");
-    -- require'completion'.on_attach(client)
-    -- require('folding').on_attach()
-    -- require'diagnostic'.on_attach(client)
     require'lsp_signature'.on_attach({
         bind = true,
         handler_opts = {

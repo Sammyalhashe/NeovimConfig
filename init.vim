@@ -60,10 +60,8 @@ endfunction
 " Misc plugins
 Plug 'glepnir/dashboard-nvim'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
-Plug 'https://gitlab.com/Sammyalhashe/sammys-vim-agenda'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'TimUntersberger/neogit'
 Plug 'tpope/vim-rhubarb'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
@@ -73,10 +71,8 @@ Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'windwp/windline.nvim'
-Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jceb/vim-orgmode'
 Plug 'vim-scripts/utl.vim'
 Plug 'inkarkat/vim-SyntaxRange'
@@ -91,7 +87,6 @@ Plug 'folke/todo-comments.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'norcalli/snippets.nvim'
 
 " Colors
 Plug 'morhetz/gruvbox'

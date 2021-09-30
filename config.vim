@@ -26,7 +26,7 @@ call Sourcer#SourcePluginConfIfHavePlugin("fzf", "fzf.vim")
 
 " lsp
 call Sourcer#SourcePluginConfs('lsp.vim')
-call Sourcer#SourcePluginConfs('nvim_compe.vim')
+call Sourcer#SourcePluginConfIfHavePlugin("nvim-compe", "nvim_compe.vim")
 
 " treesitter
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
