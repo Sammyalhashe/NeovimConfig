@@ -33,11 +33,7 @@ call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "folding.vim")
 
 " my statusline
-" call Sourcer#SourcePluginConfIfHavePlugin('nvim-web-devicons', 'statusline.vim')
-call Sourcer#SourcePluginConfIfHavePlugin('galaxyline.nvim', 'galaxyline.vim')
-
-" my tabline
-" call Sourcer#SourcePluginConfs('tabline.vim')
+call Sourcer#SourcePluginConfIfHavePlugin('windline.nvim', 'windline.vim')
 
 " vim-qf
 call Sourcer#SourcePluginConfIfHavePlugin("vim-qf", "qf.vim")
