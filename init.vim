@@ -97,8 +97,10 @@ Plug 'sjl/badwolf'
 
 call plug#end()
 
+let g:bb = v:false
+
 " check if bb is there
-if filereadable(currdir)
+if filereadable(currdir . "/bb.vim")
     call Sourcer#Source(currdir, 'bb.vim')
 else
     let g:python = '/usr/bin/python3.8'
