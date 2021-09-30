@@ -109,7 +109,18 @@ require'lspconfig'.sumneko_lua.setup {
 
 local servers = {'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp'}
 for _, s in ipairs(servers) do
-    nvim_lsp[s].setup{on_attach=custom_attach, }
+    if (s == "clangd") then
+        if system_name == "Linux" then
+            nvim_lsp[s].setup{
+                on_attach=custom_attach,
+                cmd = {"clangd", "--resource-dir=/opt/bb/lib/llvm-12.0/lib64/clang/12.0.1"},
+            }
+        else
+            nvim_lsp[s].setup{on_attach=custom_attach, }
+        end
+    else
+        nvim_lsp[s].setup{on_attach=custom_attach, }
+    end
 end
 
 return {
