@@ -94,6 +94,8 @@ Plug 'overcache/NeoSolarized'
 Plug 'arcticicestudio/nord-vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'sjl/badwolf'
+Plug 'jnurmine/Zenburn'
+Plug 'NLKNguyen/papercolor-theme'
 
 call plug#end()
 
