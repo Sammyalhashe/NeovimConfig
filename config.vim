@@ -33,7 +33,7 @@ call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "folding.vim")
 
 " my statusline
-call Sourcer#SourcePluginConfIfHavePlugin('windline.nvim', 'windline.vim')
+call Sourcer#SourcePluginConfIfHavePlugin('lightline.vim', 'lightline_conf.vim')
 
 " vim-qf
 call Sourcer#SourcePluginConfIfHavePlugin("vim-qf", "qf.vim")
