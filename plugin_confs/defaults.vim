@@ -111,8 +111,7 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 set background=dark
 
 " colorscheme
-" colorscheme NeoSolarized
-colorscheme space_vim_theme
+colorscheme NeoSolarized
 
 " clipboard
 set clipboard^=unnamed
@@ -170,26 +169,50 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " tells vim to automatically change dir to the pwd of the current file
 let g:shouldChangePWD=0
-function! ToggleShouldChangePWD() abort
+function! ChangePWDToggleLogic() abort
+    " Handle the toggle
     if g:shouldChangePWD
-        let g:shouldChangePWD=0
         autocmd! ChangePWD BufEnter *
     else
-        let g:shouldChangePWD=1
         augroup ChangePWD
             au!
             autocmd BufEnter * if expand("%:p:h") !~ "^/tmp" | silent! lcd %:p:h | endif
         augroup END
+        if expand("%:p:h") !~ "^/tmp" | silent! lcd %:p:h | endif
     endif
-    echo 'Nvim will ' . (g:shouldChangePWD ? 'now ' : 'not ') . 'change to the pwd of the most recently opened file.'
 endfunction
 
-command! ToggleChangePWD :call ToggleShouldChangePWD()
+function! ToggleShouldChangePWD( shouldToggle, ... ) abort
+    " Handle the toggle
+    call ChangePWDToggleLogic()
 
-" remap tabs when going through selection lists
-" inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-" inoremap <expr> <tab> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+    " If we should toggle
+    if ( a:shouldToggle == v:true )
+        let g:shouldChangePWD=!g:shouldChangePWD
+    endif
+
+    " If the user specified to immediately cancel the ChangePWD functionality
+    " " NOTE: a:0 is # of extra args, a:1 is the first extra arg
+    if (a:0 == 1 && a:1 == v:true)
+        let g:shouldChangePWD=0
+        autocmd! ChangePWD BufEnter *
+    else
+        " Let the user know that the toggle occurred
+        echo 'Nvim will ' . (g:shouldChangePWD ? 'now ' : 'not ') . 'change to the pwd of the most recently opened file.'
+    endif
+endfunction
+
+function! SetShouldChangePWD( newVal ) abort
+    " The way ChangePWDToggleLogic works, I have to set it to the opposite val
+    " first.
+    let g:shouldChangePWD=!a:newVal
+    call ChangePWDToggleLogic()
+    let g:shouldChangePWD=a:newVal
+endfunction
+
+" Commands to toggle ChangePWD functionality. Mostly called at startup.
+command! ToggleChangePWD :call ToggleShouldChangePWD( v:true )
+command! ToggleChangePWDAndImmediatelyTurnOff :call ToggleShouldChangePWD( v:true, v:true)
 
 " smart way to move between splits
 map <C-j> <C-w>j
@@ -233,11 +256,28 @@ noremap <leader>9 9gt
 noremap <silent><leader>0 :tablast<cr>
 
 " Open Org directory
-func! OpenOrgDir() abort
-    tabnew ~/Desktop/what-ive-learned/README.org
-    lcd %:p:h
-endfunc
-command! OpenOrg :silent! call OpenOrgDir()
+" TODO: Edit my configs in current buffer
+function! OpenLocation( name ) abort
+    " Set that it changes to the pwd of the opened file.
+    call SetShouldChangePWD( 1 )
+    let l:defaultVal = '~/.zshrc'
+    let result = get(
+                \ { 
+                    \ 'zshrc' : '~/.zshrc',
+                    \ 'nvim' : '~/.config/nvim/init.vim',
+                    \ 'org' : '~/Desktop/what-ive-learned/README.org'
+                    \ },
+                \ a:name,
+                \ l:defaultVal)
+    execute 'edit ' . result
+    " Deactivate so it doesn't do it again
+    call SetShouldChangePWD( 0 )
+endfunction
+
+command! OpenZsh :silent! call OpenLocation( 'zshrc' )
+command! OpenConfig :silent! call OpenLocation( 'nvim' )
+command! OpenOrg :silent! call OpenLocation( 'org' )
+
 let g:org_agenda_files=['~/Desktop/what-ive-learned/*.org', '~/Desktop/what-ive-learned/projects/*.org']
 let g:org_export_emacs="/usr/local/bin/emacs"
 let g:org_todo_keywords = [['TODO(t)', 'LOOKINTO(l)', '|', 'DONE(d)'],
@@ -246,3 +286,10 @@ let g:org_todo_keywords = [['TODO(t)', 'LOOKINTO(l)', '|', 'DONE(d)'],
 
 " whichkey
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
+" send make command
+function! Makeit() abort
+    execute ':silent !~/self_scripts/tmux-build-workflow ' . getcwd() . ' make'
+endfunction
+
+command! Makeit :call Makeit()

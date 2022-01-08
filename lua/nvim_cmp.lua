@@ -73,7 +73,7 @@ cmp.setup {
     -- Youtube: Could enable this only for lua, but nvim_lua handles that already.
     { name = "nvim_lua" },
     { name = "zsh" },
-
+    { name = "orgmode" },
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "luasnip" },

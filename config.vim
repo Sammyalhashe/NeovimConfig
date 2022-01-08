@@ -61,3 +61,6 @@ call Sourcer#SourcePluginConfIfHavePlugin("todo-comments.nvim", "todo-comments.v
 
 " trouble
 call Sourcer#SourcePluginConfIfHavePlugin("trouble.nvim", "trouble.vim")
+
+" org
+call Sourcer#SourcePluginConfIfHavePlugin("orgmode", "orgmode_config.vim")
