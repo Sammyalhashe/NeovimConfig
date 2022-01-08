@@ -3,3 +3,4 @@ plugged/
 vim-agenda/
 spell/
 bb.vim
+autoload/plug.vim
