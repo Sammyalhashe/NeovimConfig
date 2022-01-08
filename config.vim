@@ -26,14 +26,14 @@ call Sourcer#SourcePluginConfIfHavePlugin("fzf", "fzf.vim")
 
 " lsp
 call Sourcer#SourcePluginConfs('lsp.vim')
-call Sourcer#SourcePluginConfIfHavePlugin("nvim-compe", "nvim_compe.vim")
+call Sourcer#SourcePluginConfIfHavePlugin("nvim-cmp", "nvim_cmp.vim")
 
 " treesitter
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "treesitter.vim")
 call Sourcer#SourcePluginConfIfHavePlugin("nvim-treesitter", "folding.vim")
 
 " my statusline
-call Sourcer#SourcePluginConfIfHavePlugin('windline.nvim', 'windline.vim')
+call Sourcer#SourcePluginConfIfHavePlugin('lightline.vim', 'lightline_conf.vim')
 
 " vim-qf
 call Sourcer#SourcePluginConfIfHavePlugin("vim-qf", "qf.vim")
@@ -61,3 +61,6 @@ call Sourcer#SourcePluginConfIfHavePlugin("todo-comments.nvim", "todo-comments.v
 
 " trouble
 call Sourcer#SourcePluginConfIfHavePlugin("trouble.nvim", "trouble.vim")
+
+" org
+call Sourcer#SourcePluginConfIfHavePlugin("orgmode", "orgmode_config.vim")
