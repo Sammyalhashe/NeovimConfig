@@ -18,7 +18,7 @@ let g:DIR = expand('~/.config/nvim/')
 set clipboard^=unnamed,unnamedplus
 
 " Set clipboard for windows
-let clip = '/c/Windows/System32/clip.exe'
+let clip = '/mnt/c/Windows/System32/clip.exe'
 if executable(clip)
 	augroup WSLYank
 		autocmd!
