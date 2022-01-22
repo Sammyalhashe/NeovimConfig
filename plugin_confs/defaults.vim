@@ -90,7 +90,7 @@ set splitbelow
 set splitright
 
 " always set autoindenting on
-set autoindent
+" set autoindent
 set smartindent
 
 " while searching shows per character typed
@@ -111,7 +111,7 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 set background=dark
 
 " colorscheme
-colorscheme NeoSolarized
+colorscheme onhalfdark
 
 " clipboard
 set clipboard^=unnamed

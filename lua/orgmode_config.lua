@@ -12,7 +12,7 @@ require'nvim-treesitter.configs'.setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
   highlight = {
     enable = true,
-    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    -- disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
     additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
   },
   ensure_installed = {'org'}, -- Or run :TSUpdate org
@@ -21,4 +21,20 @@ require'nvim-treesitter.configs'.setup {
 require('orgmode').setup({
   org_agenda_files = {'~/Desktop/what-ive-learned/**/*'},
   org_default_notes_file = '~/Desktop/what-ive-learned/README.org',
+  -- org_hide_leading_stars = true,
+  org_todo_keyword_faces = {
+    WAITING = ':foreground blue :weight bold',
+    DELEGATED = ':background #FFFFFF :slant italic :underline on',
+    TODO = ':background #000000 :foreground red', -- overrides builtin color for `TODO` keyword
+  },
+  -- org_ellipsis = " ==="
 })
+require("org-bullets").setup {
+    symbols = { "◉", "○", "✸", "✿" }
+    -- or a function that receives the defaults and returns a list
+    -- symbols = function(default_list)
+    --   table.insert(default_list, "♥")
+    --   return default_list
+    -- end
+}
+
