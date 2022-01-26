@@ -72,11 +72,11 @@ Plug 'romainl/vim-qf'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'windwp/windline.nvim'
-Plug 'jceb/vim-orgmode'
+Plug 'itchyny/lightline.vim'
+Plug 'nvim-orgmode/orgmode'
+Plug 'akinsho/org-bullets.nvim'
 Plug 'vim-scripts/utl.vim'
 Plug 'inkarkat/vim-SyntaxRange'
-Plug 'ray-x/lsp_signature.nvim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -85,7 +85,11 @@ Plug 'folke/todo-comments.nvim'
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Colors
@@ -94,6 +98,8 @@ Plug 'overcache/NeoSolarized'
 Plug 'arcticicestudio/nord-vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'sjl/badwolf'
+Plug 'jnurmine/Zenburn'
+Plug 'NLKNguyen/papercolor-theme'
 
 call plug#end()
 
