@@ -289,7 +289,7 @@ nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " send make command
 function! Makeit() abort
-    execute ':silent !~/self_scripts/tmux-build-workflow ' . getcwd() . ' make'
+    execute ':silent !~/.dotfiles/self_scripts/tmux-build-workflow ' . getcwd() . ' make'
 endfunction
 
 command! Makeit :call Makeit()
