@@ -19,7 +19,7 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('orgmode').setup({
-  org_agenda_files = {'~/Desktop/what-ive-learned/**/*'},
+  org_agenda_files = {'/Users/sammyalhashemi/Dropbox/Org/Orgzly/**/*'},
   org_default_notes_file = '~/Desktop/what-ive-learned/README.org',
   -- org_hide_leading_stars = true,
   org_todo_keyword_faces = {
