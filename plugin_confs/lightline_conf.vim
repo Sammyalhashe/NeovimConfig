@@ -31,7 +31,7 @@ function! DisplayLspDiagnostics()
 endfunction
 
 let g:lightline = {
-			\ 'colorscheme': 'one',
+			\ 'colorscheme': 'nord',
 			\ 'active': {
 			\ 	'left': [['mode', 'paste'],
             \           ['gitbranch',
