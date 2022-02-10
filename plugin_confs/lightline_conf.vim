@@ -1,5 +1,13 @@
 set laststatus=2
 
+if has("nvim-0.6")
+    let s:ERROR="ERROR"
+    let s:WARN="WARN"
+else
+    let s:ERROR="[[Error]]"
+    let s:WARN="[[Warning]]"
+end
+
 if has('gui_running')
 		set t_Co=256
 endif
@@ -7,13 +15,18 @@ endif
 set noshowmode " unecessary with this plugin
 
 function! LspDiagnostics(level) abort
-    let l:result = luaeval('vim.diagnostic.get(' . bufnr() . ', { severity = vim.diagnostic.severity.' . a:level . '})')
-    return len(l:result)
+    let diagnotic_command = has("nvim-0.6") ? 'vim.diagnostic.get' : 'vim.lsp.diagnostic.get_count'
+    if has("nvim-0.6")
+        let l:result = luaeval('vim.diagnostic.get(' . bufnr() . ', { severity = vim.diagnostic.severity.' . a:level . '})')
+        return len(l:result)
+    else
+        return luaeval('vim.lsp.diagnostic.get_count(' . bufnr() . ',' . a:level . ')')
+    end
 endfunction
 
 function! DisplayLspDiagnostics()
-    let eCount = LspDiagnostics('ERROR')
-    let wCount = LspDiagnostics('WARN')
+    let eCount = LspDiagnostics(s:ERROR)
+    let wCount = LspDiagnostics(s:WARN)
     return printf("E: %d W: %d", eCount, wCount)
 endfunction
 

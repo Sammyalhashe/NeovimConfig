@@ -1,5 +1,10 @@
+
+local wantedParsers = {
+    'bash'; 'javascript'; 'cpp'; 'c'; 'python';
+};
+
 require'nvim-treesitter.configs'.setup{
-    ensure_installed = "maintained",
+    ensure_installed = wantedParsers,
     highlight = {
         enable = true,
         custom_captures = {

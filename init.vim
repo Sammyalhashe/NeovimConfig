@@ -79,7 +79,6 @@ Plug 'vim-scripts/utl.vim'
 Plug 'inkarkat/vim-SyntaxRange'
 Plug 'liuchengxu/vim-which-key'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'folke/todo-comments.nvim'
 
