@@ -111,7 +111,7 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 set background=dark
 
 " colorscheme
-colorscheme onhalfdark
+colorscheme nord
 
 " clipboard
 set clipboard^=unnamed

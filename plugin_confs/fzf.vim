@@ -8,8 +8,21 @@ function! BDEFiles() abort
     let $FZF_DEFAULT_COMMAND=l:OLD_FZF_DEFAULT_COMMANDA
 endfunction
 
+function! GitWorkTreeFZF() abort
+    call fzf#run(fzf#wrap({'source': "git worktree list | awk '{print $1}'", 'sink': 'cd'}))
+    " TODO: find a way to update the current files with the file in the
+    " worktree
+    " TODO: find a way to configure hooks for certain repos.
+endfunction
+
+command! -bang GWT call GitWorkTreeFZF()
+
 " ag --nogroup --column --color  -- '^(?=.)'
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--nogroup --noaffinity --color --column', fzf#vim#with_preview(), <bang>0)
+
+" for vimgrep
+set grepprg=ag\ --vimgrep\ $*
+set grepformat=%f:%l:%c:%m
 
 
 nnoremap <leader>e :GFiles<CR>
@@ -20,6 +33,7 @@ nnoremap <leader>ag :Ag<CR>
 nnoremap <leader>li :Lines<CR>
 nnoremap <leader>/ :BLines<CR>
 nnoremap <leader>? :Rg<CR>
+nnoremap <leader>w :GWT<CR>
 
 if has('nvim')
 	" let g:fzf_layout = {'window' : 'call FloatingFZF()'}
@@ -27,7 +41,6 @@ endif
 
 
 function! s:build_quickfix_list(lines)
-  echo 'qfix thing'
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
   cc
@@ -59,4 +72,4 @@ function! FloatingFZF()
 				\ }
     return opts
 endfunction
-let $BAT_THEME = 'OneHalfDark'
+let $BAT_THEME = 'Solarized (dark)'
