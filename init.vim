@@ -50,8 +50,7 @@ else
 endif
 
 " Plugins
-
-call plug#begin()
+call plug#begin('~/.dotfiles/nvim/plugged')
 
 function! DoRemote(arg)
 		UpdateRemotePlugins
