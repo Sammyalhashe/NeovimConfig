@@ -22,7 +22,7 @@ call Sourcer#SourcePluginConfs('timer.vim')
 call Sourcer#SourcePluginConfIfHavePlugin('bdeformat', 'bde_config.vim')
 
 " fzf
-call Sourcer#SourcePluginConfIfHavePlugin("fzf", "fzf.vim")
+call Sourcer#SourcePluginConfIfHavePlugin("telescope", "telescope.vim")
 
 " lsp
 call Sourcer#SourcePluginConfs('lsp.vim')

@@ -1,7 +1,7 @@
 local nvim_lsp = require'lspconfig'
 local configs = require'lspconfig/configs'
 local utils = require'utils'
-vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("error")
 
 local get_diagnostics = function()
     local diags = vim.lsp.diagnostic.get_all()
@@ -109,7 +109,7 @@ if (false) then
     }
 end
 
-local servers = {'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp'}
+local servers = {'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls'}
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, s in ipairs(servers) do
     if (s == "clangd") then

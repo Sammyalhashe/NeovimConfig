@@ -14,5 +14,9 @@ function M.map(type, key, value)
     vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
 end
 
+function M.map_allbuf(type, key, value)
+    vim.api.nvim_set_keymap(type,key,value,{noremap = true, silent = true});
+end
+
 
 return M

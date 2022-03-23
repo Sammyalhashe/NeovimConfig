@@ -63,8 +63,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
-Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
@@ -78,8 +76,12 @@ Plug 'vim-scripts/utl.vim'
 Plug 'inkarkat/vim-SyntaxRange'
 Plug 'liuchengxu/vim-which-key'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'folke/todo-comments.nvim'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
@@ -110,6 +112,13 @@ else
     let g:python = '/usr/bin/python3.8'
     if filereadable(g:python)
         let g:python3 = g:python
+    endif
+endif
+
+if g:os == 'Darwin' && filereadable(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'))
+    let preset = readfile(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'), '', 1)
+    if len(preset) != 0
+        let g:ITERM2_PRESET = preset[0]
     endif
 endif
 

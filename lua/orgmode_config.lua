@@ -18,6 +18,7 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = {'org'}, -- Or run :TSUpdate org
 }
 
+require('orgmode').setup_ts_grammar()
 require('orgmode').setup({
   org_agenda_files = {'/Users/sammyalhashemi/Dropbox/Org/Orgzly/**/*'},
   org_default_notes_file = '~/Desktop/what-ive-learned/README.org',
