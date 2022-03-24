@@ -1,6 +1,7 @@
 local utils = require'utils'
 local telescope = require'telescope'
 local actions = require'telescope.actions'
+local M = {}
 telescope.setup{
   defaults = {
     -- Default configuration for telescope goes here:
@@ -60,10 +61,13 @@ telescope.load_extension("git_worktree")
 Worktree.on_tree_change(function(op, metadata)
     if op == Worktree.Operations.Switch then
         print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
+        -- Run Makeit function defined in defaults.vim
+        vim.fn['Makeit']()
     end
 end)
 
 local setup_initializations = function()
+    local tcfg = "<cmd>lua require('my_telescope_ext')"
     local tbi = "<cmd>lua require('telescope.builtin')"
     local tex = "<cmd>lua require('telescope').extensions"
     local cr = "<cr>"
@@ -78,10 +82,14 @@ local setup_initializations = function()
     utils.map_allbuf('n', '<leader>m', tbi .. ".man_pages()" .. cr)
     utils.map_allbuf('n', '<leader>wc', tex .. ".git_worktree.git_worktrees()" .. cr)
     utils.map_allbuf('n', '<leader>fb', tex .. ".file_browser.file_browser()" .. cr)
+    utils.map_allbuf('n', '<leader>sa', tcfg .. ".find_sah_marks()" .. cr)
 
     for _, extension in ipairs(extensions) do
         telescope.load_extension(extension)
     end
 end
 
+
 setup_initializations()
+
+return M
