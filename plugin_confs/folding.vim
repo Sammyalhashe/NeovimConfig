@@ -9,6 +9,6 @@ function! NeatFoldText()
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 
-set foldtext=NeatFoldText()
-" set foldmethod=expr
-" set foldexpr=nvim_treesitter#foldexpr
+" set foldtext=NeatFoldText()
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr

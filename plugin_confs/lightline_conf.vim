@@ -30,8 +30,14 @@ function! DisplayLspDiagnostics()
     return printf("E: %d W: %d", eCount, wCount)
 endfunction
 
+if len(g:ITERM2_PRESET) != 0
+    let colorscheme = g:ITERM2_PRESET
+else
+    let colorscheme = onehalflight
+endif
+
 let g:lightline = {
-			\ 'colorscheme': 'nord',
+			\ 'colorscheme': (colorscheme == "onehalflight" || colorscheme == "onehalfdark") ? "one" : colorscheme,
 			\ 'active': {
 			\ 	'left': [['mode', 'paste'],
             \           ['gitbranch',

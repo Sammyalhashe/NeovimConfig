@@ -57,31 +57,31 @@ function! DoRemote(arg)
 endfunction
 
 " Misc plugins
+Plug 'jkramer/vim-narrow'
 Plug 'glepnir/dashboard-nvim'
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
-Plug 'junegunn/goyo.vim'
 Plug 'moveaxesp/bdeformat'
 Plug 'romainl/vim-qf'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'itchyny/lightline.vim'
-Plug 'nvim-orgmode/orgmode'
-Plug 'akinsho/org-bullets.nvim'
-Plug 'vim-scripts/utl.vim'
-Plug 'inkarkat/vim-SyntaxRange'
 Plug 'liuchengxu/vim-which-key'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'folke/trouble.nvim'
-Plug 'folke/todo-comments.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
+
+" Orgmode
+Plug 'nvim-orgmode/orgmode'
+Plug 'akinsho/org-bullets.nvim'
+Plug 'vim-scripts/utl.vim'
+Plug 'inkarkat/vim-SyntaxRange'
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
@@ -97,9 +97,7 @@ Plug 'morhetz/gruvbox'
 Plug 'overcache/NeoSolarized'
 Plug 'arcticicestudio/nord-vim'
 Plug 'liuchengxu/space-vim-theme'
-Plug 'sjl/badwolf'
 Plug 'jnurmine/Zenburn'
-Plug 'NLKNguyen/papercolor-theme'
 
 call plug#end()
 
