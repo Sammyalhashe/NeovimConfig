@@ -33,7 +33,7 @@ endfunction
 if len(g:ITERM2_PRESET) != 0
     let colorscheme = g:ITERM2_PRESET
 else
-    let colorscheme = onehalflight
+    let colorscheme = "onehalflight"
 endif
 
 let g:lightline = {

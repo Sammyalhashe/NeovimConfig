@@ -109,6 +109,7 @@ else
     endif
 endif
 
+let g:ITERM2_PRESET=""
 if g:os == 'Darwin' && filereadable(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'))
     let preset = readfile(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'), '', 1)
     if len(preset) != 0

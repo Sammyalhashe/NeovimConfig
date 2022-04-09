@@ -114,7 +114,6 @@ set background=light
 if len(g:ITERM2_PRESET) != 0
     execute printf('colorscheme %s', g:ITERM2_PRESET)
 else
-    echo 'here'
     colorscheme onehalflight
 endif
 
