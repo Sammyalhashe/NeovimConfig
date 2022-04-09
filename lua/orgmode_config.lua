@@ -7,6 +7,7 @@ parser_config.org = {
   },
   filetype = 'org',
 }
+require('orgmode').setup_ts_grammar()
 
 require'nvim-treesitter.configs'.setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
@@ -20,6 +21,11 @@ require'nvim-treesitter.configs'.setup {
 
 require('orgmode').setup_ts_grammar()
 require('orgmode').setup(require("partials.my_org_config"))
+if (vim.g.os == "Linux" and vim.g.wsl == true) then
+    _org_default_notes_file = '/mnt/c/Users/sammy/Dropbox/Org/Orgzly/inbox.org'
+else
+    _org_default_notes_file = '~/Desktop/what-ive-learned/README.org' 
+end
 require("org-bullets").setup {
     symbols = { "◉", "✿", "✸", "○" }
     -- or a function that receives the defaults and returns a list

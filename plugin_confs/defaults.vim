@@ -121,6 +121,21 @@ endif
 " clipboard
 set clipboard^=unnamed
 
+if has('wsl')
+    let g:clipboard = {
+          \   'name': 'wslclipboard',
+          \   'copy': {
+          \      '+': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -i --crlf',
+          \      '*': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -i --crlf',
+          \    },
+          \   'paste': {
+          \      '+': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -o --lf',
+          \      '*': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -o --lf',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
+endif
+
 " command history
 set history=500
 

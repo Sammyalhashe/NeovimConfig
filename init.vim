@@ -17,21 +17,17 @@ let g:DIR = expand('~/.config/nvim/')
 " set clipboard
 set clipboard^=unnamed,unnamedplus
 
-" Set clipboard for windows
-let clip = '/mnt/c/Windows/System32/clip.exe'
-if executable(clip)
-	augroup WSLYank
-		autocmd!
-		autocmd TextYankPost * if v:event.operator ==# 'y' | call system(clip, @0) | endif
-	augroup END
-endif
-
 " set the os
 if !exists("g:os")
 	if has("win64") || has("win32") || has("win16")
 		let g:os = "Windows"
 	else
 		let g:os = substitute(system('uname'), '\n', '', '')
+        if has('wsl')
+            let g:wsl = v:true
+        else
+            let g:wsl = v:false
+        endif
 	endif
 endif
 
