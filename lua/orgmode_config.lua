@@ -20,8 +20,8 @@ require'nvim-treesitter.configs'.setup {
 
 require('orgmode').setup_ts_grammar()
 require('orgmode').setup({
-  org_agenda_files = {'/Users/sammyalhashemi/Dropbox/Org/Orgzly/**/*'},
-  org_default_notes_file = '~/Desktop/what-ive-learned/README.org',
+  org_agenda_files = {'/Users/sammyalhashemi/Dropbox/Org/Orgzly/inbox.org', '/Users/sammyalhashemi/Dropbox/Org/Orgzly/notes.org'},
+  org_default_notes_file = '/Users/sammyalhashemi/Dropbox/Org/Orgzly/notes.org',
   -- org_hide_leading_stars = true,
   org_todo_keywords = {'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)'},
   org_todo_keyword_faces = {
