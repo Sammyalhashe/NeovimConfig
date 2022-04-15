@@ -109,7 +109,7 @@ cmp.setup {
     -- Let's play with this for a day or two
     ghost_text = false,
   },
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-  },
+  window = {
+      documentation = cmp.config.window.bordered(),
+  }
 }
