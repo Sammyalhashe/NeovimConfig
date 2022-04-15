@@ -40,3 +40,15 @@ require'nvim-treesitter.configs'.setup{
        },
     },
 }
+
+local ft_str = table.concat(
+    vim.tbl_map(
+        function(ft)
+            return require'nvim-treesitter.configs'[ft] or ft
+        end,
+        require('nvim-treesitter.parsers').available_parsers()
+    ),
+    ","
+)
+
+vim.cmd("autocmd Filetype " .. ft_str .. ",cpp" .. " setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")

@@ -108,13 +108,32 @@ set smartcase
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " background
-set background=dark
+set background=light
 
 " colorscheme
-colorscheme nord
+if len(g:ITERM2_PRESET) != 0
+    execute printf('colorscheme %s', g:ITERM2_PRESET)
+else
+    colorscheme onehalflight
+endif
 
 " clipboard
 set clipboard^=unnamed
+
+if has('wsl')
+    let g:clipboard = {
+          \   'name': 'wslclipboard',
+          \   'copy': {
+          \      '+': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -i --crlf',
+          \      '*': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -i --crlf',
+          \    },
+          \   'paste': {
+          \      '+': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -o --lf',
+          \      '*': '/mnt/c/tools/neovim/Neovim/bin/win32yank.exe -o --lf',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
+endif
 
 " command history
 set history=500
@@ -287,9 +306,11 @@ let g:org_todo_keywords = [['TODO(t)', 'LOOKINTO(l)', '|', 'DONE(d)'],
 " whichkey
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
-" send make command
+" send make command only if a valid Makefile exists in the root of the repo.
 function! Makeit() abort
-    execute ':silent !~/.dotfiles/self_scripts/tmux-build-workflow ' . getcwd() . ' make'
+    if filereadable(getcwd() . '/Makefile')
+        execute ':silent !~/.dotfiles/self_scripts/tmux-build-workflow ' . getcwd() . ' make'
+    endif
 endfunction
 
 command! Makeit :call Makeit()

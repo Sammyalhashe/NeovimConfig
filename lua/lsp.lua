@@ -1,6 +1,7 @@
 local nvim_lsp = require'lspconfig'
 local configs = require'lspconfig/configs'
 local utils = require'utils'
+require'folds'
 vim.lsp.set_log_level("error")
 
 local get_diagnostics = function()
@@ -13,13 +14,6 @@ local get_diagnostics = function()
 end
 
 local custom_attach = function(client)
-    -- require'lsp_signature'.on_attach({
-    --     bind = true,
-    --     handler_opts = {
-    --         border = "single"
-    --     },
-    -- });
-
     utils.map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
     utils.map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
     utils.map('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
@@ -58,8 +52,6 @@ elseif vim.fn.has('win32') == 1 then
 else
   print("Unsupported system for sumneko")
 end
--- nvim_lsp.clangd.setup{on_attach=custom_attach}
--- nvim_lsp.pyls.setup{on_attach=custom_attach}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
  vim.lsp.diagnostic.on_publish_diagnostics, {
