@@ -82,6 +82,7 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'folke/todo-comments.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
+Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 
 " Autocomplete/lsp
 Plug 'neovim/nvim-lspconfig'
