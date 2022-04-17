@@ -7,7 +7,7 @@ telescope.setup{
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
-    prompt_prefix = 'Sammy needs what? ',
+    prompt_prefix = 'starllama needs what? ',
     mappings = {
       i = {
         -- map actions.which_key to <C-h> (default: <C-/>)
