@@ -1,7 +1,11 @@
 if (vim.g.os == "Linux" and vim.g.wsl == true) then
     _org_default_notes_file = '/mnt/c/Users/sammy/Dropbox/Org/Orgzly/inbox.org'
 else
-    _org_default_notes_file = '~/Desktop/what-ive-learned/README.org' 
+    if vim.g.bb == true then
+        _org_default_notes_file = '~/Desktop/what-ive-learned/README.org' 
+    else
+        _org_default_notes_file = '~/Dropbox/Org/Orgzly/inbox.org'
+    end
 end
 return {
   org_agenda_files = {'/Users/sammyalhashemi/Dropbox/Org/Orgzly/inbox.org', '/Users/sammyalhashemi/Dropbox/Org/Orgzly/notes.org', '~/Desktop/what-ive-learned/**/*'},

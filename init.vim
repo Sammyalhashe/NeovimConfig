@@ -102,6 +102,7 @@ let g:bb = v:false
 
 " check if bb is there
 if filereadable(currdir . "/bb.vim")
+    let g:bb = v:true
     call Sourcer#Source(currdir, 'bb.vim')
 else
     let g:python = '/usr/bin/python3.8'
