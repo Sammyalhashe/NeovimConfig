@@ -73,6 +73,7 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
+Plug 'folke/zen-mode.nvim'
 
 " Orgmode
 Plug 'nvim-orgmode/orgmode'

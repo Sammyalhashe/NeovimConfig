@@ -101,7 +101,7 @@ if (false) then
     }
 end
 
-local servers = {'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls'}
+local servers = {'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls', 'cmake'}
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, s in ipairs(servers) do
     if (s == "clangd") then

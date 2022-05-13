@@ -10,7 +10,7 @@ else
     _org_default_notes_file = '~/Desktop/what-ive-learned/README.org' 
 end
 return {
-  org_agenda_files = {'~/Dropbox/Org/Orgzly/inbox.org', '~/Dropbox/Org/Orgzly/notes.org', '~/Desktop/what-ive-learned/**/*'},
+  org_agenda_files = {'~/Dropbox/Org/Orgzly/inbox.org', '~/Dropbox/Org/Orgzly/notes.org', '~/Desktop/what-ive-learned/**/*' },
   org_default_notes_file = _org_default_notes_file,
   -- org_hide_leading_stars = true,
   org_todo_keywords = {'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)'},
@@ -61,7 +61,13 @@ return {
         w = {
             description = "Work",
             template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-            target = "~/Desktop/what-ive-learned/todo.org"
+            target = "~/Desktop/what-ive-learned/bb/todo.org"
+        },
+
+        p = {
+            description = "Personal",
+            template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
+            target = "~/Desktop/what-ive-learned/personal/todo.org"
         }
     }
 
