@@ -1,4 +1,4 @@
-require('lspkind').setup({
+require('lspkind').init({
     -- default symbol map
     -- can be either 'default' or
     -- 'codicons' for codicon preset (requires vscode-codicons font installed)
