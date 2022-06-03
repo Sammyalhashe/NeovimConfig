@@ -57,6 +57,7 @@ Plug 'jkramer/vim-narrow'
 Plug 'glepnir/dashboard-nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'TimUntersberger/neogit'
 Plug 'tpope/vim-rhubarb'
 Plug 'pseewald/vim-anyfold', { 'commit': '4c30bbd9f4a7ec92f842b612c9bd620bd007e0ed' }
 Plug 'moveaxesp/bdeformat'
@@ -113,10 +114,12 @@ else
 endif
 
 let g:ITERM2_PRESET=""
-if g:os == 'Darwin' && filereadable(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'))
-    let preset = readfile(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'), '', 1)
-    if len(preset) != 0
-        let g:ITERM2_PRESET = preset[0]
+if $TERM != "xterm-kitty"
+    if g:os == 'Darwin' && filereadable(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'))
+        let preset = readfile(expand('~/.config/iterm2/AppSupport/Scripts/AutoLaunch/ITERM2_PRESET'), '', 1)
+        if len(preset) != 0
+            let g:ITERM2_PRESET = preset[0]
+        endif
     endif
 endif
 

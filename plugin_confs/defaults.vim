@@ -108,13 +108,13 @@ set smartcase
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " background
-set background=light
+set background=dark
 
 " colorscheme
 if len(g:ITERM2_PRESET) != 0
     execute printf('colorscheme %s', g:ITERM2_PRESET)
 else
-    colorscheme onehalflight
+    colorscheme space_vim_theme
 endif
 
 " clipboard

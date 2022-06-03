@@ -25,7 +25,7 @@ local custom_attach = function(client)
     utils.map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
     utils.map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
     utils.map('n','<leader>ac','<cmd>lua vim.lsp.buf.code_action()<CR>')
-    utils.map('n','<leader>ee','<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+    utils.map('n','<leader>ee','<cmd>lua vim.diagnostic.open_float()<CR>')
     utils.map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
     utils.map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
     utils.map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
@@ -101,7 +101,7 @@ if (false) then
     }
 end
 
-local servers = {'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls', 'cmake'}
+local servers = {'rls', 'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls', 'cmake'}
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, s in ipairs(servers) do
     if (s == "clangd") then
