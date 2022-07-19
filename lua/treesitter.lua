@@ -51,4 +51,5 @@ local ft_str = table.concat(
     ","
 )
 
-vim.cmd("autocmd Filetype " .. ft_str .. ",cpp" .. " setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+-- NOTE: Uncomment this if you want folding.
+-- vim.cmd("autocmd Filetype " .. ft_str .. ",cpp" .. " setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")

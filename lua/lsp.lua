@@ -35,6 +35,10 @@ local custom_attach = function(client)
     utils.map('n',']g','<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = true })<CR>')
     utils.map('n','[g','<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = true })<CR>')
     utils.map('n',']h',':ClangdSwitchSourceHeader<CR>')
+    require "lsp_signature".on_attach({
+        hint_prefix = '+ ',
+        floating_window = false,
+    })
 end
 
 vim.fn.sign_define("LspDiagnosticsSignError", {text = "", numhl = "LspDiagnosticsDefaultError"})

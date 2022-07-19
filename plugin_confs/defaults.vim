@@ -114,7 +114,7 @@ set background=dark
 if len(g:ITERM2_PRESET) != 0
     execute printf('colorscheme %s', g:ITERM2_PRESET)
 else
-    colorscheme space_vim_theme
+    colorscheme gruvbox
 endif
 
 " clipboard

@@ -15,12 +15,18 @@ endif
 set noshowmode " unecessary with this plugin
 
 function! LspDiagnostics(level) abort
-    let diagnotic_command = has("nvim-0.6") ? 'vim.diagnostic.get' : 'vim.lsp.diagnostic.get_count'
+    let diagnotic_command = has("nvim-0.6") ? 
+                \ 'vim.diagnostic.get' : 
+                \ 'vim.lsp.diagnostic.get_count'
     if has("nvim-0.6")
-        let l:result = luaeval('vim.diagnostic.get(' . bufnr() . ', { severity = vim.diagnostic.severity.' . a:level . '})')
+        let l:result = luaeval('vim.diagnostic.get('
+                    \ . bufnr() .
+                    \ ', { severity = vim.diagnostic.severity.'
+                    \ . a:level . '})')
         return len(l:result)
     else
-        return luaeval('vim.lsp.diagnostic.get_count(' . bufnr() . ',' . a:level . ')')
+        return luaeval('vim.lsp.diagnostic.get_count(' .
+                    \ bufnr() . ',' . a:level . ')')
     end
 endfunction
 
@@ -33,11 +39,12 @@ endfunction
 if len(g:ITERM2_PRESET) != 0
     let colorscheme = g:ITERM2_PRESET
 else
-    let colorscheme = "onehalflight"
+    let colorscheme = "gruvbox"
 endif
 
 let g:lightline = {
-			\ 'colorscheme': (colorscheme == "onehalflight" || colorscheme == "onehalfdark") ? "one" : colorscheme,
+			\ 'colorscheme': (colorscheme == "onehalflight" ||
+            \  colorscheme == "onehalfdark") ? "one" : colorscheme,
 			\ 'active': {
 			\ 	'left': [['mode', 'paste'],
             \           ['gitbranch',

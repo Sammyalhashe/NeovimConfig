@@ -1,5 +1,4 @@
 local cmp = require'cmp'
-local lspkind = require'lspkind'
 local luasnip = require'luasnip'
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -89,17 +88,6 @@ cmp.setup {
 
   formatting = {
     -- Youtube: How to set up nice formatting for your sources.
-    format = lspkind.cmp_format {
-      with_text = true,
-      menu = {
-        buffer = "[buf]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        path = "[path]",
-        luasnip = "[snip]",
-        gh_issues = "[issues]",
-      },
-    },
   },
 
   experimental = {
