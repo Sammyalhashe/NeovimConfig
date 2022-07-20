@@ -32,24 +32,24 @@ if !exists("g:os")
 endif
 
 if has('nvim')
-		if empty(glob(currdir . '/autoload/plug.vim'))
-				silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-										\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-				autocmd VimEnter * PlugInstall
-		endif
+    if empty(glob(currdir . '/autoload/plug.vim'))
+            silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+                                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            autocmd VimEnter * PlugInstall
+    endif
 else
-		if empty(glob('~/.vim/autoload/plug.vim'))
-				silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-										\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-				autocmd VimEnter * PlugInstall
-		endif
+    if empty(glob('~/.vim/autoload/plug.vim'))
+            silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            autocmd VimEnter * PlugInstall
+    endif
 endif
 
 " Plugins
 call plug#begin('~/.dotfiles/nvim/plugged')
 
 function! DoRemote(arg)
-		UpdateRemotePlugins
+    UpdateRemotePlugins
 endfunction
 
 " Misc plugins
