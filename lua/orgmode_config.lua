@@ -22,5 +22,11 @@ require'nvim-treesitter.configs'.setup {
 require('orgmode').setup_ts_grammar()
 require('orgmode').setup(require("partials.my_org_config"))
 require("org-bullets").setup {
-    symbols = { "◉", "✿", "✸", "○" }
+    symbols = {
+        headlines = { "◉", "✿", "✸", "○" },
+        checkboxes = {
+            done = { "✓", "OrgDone" },
+            todo = { "˟", "OrgTODO" },
+        }
+    }
 }
