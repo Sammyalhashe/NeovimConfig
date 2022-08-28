@@ -1,16 +1,18 @@
 if (vim.g.os == "Linux" and vim.g.wsl == true) then
     _org_base_directory = "/mnt/c/Users/sammy/"
     _org_default_notes_file = _org_base_directory .. 'Dropbox/Org/Orgzly/inbox.org'
+    _org_default_todo_file = _org_base_directory .. 'Dropbox/Org/Orgzly/todo.org'
 else
     if vim.g.bb == true then
         _org_default_notes_file = '~/Desktop/what-ive-learned/README.org' 
+        _org_default_todo_file = '~/Desktop/what-ive-learned/todo.org' 
     else
         _org_default_notes_file = '~/Dropbox/Org/Orgzly/inbox.org'
+        _org_default_todo_file = '~/Dropbox/Org/Orgzly/todo.org'
     end
-    _org_default_notes_file = '~/Desktop/what-ive-learned/README.org' 
 end
 return {
-  org_agenda_files = {'~/Dropbox/Org/Orgzly/inbox.org', '~/Dropbox/Org/Orgzly/notes.org', '~/Desktop/what-ive-learned/**/*' },
+  org_agenda_files = {'~/Dropbox/Org/Orgzly/inbox.org',  '~/Dropbox/Org/Orgzly/todo.org', '~/Dropbox/Org/Orgzly/notes.org', '~/Desktop/what-ive-learned/**/*' },
   org_default_notes_file = _org_default_notes_file,
   -- org_hide_leading_stars = true,
   org_todo_keywords = {'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)'},
@@ -61,13 +63,13 @@ return {
         w = {
             description = "Work",
             template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-            target = "~/Desktop/what-ive-learned/bb/todo.org"
+            target = _org_default_todo_file
         },
 
         p = {
             description = "Personal",
             template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-            target = "~/Desktop/what-ive-learned/personal/todo.org"
+            target = _org_default_todo_file
         }
     }
 

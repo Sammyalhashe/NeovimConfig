@@ -39,28 +39,28 @@ endfunction
 if len(g:ITERM2_PRESET) != 0
     let colorscheme = g:ITERM2_PRESET
 else
-    let colorscheme = "gruvbox"
+    let colorscheme = "wombat"
 endif
 
 let g:lightline = {
-			\ 'colorscheme': (colorscheme == "onehalflight" ||
-            \  colorscheme == "onehalfdark") ? "one" : colorscheme,
-			\ 'active': {
-			\ 	'left': [['mode', 'paste'],
+            \ 'colorscheme': (colorscheme == "onehalflight" ||
+            \  colorscheme == "onehalfdark") ? "one" : "wombat",
+            \ 'active': {
+            \ 	'left': [['mode', 'paste'],
             \           ['gitbranch',
             \            'filename',
             \            'lsp_diagnostics',
             \            'modified',
             \           ]]
-			\ },
-			\ 'component': {
-			\ 	'charvaluehex': '0x%B',
-			\ 	'sammy': 'Hello Sammmy'
-			\ },
+            \ },
+            \ 'component': {
+            \ 	'charvaluehex': '0x%B',
+            \ 	'sammy': 'Hello Sammmy'
+            \ },
             \ 'component_function': {
             \   'gitbranch': 'FugitiveHead',
             \   'lsp_diagnostics': 'DisplayLspDiagnostics'
             \ },
             \ 'component_expand': {
             \}
-			\ }
+            \ }

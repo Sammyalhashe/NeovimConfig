@@ -26,7 +26,12 @@ telescope.setup{
         ["<C-j>"] = "move_selection_next",
         ["<C-q>"] = actions.send_to_qflist,
       },
-    }
+    },
+    borderchars = {
+      prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+      results = { " " },
+      preview = { " " },
+    },
   },
   pickers = {
     -- Default configuration for builtin pickers goes here:

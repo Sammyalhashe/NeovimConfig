@@ -1,5 +1,8 @@
 " vim: foldmethod=marker
 
+" gruvbox-baby
+call Sourcer#SourcePluginConfIfHavePlugin("gruvbox-baby", "gruvbox_baby.vim")
+
 " source defaults
 call Sourcer#SourcePluginConfs('defaults.vim')
 

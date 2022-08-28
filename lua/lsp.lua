@@ -13,6 +13,8 @@ local get_diagnostics = function()
     end
 end
 
+require("nvim-tree").setup()
+
 local custom_attach = function(client)
     utils.map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
     utils.map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -105,6 +107,14 @@ if (false) then
     }
 end
 
+local resource_dir=""
+if vim.g.bb then
+    resource_dir = "/opt/bb/lib/llvm-12.0/lib64/clang/12.0.1"
+else
+    resource_dir = "/usr/lib/clang/14.0.6/"
+end
+
+
 local servers = {'rls', 'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls', 'cmake'}
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, s in ipairs(servers) do
@@ -112,7 +122,7 @@ for _, s in ipairs(servers) do
         if system_name == "Linux" then
             nvim_lsp[s].setup{
                 on_attach=custom_attach,
-                cmd = {"clangd", "--resource-dir=/opt/bb/lib/llvm-12.0/lib64/clang/12.0.1"},
+                cmd = {"clangd", "--resource-dir=" .. resource_dir},
                 capabilities = capabilities,
             }
         else

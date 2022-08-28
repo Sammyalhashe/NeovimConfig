@@ -53,6 +53,8 @@ function! DoRemote(arg)
 endfunction
 
 " Misc plugins
+Plug 'dylanaraps/wal.vim'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jkramer/vim-narrow'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -85,7 +87,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'ray-x/lsp_signature.nvim'
 
 " Colors
-Plug 'morhetz/gruvbox'
+Plug 'luisiacc/gruvbox-baby', {'branch': 'main'}
 Plug 'liuchengxu/space-vim-theme'
 Plug 'jnurmine/Zenburn'
 

@@ -25,7 +25,7 @@ set lcs+=eol:↲
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
+    " set termguicolors
     lua require'bufferline'.setup{}
 endif
 
@@ -40,8 +40,6 @@ au TermOpen * setlocal nonumber
 
 " nvim is always nocompatible -> better safe than sorry
 set nocompatible
-
-set termguicolors
 
 " Disable highlights with <leader><cr>
 map <silent> <leader><cr> :noh<cr>
@@ -114,11 +112,15 @@ set background=dark
 if len(g:ITERM2_PRESET) != 0
     execute printf('colorscheme %s', g:ITERM2_PRESET)
 else
-    colorscheme gruvbox
+    " colorscheme gruvbox
 endif
 
 " clipboard
-set clipboard^=unnamed
+if g:os == "Linux"
+    set clipboard+=unnamedplus
+else
+    set clipboard^=unnamed
+endif
 
 if has('wsl')
     let g:clipboard = {
