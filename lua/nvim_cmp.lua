@@ -4,6 +4,32 @@ local luasnip = require'luasnip'
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 
+-- TODO: Move this to more appropriate location.
+-- custom snippets
+-- in luasnip, i(x) nodes are "insert" nodes where you can insert text and
+-- jump to. It starts at the 1st node and goes upwards. The 0th node is special
+-- as it should be the last. If there is no 0th node it will be implicitly
+-- inserted at the end.
+local snippet_fts = {}
+snippet_fts['cpp'] = '// '
+snippet_fts['javascript'] = '// '
+snippet_fts['python'] = '# '
+snippet_fts['bash'] = '# '
+snippet_fts['lua'] = '-- '
+
+for lang, comment_start in pairs(snippet_fts) do
+    luasnip.add_snippets(lang, {
+        luasnip.s({ trig = "sah" }, {
+            luasnip.t({ comment_start .. "@sah -- start: " }), luasnip.i(1),
+            -- NOTE: I have to do something like this for newlines
+            -- luasnip.t({ "", comment_start .. "" }),
+            luasnip.t({ "", "" }),
+            luasnip.i(0),
+            luasnip.t({ "", comment_start .. "@sah -- end" })
+        })
+    })
+end
+
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -18,24 +44,6 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },
-
-    -- If you want tab completion :'(
-    --  First you have to just promise to read `:help ins-completion`.
-    --
-    -- ["<Tab>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end,
-    -- ["<S-Tab>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end,
     ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
