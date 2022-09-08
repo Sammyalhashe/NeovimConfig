@@ -18,5 +18,11 @@ function M.map_allbuf(type, key, value)
     vim.api.nvim_set_keymap(type,key,value,{noremap = true, silent = true});
 end
 
+function M.printTable(table)
+    for k, v in pairs(table) do
+        print(k, " -- ", v)
+    end
+end
+
 
 return M

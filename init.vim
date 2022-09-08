@@ -85,6 +85,8 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'ray-x/lsp_signature.nvim'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'mhartington/formatter.nvim'
 
 " Colors
 Plug 'luisiacc/gruvbox-baby', {'branch': 'main'}

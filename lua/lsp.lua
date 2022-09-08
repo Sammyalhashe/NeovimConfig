@@ -2,6 +2,24 @@ local nvim_lsp = require'lspconfig'
 local configs = require'lspconfig/configs'
 local utils = require'utils'
 require'folds'
+
+-- formatter
+local futil = require'formatter.util'
+
+require'formatter'.setup {
+    filetype = {
+        python = {
+            require'formatter.filetypes.python'.black,
+        },
+        lua = {
+            require'formatter.filetypes.lua'.stylelua,
+        },
+        ["*"] = {
+          require("formatter.filetypes.any").remove_trailing_whitespace
+        }
+    }
+}
+
 vim.lsp.set_log_level("error")
 
 local get_diagnostics = function()
@@ -13,6 +31,7 @@ local get_diagnostics = function()
     end
 end
 
+--> TODO: move to own setup page.
 require("nvim-tree").setup()
 
 local custom_attach = function(client)
@@ -29,7 +48,7 @@ local custom_attach = function(client)
     utils.map('n','<leader>ac','<cmd>lua vim.lsp.buf.code_action()<CR>')
     utils.map('n','<leader>ee','<cmd>lua vim.diagnostic.open_float()<CR>')
     utils.map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
-    utils.map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+    utils.map('n','=f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
     utils.map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
     utils.map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     utils.map('n','[q',':cnext<CR>')
@@ -37,8 +56,9 @@ local custom_attach = function(client)
     utils.map('n',']g','<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = true })<CR>')
     utils.map('n','[g','<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = true })<CR>')
     utils.map('n',']h',':ClangdSwitchSourceHeader<CR>')
+
     require "lsp_signature".on_attach({
-        hint_prefix = '+ ',
+        hint_prefix = '=> ',
         floating_window = false,
     })
 end
@@ -72,41 +92,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
  }
 )
 
--- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-if (false) then
-    local sumneko_root_path = "/Users/sammyalhashemi/Desktop/lua-language-server/"
-    local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
-    require'lspconfig'.sumneko_lua.setup {
-      cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-      on_attach=custom_attach,
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-            -- Setup your lua path
-            path = vim.split(package.path, ';'),
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = {
-              [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-              [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-            },
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-        },
-      },
-    }
-end
-
 local resource_dir=""
 if vim.g.bb then
     resource_dir = "/opt/bb/lib/llvm-12.0/lib64/clang/12.0.1"
@@ -115,7 +100,7 @@ else
 end
 
 
-local servers = {'rls', 'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls', 'cmake'}
+local servers = {'rls', 'clangd', 'tsserver', 'vimls', 'bashls', 'pylsp', 'hls', 'cmake', 'sumneko_lua'}
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, s in ipairs(servers) do
     if (s == "clangd") then
@@ -128,6 +113,48 @@ for _, s in ipairs(servers) do
         else
             nvim_lsp[s].setup{on_attach=custom_attach, capabilities = capabilities,}
         end
+    elseif (s == "pylsp") then
+        nvim_lsp[s].setup{
+            on_attach=custom_attach,
+            capabilities = capabilities,
+            settings = {
+                plugins = {
+                    flake8 = {
+                        enabled = true,
+                    }
+                }
+            }
+        }
+    elseif (s == "sumneko_lua") then
+        nvim_lsp[s].setup{
+            on_attach=custom_attach,
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                runtime = {
+                  -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                  version = 'LuaJIT',
+                  -- Setup your lua path
+                  path = vim.split(package.path, ';'),
+                },
+                diagnostics = {
+                  -- Get the language server to recognize the `vim` global
+                  globals = {'vim'},
+                },
+                workspace = {
+                  -- Make the server aware of Neovim runtime files
+                  library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                  },
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                  enable = false,
+                },
+              },
+            },
+        }
     else
         nvim_lsp[s].setup{on_attach=custom_attach, capabilities = capabilities,}
     end

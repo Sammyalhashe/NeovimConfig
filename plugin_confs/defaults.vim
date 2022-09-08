@@ -306,7 +306,7 @@ let g:org_todo_keywords = [['TODO(t)', 'LOOKINTO(l)', '|', 'DONE(d)'],
   \ ['CANCELED(c)']]
 
 " whichkey
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " send make command only if a valid Makefile exists in the root of the repo.
 function! Makeit() abort
