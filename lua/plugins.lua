@@ -18,6 +18,19 @@ packer.init({
 })
 
 packer.startup(function()
+    --> used by most plugins
+    use "nvim-lua/plenary.nvim"
+
+    --> git gud
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+
+    --> project navigation
+    use "nvim-telescope/telescope.nvim"
+    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+    use "nvim-telescope/telescope-file-browser.nvim"
+    use "ThePrimeagen/git-worktree.nvim"
+
+
     --> colorscheme
     use {
         "luisiacc/gruvbox-baby",
