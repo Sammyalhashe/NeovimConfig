@@ -19,7 +19,7 @@ g.mapleader      = " "
 g.maplocalleader = " "
 
 --> spell check
-vim.spelllang = en, cjk
+vim.spelllang = "en,cjk"
 
 --> prevent --INSERT-- from showing which conflicts with statuslines
 vim.noshowmode = true
@@ -52,3 +52,6 @@ api.nvim_create_autocmd("TermOpen", {
     group   = openterminalaugroup,
     command = "setlocal nonumber"
 })
+
+--> :noh convinience map
+keymap.set("n", "<leader><cr>", "<cmd>noh<cr>")

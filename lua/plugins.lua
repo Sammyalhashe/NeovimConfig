@@ -21,6 +21,13 @@ packer.startup(function()
     --> used by most plugins
     use "nvim-lua/plenary.nvim"
 
+    --> aesthetics
+    use {
+        "kyazdani42/nvim-web-devicons",
+        config = function () require"nvim-web-devicons".setup{} end
+    }
+    use "nvim-lualine/lualine.nvim"
+
     --> git gud
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
