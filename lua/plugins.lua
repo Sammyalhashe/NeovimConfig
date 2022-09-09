@@ -24,20 +24,19 @@ packer.startup(function()
     --> git gud
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
+    --> treesitter
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+
     --> project navigation
     use "nvim-telescope/telescope.nvim"
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use "nvim-telescope/telescope-file-browser.nvim"
     use "ThePrimeagen/git-worktree.nvim"
 
-
     --> colorscheme
     use {
         "luisiacc/gruvbox-baby",
-        branch = "main",
-        config = function ()
-            vim.cmd("colorscheme gruvbox-baby")
-        end
+        branch = "main"
     }
 
     --> lsp
