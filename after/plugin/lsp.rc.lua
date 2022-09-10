@@ -32,8 +32,8 @@ end
 
 local custom_attach = function(client)
     utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-    utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-    utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+    -- utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+    -- utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
     utils.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
     utils.map("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
     utils.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
@@ -47,8 +47,8 @@ local custom_attach = function(client)
     utils.map("n", "=f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
     utils.map("n", "<leader>ai", "<cmd>lua vim.lsp.buf.incoming_calls()<CR>")
     utils.map("n", "<leader>ao", "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>")
-    utils.map("n", "[q", ":cnext<CR>")
-    utils.map("n", "]q", ":cprev<CR>")
+    utils.map("n", "]q", ":cnext<CR>")
+    utils.map("n", "[q", ":cprev<CR>")
     utils.map("n",
         "]g",
         "<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup =" ..

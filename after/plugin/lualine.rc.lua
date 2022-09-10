@@ -3,7 +3,7 @@ if (not status) then return end
 
 lualine.setup {
     options = {
-        theme = "gruvbox",
+        theme = "nightfox",
         component_separators = '|',
         section_separators = { left = '', right = '' },
     },

@@ -35,6 +35,7 @@ packer.startup(function()
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 
     --> project navigation
+    use "kyazdani42/nvim-tree.lua"
     use "nvim-telescope/telescope.nvim"
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use "nvim-telescope/telescope-file-browser.nvim"
@@ -45,6 +46,7 @@ packer.startup(function()
         "luisiacc/gruvbox-baby",
         branch = "main"
     }
+    use "EdenEast/nightfox.nvim"
 
     --> lsp
     use "neovim/nvim-lspconfig"
@@ -55,4 +57,5 @@ packer.startup(function()
     use "ray-x/lsp_signature.nvim"
     use "L3MON4D3/LuaSnip"
     use "saadparwaiz1/cmp_luasnip"
+    use "glepnir/lspsaga.nvim"
 end)
