@@ -27,6 +27,7 @@ packer.startup(function()
         config = function () require"nvim-web-devicons".setup{} end
     }
     use "nvim-lualine/lualine.nvim"
+    use "folke/todo-comments.nvim"
 
     --> git gud
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
