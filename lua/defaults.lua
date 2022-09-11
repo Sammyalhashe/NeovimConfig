@@ -3,6 +3,7 @@ local api    = vim.api
 local g      = vim.g
 local keymap = vim.keymap
 local set    = vim.opt
+local utils  = require "utils"
 local wo     = vim.wo
 
 --> encoding
@@ -23,12 +24,13 @@ keymap.set("n", "!", ":!")
 
 --> spell check
 vim.spelllang = "en,cjk"
+utils.map_allbuf("n", "<c-s>", ":set spell!<cr>")
 
 --> clipboard
 set.clipboard:append("unnamedplus")
 
 --> prevent --INSERT-- from showing which conflicts with statuslines
-vim.noshowmode = true
+set.showmode = false
 
 --> colourcolumn (English/Canadian spelling only)
 wo.colorcolumn = "80"
@@ -78,3 +80,17 @@ api.nvim_create_user_command("ST", "split | term", {})
 
 --> :noh convinience map
 keymap.set("n", "<leader><cr>", "<cmd>noh<cr>")
+
+--> open in same position when re-opening a file.
+vim.cmd [[
+" Return to last edit position when opening a file
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+]]
+
+--> Go to tabs by number
+keymap.set("n", "<leader>1", "1gt")
+keymap.set("n", "<leader>2", "2gt")
+keymap.set("n", "<leader>3", "3gt")
+keymap.set("n", "<leader>4", "4gt")
+keymap.set("n", "<leader>5", "5gt")
+keymap.set("n", "<leader>6", "6gt")
