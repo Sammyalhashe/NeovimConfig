@@ -58,4 +58,8 @@ packer.startup(function()
     use "L3MON4D3/LuaSnip"
     use "saadparwaiz1/cmp_luasnip"
     use "glepnir/lspsaga.nvim"
+
+    --> organization/writing
+    use { "nvim-neorg/neorg", tag = "0.0.12" }
+    use "folke/zen-mode.nvim"
 end)

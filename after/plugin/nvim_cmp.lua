@@ -79,6 +79,7 @@ cmp.setup {
     { name = "path" },
     { name = "luasnip" },
     { name = "buffer", keyword_length = 5 },
+    { name = "neorg" },
   },
 
   -- Youtube: mention that you need a separate snippets plugin

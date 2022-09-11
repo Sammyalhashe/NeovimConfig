@@ -1,8 +1,8 @@
-local status, treesitter = pcall(require, "nvim-treesitter")
+local status, _ = pcall(require, "nvim-treesitter")
 if (not status) then return end
 
 local wantedParsers = {
-    "bash"; "javascript"; "cpp"; "c"; "python"; "lua"
+    "bash"; "javascript"; "cpp"; "c"; "python"; "lua"; "norg"
 };
 
 require 'nvim-treesitter.configs'.setup {
