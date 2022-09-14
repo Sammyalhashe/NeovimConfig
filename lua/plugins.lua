@@ -3,9 +3,9 @@ local fn = vim.fn
 
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-   execute("!git clone --depth 1 https://github.com/wbthomason/packer.nvim "
-                                                               .. install_path)
-   execute("packadd packer.nvim")
+    execute("!git clone --depth 1 https://github.com/wbthomason/packer.nvim "
+        .. install_path)
+    execute("packadd packer.nvim")
 end
 
 vim.cmd("packadd packer.nvim")
@@ -21,16 +21,20 @@ packer.startup(function()
     --> used by most plugins
     use "nvim-lua/plenary.nvim"
 
+    --> auto-close brackets
+    use "windwp/nvim-autopairs"
+
     --> aesthetics
     use {
         "kyazdani42/nvim-web-devicons",
-        config = function () require"nvim-web-devicons".setup{} end
+        config = function() require "nvim-web-devicons".setup {} end
     }
     use "nvim-lualine/lualine.nvim"
     use "folke/todo-comments.nvim"
 
     --> git gud
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
+    use "lewis6991/gitsigns.nvim"
 
     --> treesitter
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
