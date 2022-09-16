@@ -24,11 +24,11 @@ packer.startup(function()
     --> auto-close brackets
     use "windwp/nvim-autopairs"
 
+    --> comments plugin
+    use "terrortylor/nvim-comment"
+
     --> aesthetics
-    use {
-        "kyazdani42/nvim-web-devicons",
-        config = function() require "nvim-web-devicons".setup {} end
-    }
+    use "kyazdani42/nvim-web-devicons"
     use "nvim-lualine/lualine.nvim"
     use "folke/todo-comments.nvim"
 
@@ -67,4 +67,7 @@ packer.startup(function()
     --> organization/writing
     use { "nvim-neorg/neorg", tag = "0.0.12" }
     use "folke/zen-mode.nvim"
+
+    --> C++ Formatting
+    use "MovEaxEsp/bdeformat"
 end)

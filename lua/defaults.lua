@@ -6,6 +6,10 @@ local set    = vim.opt
 local utils  = require "utils"
 local wo     = vim.wo
 
+--> searching in buffer
+set.ignorecase = true
+set.smartcase = true
+
 --> encoding
 set.encoding       = "utf-8"
 vim.scriptencoding = "utf-8"
@@ -34,6 +38,9 @@ set.showmode = false
 
 --> colourcolumn (English/Canadian spelling only)
 wo.colorcolumn = "80"
+
+--> scrolloffset to 7 lines when when scrolling I can see more things.
+set.so = 7
 
 --> line numbers
 wo.number         = true
