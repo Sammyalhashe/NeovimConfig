@@ -1,4 +1,6 @@
-local nvim_lsp = require "lspconfig"
+local status, nvim_lsp = pcall(require, "lspconfig")
+if (not status) then return end
+
 local configs = require "lspconfig/configs"
 local utils = require "utils"
 
