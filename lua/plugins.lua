@@ -33,6 +33,7 @@ packer.startup(function()
     use "folke/todo-comments.nvim"
 
     --> git gud
+    use "tpope/vim-fugitive"
     use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
     use "lewis6991/gitsigns.nvim"
 
