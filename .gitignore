@@ -5,3 +5,4 @@ spell/
 bb.vim
 autoload/plug.vim
 .luarc.json
+packer_compiled.lua
