@@ -66,8 +66,11 @@ packer.startup(function()
     use "glepnir/lspsaga.nvim"
 
     --> organization/writing
+    --> Hopefully I can fully switch to neorg once it matures, but until then,
+    --I think orgmode has its place.
     use { "nvim-neorg/neorg", tag = "0.0.12" }
     use "folke/zen-mode.nvim"
+    use "nvim-orgmode/orgmode"
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"
