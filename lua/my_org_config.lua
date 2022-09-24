@@ -8,9 +8,11 @@ if (vim.g.os == "Linux" and vim.g.wsl == true) then
     _org_default_notes_file = _org_base_directory .. 'Dropbox/Org/Orgzly/inbox.org'
 else
     if vim.g.bb == true then
-        _org_default_notes_file = '~/Desktop/what-ive-learned/README.org'
+        _org_base_directory = "~/Desktop/what-ive-learned/"
+        _org_default_notes_file = _org_base_directory .. 'README.org'
     else
-        _org_default_notes_file = '~/Dropbox/Org/Orgzly/inbox.org'
+        _org_base_directory = "~/Dropbox/Org/Orgzly/"
+        _org_default_notes_file = _org_base_directory .. 'inbox.org'
     end
 end
 
@@ -29,6 +31,9 @@ local opts = {
 }
 
 vim.api.nvim_create_user_command("OpenOrg", OpenOrg, opts)
+
+--> I want to create a sytem that lets me jounral in a specific directory.
+
 
 return {
     org_agenda_files = { '~/Dropbox/Org/Orgzly/inbox.org', '~/Dropbox/Org/Orgzly/notes.org',
@@ -91,7 +96,12 @@ return {
             description = "Personal",
             template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
             target = _org_default_notes_file
-        }
+        },
+        j = {
+            description = "Journal",
+            template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
+            target = _org_base_directory .. "journal/" .. os.date("%A_%B_%d_%Y") .. ".org"
+        },
     }
 
 }
