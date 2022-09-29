@@ -8,7 +8,7 @@ neorg.setup {
         ["core.norg.dirman"] = {
             config = {
                 workspaces = {
-                    personal = "~/Dropbox/Org/Orgzly",
+                    work_dev = "~/neorg",
                 }
             }
         },
@@ -22,7 +22,7 @@ neorg.setup {
         ["core.integrations.treesitter"] = {},
         ["core.gtd.base"] = {
             config = {
-                workspace = "personal"
+                workspace = "work_dev"
             },
         },
         ["core.export"] = {},
@@ -31,5 +31,11 @@ neorg.setup {
                 zen_mode = "zen-mode"
             },
         },
+        ["core.norg.journal"] = {
+            config = {
+                workspace = "~/neorg",
+                strategy = "nested",
+            }
+        }
     }
 }
