@@ -4,11 +4,15 @@ if (not status) then return end
 neorg.setup {
     load = {
         ["core.defaults"] = {},
+        ["core.neorgcmd"] = {},
+        ["core.keybinds"] = {},
         ["core.norg.concealer"] = {},
         ["core.norg.dirman"] = {
             config = {
                 workspaces = {
                     work_dev = "~/neorg",
+                    work = "~/Desktop/what-ive-learned",
+                    personal = "~/Dropbox/Org/Orgzly",
                 }
             }
         },
@@ -22,7 +26,7 @@ neorg.setup {
         ["core.integrations.treesitter"] = {},
         ["core.gtd.base"] = {
             config = {
-                workspace = "work_dev"
+                workspace = "work"
             },
         },
         ["core.export"] = {},
@@ -33,9 +37,12 @@ neorg.setup {
         },
         ["core.norg.journal"] = {
             config = {
-                workspace = "~/neorg",
+                workspace = "work",
                 strategy = "nested",
-            }
-        }
+                toc_format = function (t)
+                    return t
+                end
+            },
+        },
     }
 }
