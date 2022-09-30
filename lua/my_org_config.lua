@@ -7,9 +7,8 @@ if (vim.g.os == "Linux" and vim.g.wsl == true) then
     _org_base_directory = "/mnt/c/Users/sammy/"
     _org_default_notes_file = _org_base_directory .. 'Dropbox/Org/Orgzly/inbox.org'
 else
-    if vim.g.bb == true then
-        _org_base_directory = "~/Desktop/what-ive-learned/"
-        _org_default_notes_file = _org_base_directory .. 'README.org'
+    if vim.g.os == "Darwin" and vim.g.bb == true then
+        _org_default_notes_file = '~/Desktop/what-ive-learned/README.org'
     else
         _org_base_directory = "~/Dropbox/Org/Orgzly/"
         _org_default_notes_file = _org_base_directory .. 'inbox.org'

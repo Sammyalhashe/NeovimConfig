@@ -93,7 +93,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 local resource_dir = ""
-vim.g.bb = not (os.getenv("BBENV") == nil)
 if vim.g.bb then
     resource_dir = "/opt/bb/lib/llvm-12.0/lib64/clang/12.0.1"
 else

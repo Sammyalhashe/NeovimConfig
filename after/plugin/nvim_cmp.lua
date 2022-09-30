@@ -23,24 +23,8 @@ cmp.setup {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
         },
-
         -- If you want tab completion :'(
         --  First you have to just promise to read `:help ins-completion`.
-        --
-        -- ["<Tab>"] = function(fallback)
-        --   if cmp.visible() then
-        --     cmp.select_next_item()
-        --   else
-        --     fallback()
-        --   end
-        -- end,
-        -- ["<S-Tab>"] = function(fallback)
-        --   if cmp.visible() then
-        --     cmp.select_prev_item()
-        --   else
-        --     fallback()
-        --   end
-        -- end,
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -74,11 +58,12 @@ cmp.setup {
     sources = {
         -- { name = "gh_issues" },
 
+        { name = "emoji", insert = true },
         -- Youtube: Could enable this only for lua, but nvim_lua handles that already.
         { name = "nvim_lua" },
         { name = "zsh" },
         { name = "orgmode" },
-        { name = "nvim_lsp" },
+        { name = "nvim_lsp", priority = 100 }, -- lsp results on top
         { name = "path" },
         { name = "luasnip" },
         { name = "buffer", keyword_length = 5 },
@@ -94,6 +79,22 @@ cmp.setup {
 
     formatting = {
         -- Youtube: How to set up nice formatting for your sources.
+        format = function(entry, vim_item)
+
+          -- set a name for each source
+          vim_item.menu = ({
+            buffer = "",
+            emoji = "",
+            nvim_lsp = "",
+            path = "",
+            spell = "﬜",
+            treesitter = "滑",
+            nvim_lua = "滑",
+            orgmode = "",
+            neorg = "",
+          })[entry.source.name]
+          return vim_item
+        end,
     },
 
     experimental = {
@@ -105,6 +106,7 @@ cmp.setup {
     },
     window = {
         documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered(),
     }
 }
 
@@ -123,28 +125,3 @@ cmp.event:on(
         },
     })
 )
--- TODO: Move this to more appropriate location.
--- custom snippets
--- in luasnip, i(x) nodes are "insert" nodes where you can insert text and
--- jump to. It starts at the 1st node and goes upwards. The 0th node is special
--- as it should be the last. If there is no 0th node it will be implicitly
--- inserted at the end.
-local snippet_fts = {}
-snippet_fts['cpp'] = '// '
-snippet_fts['javascript'] = '// '
-snippet_fts['python'] = '# '
-snippet_fts['bash'] = '# '
-snippet_fts['lua'] = '-- '
-
-for lang, comment_start in pairs(snippet_fts) do
-    luasnip.add_snippets(lang, {
-        luasnip.s({ trig = "sah" }, {
-            luasnip.t({ comment_start .. "@sah -- start: " }), luasnip.i(1),
-            -- NOTE: I have to do something like this for newlines
-            -- luasnip.t({ "", comment_start .. "" }),
-            luasnip.t({ "", "" }),
-            luasnip.i(0),
-            luasnip.t({ "", comment_start .. "@sah -- end" })
-        })
-    })
-end
