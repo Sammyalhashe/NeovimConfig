@@ -1,49 +1,56 @@
 --> NOTE: No need to check if org exists here, since this file should only be
 --  included with orgmode.rc.lua.
 
-local _org_default_notes_file = nil
+local _org_default_inbox = nil
 local _org_base_directory = nil
+local _org_default_notes = nil
 if (vim.g.os == "Linux" and vim.g.wsl == true) then
     _org_base_directory = "/mnt/c/Users/sammy/"
-    _org_default_notes_file = _org_base_directory .. 'Dropbox/Org/Orgzly/inbox.org'
+    _org_default_inbox = _org_base_directory .. 'Dropbox/Org/Orgzly/inbox.org'
+    _org_default_notes = _org_base_directory .. 'Dropbox/Org/Orgzly/notes.org'
 else
     if vim.g.os == "Darwin" and vim.g.bb == true then
-        _org_default_notes_file = '~/Desktop/what-ive-learned/README.org'
+        _org_base_directory = "~/Desktop/what-ive-learned/"
+        _org_default_inbox = _org_base_directory .. 'README.org'
+        _org_default_notes = _org_base_directory .. 'notes.org'
     else
         _org_base_directory = "~/Dropbox/Org/Orgzly/"
-        _org_default_notes_file = _org_base_directory .. 'inbox.org'
+        _org_default_inbox = _org_base_directory .. 'inbox.org'
+        _org_default_notes = _org_base_directory .. 'notes.org'
     end
 end
 
---> Command that will open my orgmode directory.
+--> Commands that will open my important directories directory.
 local dir_mappings = {}
-dir_mappings["zshrc"] = "~/.zshrc"
-dir_mappings["nvim"] = "~/.config/nvim/"
-dir_mappings["org"] = _org_default_notes_file
+dir_mappings["Zshrc"] = "~/.zshrc"
+dir_mappings["Nvim"] = "~/.config/nvim/"
+dir_mappings["Org"] = _org_default_inbox
+dir_mappings["Journal"] = _org_base_directory .. "journal"
 
-function OpenOrg()
-    vim.api.nvim_command("edit " .. dir_mappings["org"])
-    vim.api.nvim_command("cd %:h")
+function OpenDir(name)
+    return function()
+        vim.api.nvim_command("edit " .. dir_mappings[name])
+        vim.api.nvim_command("cd %:h")
+    end
 end
 
 local opts = {
 }
 
-vim.api.nvim_create_user_command("OpenOrg", OpenOrg, opts)
-
---> I want to create a sytem that lets me jounral in a specific directory.
-
+for key, _ in pairs(dir_mappings) do
+    vim.api.nvim_create_user_command("Open" .. key, OpenDir(key), opts)
+end
 
 return {
-    org_agenda_files = { '~/Dropbox/Org/Orgzly/inbox.org', '~/Dropbox/Org/Orgzly/notes.org',
+    org_agenda_files = { _org_default_inbox, _org_default_notes,
         '~/Desktop/what-ive-learned/**/*' },
-    org_default_notes_file = _org_default_notes_file,
+    org_default_notes_file = _org_default_inbox,
     -- org_hide_leading_stars = true,
     org_todo_keywords = { 'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },
     org_todo_keyword_faces = {
-        WAITING = ':foreground blue :weight bold',
-        DELEGATED = ':background #FFFFFF :slant italic :underline on',
-        TODO = ':foreground red', -- overrides builtin color for `TODO` keyword
+        -- WAITING = ':foreground blue :weight bold',
+        -- DELEGATED = ':background #FFFFFF :slant italic :underline on',
+        -- TODO = ':foreground red', -- overrides builtin color for `TODO` keyword
     },
     -- org_ellipsis = " ==="
     notifications = {
@@ -94,13 +101,13 @@ return {
         p = {
             description = "Personal",
             template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-            target = _org_default_notes_file
+            target = _org_default_inbox
         },
         j = {
             description = "Journal",
             template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
             target = _org_base_directory .. "journal/" .. os.date("%A_%B_%d_%Y") .. ".org"
         },
-    }
-
+    },
+    win_split_mode = "float"
 }
