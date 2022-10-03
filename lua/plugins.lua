@@ -71,6 +71,7 @@ packer.startup(function()
     use { "nvim-neorg/neorg", tag = "0.0.12" }
     use "folke/zen-mode.nvim"
     use "nvim-orgmode/orgmode"
+    use "akinsho/org-bullets.nvim"
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"

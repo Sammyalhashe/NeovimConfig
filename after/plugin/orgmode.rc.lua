@@ -1,5 +1,6 @@
 local status, orgmode = pcall(require, "orgmode")
 local status1, TSconfigs = pcall(require, "nvim-treesitter.configs")
+local status2, orgmode_bullets = pcall(require, "org-bullets")
 if not (status and status1) then return end
 
 orgmode.setup_ts_grammar()
@@ -16,3 +17,16 @@ TSconfigs.setup {
 
 orgmode.setup_ts_grammar()
 orgmode.setup(require("my_org_config"))
+orgmode_bullets.setup {
+    concealcursor = false, -- If false then when the cursor is on a line underlying characters are visible
+    symbols = {
+        -- headlines can be a list
+        headlines = { "◉", "○", "✸", "✿" },
+        -- or a function that receives the defaults and returns a list
+        checkboxes = {
+            half = { "", "OrgTSCheckboxHalfChecked" },
+            done = { "✓", "OrgDone" },
+            todo = { "˟", "OrgTODO" },
+        },
+    }
+}
