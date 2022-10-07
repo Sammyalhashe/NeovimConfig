@@ -10,7 +10,14 @@ local futil = require "formatter.util"
 require "formatter".setup {
     filetype = {
         python = {
-            require "formatter.filetypes.python".black,
+            function()
+                return {
+                    exe = "black",
+                    args = {
+                        "--line-length 79"
+                    },
+                }
+            end
         },
         lua = {
             require "formatter.filetypes.lua".stylelua,
