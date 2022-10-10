@@ -22,6 +22,16 @@ require "formatter".setup {
         lua = {
             require "formatter.filetypes.lua".stylelua,
         },
+        cpp = {
+            function ()
+                return {
+                    exe = "bde-format-11",
+                    args = {
+
+                    }
+                }
+            end
+        },
         ["*"] = {
             require("formatter.filetypes.any").remove_trailing_whitespace
         }
