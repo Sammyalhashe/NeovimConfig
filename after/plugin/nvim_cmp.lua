@@ -85,11 +85,11 @@ cmp.setup {
           vim_item.menu = ({
             buffer = "",
             emoji = "",
-            nvim_lsp = "",
-            path = "",
+            nvim_lsp = "",
+            path = "",
             spell = "﬜",
-            treesitter = "滑",
-            nvim_lua = "滑",
+            treesitter = "",
+            nvim_lua = "",
             orgmode = "",
             neorg = "",
           })[entry.source.name]

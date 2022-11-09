@@ -59,6 +59,7 @@ packer.startup(function()
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-emoji"
     use "mhartington/formatter.nvim"
     use "ray-x/lsp_signature.nvim"
     use "L3MON4D3/LuaSnip"
