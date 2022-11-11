@@ -10,7 +10,7 @@ if (vim.g.os == "Linux" and vim.g.wsl == true) then
     _org_default_notes = _org_base_directory .. 'Dropbox/Org/Orgzly/notes.org'
 else
     if vim.g.os == "Darwin" and vim.g.bb == true then
-        _org_base_directory = "~/Desktop/what-ive-learned/"
+        _org_base_directory = "~/Desktop/DesktopHolder/what-ive-learned/"
         _org_default_inbox = _org_base_directory .. 'README.org'
         _org_default_notes = _org_base_directory .. 'notes.org'
     else
@@ -43,7 +43,7 @@ end
 
 return {
     org_agenda_files = { _org_default_inbox, _org_default_notes,
-        '~/Desktop/what-ive-learned/**/*' },
+        '~/Desktop/DesktopHolder/what-ive-learned/**/*' },
     org_default_notes_file = _org_default_inbox,
     -- org_hide_leading_stars = true,
     org_todo_keywords = { 'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },
@@ -95,7 +95,7 @@ return {
         w = {
             description = "Work",
             template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-            target = "~/Desktop/what-ive-learned/bb/todo.org"
+            target = "~/Desktop/DesktopHolder/what-ive-learned/bb/todo.org"
         },
 
         p = {

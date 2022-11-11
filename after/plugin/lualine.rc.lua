@@ -3,9 +3,11 @@ if (not status) then return end
 
 lualine.setup {
     options = {
-        theme = "carbonfox",
+        icons_enabled = true,
+        theme = "auto",
         component_separators = '|',
-        section_separators = { left = '', right = '' },
+        -- section_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
     },
     sections = {
         lualine_a = {
