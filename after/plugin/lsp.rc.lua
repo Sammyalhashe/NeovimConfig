@@ -118,7 +118,7 @@ end
 
 
 local servers = {
-    "rls",
+    "rust_analyzer",
     "clangd",
     "tsserver",
     "vimls",
