@@ -1,42 +1,46 @@
-local utils = require 'utils'
-local status1, telescope = pcall(require, 'telescope')
-local status2, Worktree = pcall(require, 'git-worktree')
+local utils = require "utils"
+local status1, telescope = pcall(require, "telescope")
+local status2, worktree = pcall(require, "git-worktree")
+local status3, actions = pcall(require, "telescope.actions")
+local status4, Path = pcall(require, "plenary.path")
+local status5, job = pcall(require, "plenary.job")
+if not (status1 and status2 and status3 and status4 and status5) then return end
 
-if not (status1 and status2) then return end
-
-local actions = require 'telescope.actions'
 local M = {}
-telescope.setup {
-    defaults = {
-        -- Default configuration for telescope goes here:
-        -- config_key = value,
-        prompt_prefix = 'starllama needs what? ',
-        mappings = {
-            i = {
-                -- map actions.which_key to <C-h> (default: <C-/>)
-                -- actions.which_key shows the mappings for your picker,
-                -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-                ["<C-h>"] = "which_key",
-                ["<C-k>"] = "move_selection_previous",
-                ["<C-j>"] = "move_selection_next",
-                ["<C-q>"] = actions.send_to_qflist,
-            },
-            n = {
-                -- map actions.which_key to <C-h> (default: <C-/>)
-                -- actions.which_key shows the mappings for your picker,
-                -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-                ["<C-h>"] = "which_key",
-                ["<C-k>"] = "move_selection_previous",
-                ["<C-j>"] = "move_selection_next",
-                ["<C-q>"] = actions.send_to_qflist,
-            },
+
+local telescope_defaults = {
+    -- Default configuration for telescope goes here:
+    -- config_key = value,
+    prompt_prefix = ">> ",
+    mappings = {
+        i = {
+            -- map actions.which_key to <C-h> (default: <C-/>)
+            -- actions.which_key shows the mappings for your picker,
+            -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+            ["<C-h>"] = "which_key",
+            ["<C-k>"] = "move_selection_previous",
+            ["<C-j>"] = "move_selection_next",
+            ["<C-q>"] = actions.send_to_qflist,
         },
-        borderchars = {
-            prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-            results = { " " },
-            preview = { " " },
+        n = {
+            -- map actions.which_key to <C-h> (default: <C-/>)
+            -- actions.which_key shows the mappings for your picker,
+            -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+            ["<C-h>"] = "which_key",
+            ["<C-k>"] = "move_selection_previous",
+            ["<C-j>"] = "move_selection_next",
+            ["<C-q>"] = actions.send_to_qflist,
         },
     },
+    borderchars = {
+        prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+        results = { " " },
+        preview = { " " },
+    },
+}
+
+telescope.setup {
+    defaults = telescope_defaults,
     pickers = {
         -- Default configuration for builtin pickers goes here:
         -- picker_name = {
@@ -60,10 +64,29 @@ telescope.setup {
             -- the default case_mode is "smart_case"
         },
         file_browser = {
-            theme = "ivy",
+            theme = "dropdown",
             mappings = {
                 ["i"] = {
                     -- your custom insert mode mappings
+                    ["<C-r>"] = function(prompt_buffer)
+                        local action_state = require "telescope.actions.state"
+                        local current_selection = action_state.get_selected_entry()
+
+                        if current_selection then
+                            local status, notify = pcall(require, "notify")
+                            if not status then
+                                notify = vim.notify
+                            end
+                            job:new({
+                                "sh", "-c", current_selection[1],
+                                on_stdout = function(err, data)
+                                    if not err then
+                                        notify(data)
+                                    end
+                                end
+                            }):sync()
+                        end
+                    end
                 },
                 ["n"] = {
                     -- your custom normal mode mappings
@@ -73,10 +96,10 @@ telescope.setup {
     }
 }
 
-Worktree.setup()
+worktree.setup()
 telescope.load_extension("git_worktree")
-Worktree.on_tree_change(function(op, metadata)
-    if op == Worktree.Operations.Switch then
+worktree.on_tree_change(function(op, metadata)
+    if op == worktree.Operations.Switch then
         print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
         --> Run Makeit function defined in defaults.vim (doesn't exist right now)
         --> vim.fn['Makeit']()
@@ -103,6 +126,7 @@ local setup_initializations = function()
     utils.map_allbuf('n', '<leader>sa', tcfg .. ".find_sah_marks()" .. cr)
     utils.map_allbuf('n', '<leader>ag', tcfg .. ".git_files_grep_symbol()" .. cr)
 
+    -- setup extensions
     for _, extension in ipairs(extensions) do
         telescope.load_extension(extension)
     end

@@ -35,4 +35,36 @@ function M.split_string(inputstr, sep)
     return t
 end
 
+-- rename
+function M.rename()
+    local position_params = vim.lsp.util.make_position_params()
+    local new_name = vim.fn.input "<rename to> "
+    if new_name and new_name ~= "" then
+        position_params.newName = new_name
+        vim.lsp.buf_request(
+            0,
+            "textDocument/rename",
+            position_params,
+            function(err, method, result, ...)
+                if method.changes then
+                    local entries = {}
+                    for uri, edits in pairs(method.changes) do
+                        local bufnr = vim.uri_to_bufnr(uri)
+                        for _, edit in ipairs(edits) do
+                            table.insert(entries, {
+                                bufnr = bufnr,
+                                lnum = edit.range.start.line + 1,
+                                col = edit.range.start.character + 1,
+                                text = edit.newText
+                            })
+                        end
+                    end
+                    vim.fn.setqflist(entries, 'r')
+                end
+                vim.lsp.handlers["textDocument/rename"](err, method, result, ...)
+            end
+        )
+    end
+end
+
 return M

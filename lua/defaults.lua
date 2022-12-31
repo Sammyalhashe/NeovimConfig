@@ -6,6 +6,9 @@ local set    = vim.opt
 local utils  = require "utils"
 local wo     = vim.wo
 
+--> reload
+keymap.set("n", "<leader>r", ":luafile %<cr>", { silent = true })
+
 --> searching in buffer
 set.ignorecase = true
 set.smartcase = true

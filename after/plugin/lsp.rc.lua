@@ -23,7 +23,7 @@ require "formatter".setup {
             require "formatter.filetypes.lua".stylelua,
         },
         cpp = {
-            function ()
+            function()
                 return {
                     exe = "bde-format-11",
                     args = {
@@ -49,13 +49,15 @@ local get_diagnostics = function()
     end
 end
 
+
+
 local custom_attach = function(client)
     utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
     -- utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
     -- utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
     -- utils.map("n", "<leader>ac", "<cmd>lua vim.lsp.buf.code_action()<CR>")
     -- utils.map("n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()<CR>")
-    -- utils.map("n", "<leader>ar", "<cmd>lua vim.lsp.buf.rename()<CR>")
+    utils.map("n", "<leader>ar", "<cmd>lua require('utils').rename()<CR>")
     utils.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
     utils.map("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
     utils.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")

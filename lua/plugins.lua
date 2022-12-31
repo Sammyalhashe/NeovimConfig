@@ -31,6 +31,7 @@ packer.startup(function()
     use "kyazdani42/nvim-web-devicons"
     use "nvim-lualine/lualine.nvim"
     use "folke/todo-comments.nvim"
+    use "rcarriga/nvim-notify"
 
     --> git gud
     use "tpope/vim-fugitive"
@@ -46,6 +47,7 @@ packer.startup(function()
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use "nvim-telescope/telescope-file-browser.nvim"
     use "ThePrimeagen/git-worktree.nvim"
+    use "folke/trouble.nvim"
 
     --> colorscheme
     use {
@@ -69,7 +71,7 @@ packer.startup(function()
     --> organization/writing
     --> Hopefully I can fully switch to neorg once it matures, but until then,
     --I think orgmode has its place.
-    use { "nvim-neorg/neorg", tag = "0.0.12" }
+    -- use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
     use "folke/zen-mode.nvim"
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"
