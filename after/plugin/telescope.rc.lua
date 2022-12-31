@@ -11,7 +11,7 @@ local M = {}
 local telescope_defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
-    prompt_prefix = ">> ",
+    prompt_prefix = " ",
     mappings = {
         i = {
             -- map actions.which_key to <C-h> (default: <C-/>)

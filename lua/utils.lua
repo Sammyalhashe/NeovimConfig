@@ -38,7 +38,7 @@ end
 -- rename
 function M.rename()
     local position_params = vim.lsp.util.make_position_params()
-    local new_name = vim.fn.input "<rename to> "
+    local new_name = vim.fn.input " rename to  "
     if new_name and new_name ~= "" then
         position_params.newName = new_name
         vim.lsp.buf_request(
