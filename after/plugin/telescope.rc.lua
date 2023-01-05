@@ -6,6 +6,12 @@ local status4, Path = pcall(require, "plenary.path")
 local status5, job = pcall(require, "plenary.job")
 if not (status1 and status2 and status3 and status4 and status5) then return end
 
+-- setup notifications
+local notif_status, notify = pcall(require, "notify")
+if not notif_status then
+    notify = vim.notify
+end
+
 local M = {}
 
 local telescope_defaults = {
@@ -73,10 +79,6 @@ telescope.setup {
                         local current_selection = action_state.get_selected_entry()
 
                         if current_selection then
-                            local status, notify = pcall(require, "notify")
-                            if not status then
-                                notify = vim.notify
-                            end
                             job:new({
                                 "sh", "-c", current_selection[1],
                                 on_stdout = function(err, data)
@@ -100,9 +102,16 @@ worktree.setup()
 telescope.load_extension("git_worktree")
 worktree.on_tree_change(function(op, metadata)
     if op == worktree.Operations.Switch then
-        print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
+        notify("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
         --> Run Makeit function defined in defaults.vim (doesn't exist right now)
-        --> vim.fn['Makeit']()
+        -- job:new({
+        --     "make",
+        --     on_stdout = function(err, data)
+        --         if not err then
+        --             notify(data)
+        --         end
+        --     end
+        -- }):sync()
     end
 end)
 
