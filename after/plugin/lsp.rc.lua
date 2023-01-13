@@ -138,7 +138,7 @@ for _, s in ipairs(servers) do
         if system_name == "Linux" then
             nvim_lsp[s].setup {
                 on_attach = custom_attach,
-                cmd = { "clangd", "--resource-dir=" .. resource_dir },
+                cmd = { "clangd", "--resource-dir=" .. resource_dir, "-j=5", "--header-insertion=iwyu", "--background-index", "--enable-config" },
                 capabilities = capabilities,
             }
         else
