@@ -15,4 +15,4 @@ local opts = {}
 vim.api.nvim_create_user_command("NT", "NvimTreeToggle", opts)
 
 --> mappings also
-utils.map_allbuf("n", "<leader>t", "<cmd>NvimTreeToggle<cr>")
+utils.map_allbuf("n", "<leader>c", "<cmd>NvimTreeFindFileToggle<cr>")

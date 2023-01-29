@@ -3,7 +3,7 @@ if (not status) then return end
 
 local utils = require "utils"
 
-lspsaga.init_lsp_saga {
+lspsaga.setup {
     border_style = "rounded",
     -- Action keys should be:
     -- o/<cr>: open in current
