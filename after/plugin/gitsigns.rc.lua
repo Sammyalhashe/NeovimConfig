@@ -9,7 +9,7 @@ local on_attach = function(bufnr)
         vim.keymap.set(mode, l, r, opts)
     end
 
-    -- Navigation
+    --> Navigation
     map('n', ']c', function()
         if vim.wo.diff then return ']c' end
         vim.schedule(function()
@@ -26,9 +26,9 @@ local on_attach = function(bufnr)
         return '<Ignore>'
     end, { expr = true })
 
-    -- Actions
-    map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    --> Actions
+    map({ 'n', 'v' }, '<leader>hs', gs.stage_hunk)
+    map({ 'n', 'v' }, '<leader>hr', gs.reset_hunk)
     map('n', '<leader>hS', gs.stage_buffer)
     map('n', '<leader>hu', gs.undo_stage_hunk)
     map('n', '<leader>hR', gs.reset_buffer)
@@ -37,9 +37,12 @@ local on_attach = function(bufnr)
     map('n', '<leader>tb', gs.toggle_current_line_blame)
     map('n', '<leader>hd', gs.diffthis)
     map('n', '<leader>hD', function() gs.diffthis('~') end)
+    map('n', '<leader>hn', gs.toggle_deleted)
+    map('n', '<leader>hh', gs.next_hunk)
+    map('n', '<leader>hH', gs.prev_hunk)
     map('n', '<leader>td', gs.toggle_deleted)
 
-    -- Text object
+    --> Text object
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
 

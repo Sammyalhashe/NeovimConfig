@@ -52,6 +52,8 @@ end
 
 
 local custom_attach = function(client)
+    utils.map("n", "=f",
+        "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { file = '~/.clang-format', tabSize = 4, insertSpaces = true, trimTrailingWhitespace = true,} }<CR>")
     utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
     -- utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
     -- utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -65,7 +67,6 @@ local custom_attach = function(client)
     utils.map("n", "<leader>gw", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
     utils.map("n", "<leader>gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
     utils.map("n", "<leader>ah", "<cmd>lua vim.lsp.buf.hover()<CR>")
-    utils.map("n", "=f", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>")
     utils.map("n", "<leader>ai", "<cmd>lua vim.lsp.buf.incoming_calls()<CR>")
     utils.map("n", "<leader>ao", "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>")
     utils.map("n", "]q", ":cnext<CR>")

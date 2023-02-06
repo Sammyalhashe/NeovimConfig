@@ -1,6 +1,9 @@
 local status, neorg = pcall(require, "neorg")
 if (not status) then return end
 
+local utils = require 'utils'
+local neorg_utils = require 'neorg_utils'
+
 neorg.setup {
     load = {
         ["core.defaults"] = {},
@@ -39,10 +42,16 @@ neorg.setup {
             config = {
                 workspace = "work",
                 strategy = "nested",
-                toc_format = function (t)
+                toc_format = function(t)
                     return t
                 end
             },
         },
+        ["core.integrations.telescope"] = {},
     }
 }
+
+
+vim.api.nvim_create_user_command("EX", function()
+    require('neorg_utils').convertNorgFilesAndPlaceInDirectory('~/Desktop/DesktopHolder/what-ive-learned/', '~/Desktop/test', true)
+end, {})
