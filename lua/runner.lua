@@ -1,6 +1,8 @@
 local job_status, job = pcall(require, "plenary.job")
 if not job_status then return end
 
+local utils = require("utils")
+
 -- setup notifications
 local notif_status, notify = pcall(require, "notify")
 
@@ -33,7 +35,7 @@ function M.get_current_file()
 end
 
 function M.get_current_working_directory()
-    return vim.cmd.pwd()
+    return vim.fn.getcwd()
 end
 
 function M.run(file, filetype)
@@ -54,24 +56,25 @@ function M.run(file, filetype)
             local instructions = build_directions[cwd]
             -- TODO: Go through each instruction and run it.
             for _, instr in pairs(instructions) do
+                local split_instr = utils.split_string(instr, " ")
+                local args = ""
+                for idx, v in pairs(split_instr) do
+                    if idx ~= 1 then
+                        if idx ~= 2 then
+                            args = args .. " "
+                        end
+                        args = args .. v
+                    end
+                end
+                print(vim.inspect(split_instr), args, split_instr[1])
                 job:new({
-                    instr,
-                    on_stdout = function(err, data)
-                        if not err then
-                            notify(data, vim.log.levels.INFO)
-                        end
-                    end,
-                    on_stderr = function(err, data)
-                        if not err then
-                            notify(vim.inspect(data), vim.log.levels.ERROR)
-                        end
-                    end,
+                    split_instr[1], args,
                     on_exit = function(j, return_val)
                         if return_val ~= 0 then
                             notify(j:result(), vim.log.levels.ERROR)
                         end
                     end
-                }):start()
+                }):sync(50000)
             end
             return
         end

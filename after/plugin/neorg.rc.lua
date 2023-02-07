@@ -2,7 +2,6 @@ local status, neorg = pcall(require, "neorg")
 if (not status) then return end
 
 local utils = require 'utils'
-local neorg_utils = require 'neorg_utils'
 
 neorg.setup {
     load = {
