@@ -1,9 +1,15 @@
 local runner = require("runner")
 
-local command= "<cmd>lua require'runner'.run(" .. vim.fn.expand("%:p") .. ", " .. vim.bo.filetype .. ")<CR>"
-print(command)
+runner.setup {
+    build_directions = {
+        [vim.fn.expand("/bb/mom/alhasher/dmp-1")] = {
+            "make",
+            "cd cmake.bld/Linux/full",
+            "make -j16"
+        }
+    }
+}
 
-vim.keymap.set("n", "<leader>/", function ()
-    print("erer")
+vim.keymap.set("n", "<leader>/", function()
     runner.run(vim.fn.expand("%:p"), vim.bo.filetype)
 end)
