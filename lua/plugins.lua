@@ -37,6 +37,7 @@ packer.startup(function()
     use "tpope/vim-fugitive"
     use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
     use "lewis6991/gitsigns.nvim"
+    use "pwntester/octo.nvim"
 
     --> treesitter
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
