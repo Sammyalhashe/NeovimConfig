@@ -24,3 +24,4 @@ pcall(require, "bb")
 
 require "plugins"
 require "defaults"
+require "runner"
