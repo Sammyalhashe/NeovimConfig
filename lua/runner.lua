@@ -1,7 +1,10 @@
+local utils = require("utils")
+
 local job_status, job = pcall(require, "plenary.job")
 if not job_status then return end
 
-local utils = require("utils")
+local async_status, async = pcall(require, "plenary.async")
+if not async_status then return end
 
 -- setup notifications
 local notif_status, notify = pcall(require, "notify")
@@ -10,13 +13,38 @@ if not notif_status then
     notify = vim.notify
 end
 
-notify = function(data, level)
-    notify(data, level, {
+local custom_notify = function(data, level)
+    return notify.async(data, level, {
         title = "Runner",
         render = "compact",
-        animation = "slide"
+        animation = "slide",
+        timeout = false,
+        hide_from_history = false
     })
 end
+
+local client_notifs = {}
+
+local get_notif_data = function(id)
+    if not client_notifs[id] then
+        client_notifs[id] = {}
+    end
+    return client_notifs[id]
+end
+
+local replace = function (id, data, level)
+    local notif_data = get_notif_data(id)
+    print(notif_data["notification"])
+    if not notif_data["notification"] then
+        notif_data["notification"] = custom_notify(data, level)
+        return
+    end
+    notif_data["notification"] = notify.async(data, level, {
+        hide_from_history = true,
+        replace = notif_data["notification"]
+    })
+end
+
 
 -- module level variables
 local build_directions = {}
@@ -67,14 +95,22 @@ function M.run(file, filetype)
                     end
                 end
                 print(vim.inspect(split_instr), args, split_instr[1])
-                job:new({
-                    split_instr[1], args,
-                    on_exit = function(j, return_val)
-                        if return_val ~= 0 then
-                            notify(j:result(), vim.log.levels.ERROR)
+                async.run(function()
+                    job:new({
+                        split_instr[1], args,
+                        on_stdout = function (err, data)
+                            if not err then
+                                replace(1, data, vim.log.levels.INFO)
+                            end
+                        end,
+                        on_exit = function(j, return_val)
+                            replace(1, "command " .. instr .. " done")
+                            if return_val ~= 0 then
+                                notify(j:result(), vim.log.levels.ERROR)
+                            end
                         end
-                    end
-                }):sync(50000)
+                    }):sync(1000000)
+                end)
             end
             return
         end
@@ -93,17 +129,17 @@ function M.run(file, filetype)
             command, file,
             on_stdout = function(err, data)
                 if not err then
-                    notify(data, vim.log.levels.INFO)
+                    custom_notify(data, vim.log.levels.INFO)
                 end
             end,
             on_exit = function(j, return_val)
                 if return_val ~= 0 then
-                    notify(j:result(), vim.log.levels.ERROR)
+                    custom_notify(j:result(), vim.log.levels.ERROR)
                 end
             end,
             on_stderr = function(err, data)
                 if not err then
-                    notify(vim.inspect(data), vim.log.levels.ERROR)
+                    custom_notify(vim.inspect(data), vim.log.levels.ERROR)
                 end
             end
         }):start()
