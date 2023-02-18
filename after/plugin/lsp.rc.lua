@@ -95,8 +95,6 @@ elseif vim.fn.has("unix") == 1 then
     system_name = "Linux"
 elseif vim.fn.has("win32") == 1 then
     system_name = "Windows"
-else
-    print("Unsupported system for sumneko")
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -129,7 +127,7 @@ local servers = {
     "pylsp",
     "hls",
     "cmake",
-    "sumneko_lua"
+    "lua_ls"
 }
 local capabilities =
 require("cmp_nvim_lsp").default_capabilities(
@@ -159,38 +157,6 @@ for _, s in ipairs(servers) do
                     }
                 }
             }
-        }
-    elseif (s == "sumneko_lua") then
-        nvim_lsp[s].setup {
-            on_attach = custom_attach,
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    runtime = {
-                        -- Tell the language server which version of Lua you"re using
-                        -- (most likely LuaJIT in the case of Neovim)
-                        version = "LuaJIT",
-                        -- Setup your lua path
-                        path = vim.split(package.path, ";"),
-                    },
-                    diagnostics = {
-                        -- Get the language server to recognize the `vim` global
-                        globals = { "vim", "use" },
-                    },
-                    workspace = {
-                        -- Make the server aware of Neovim runtime files
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                        },
-                    },
-                    -- Do not send telemetry data containing a randomized butunique
-                    -- identifier
-                    telemetry = {
-                        enable = false,
-                    },
-                },
-            },
         }
     else
         nvim_lsp[s].setup { on_attach = custom_attach, capabilities = capabilities, }
