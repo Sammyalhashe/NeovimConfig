@@ -6,6 +6,9 @@ runner.setup {
             "make",
             "cd cmake.bld/Linux/full",
             "make -j16"
+        },
+        [vim.fn.expand("~/Documents/budgeting")] = {
+            "make"
         }
     }
 }
