@@ -10,10 +10,10 @@ lspsaga.setup {
     -- <c-x>: open in split
     -- <c-v>: open in vsplit
     -- They seem more complicated than the defaults but it's for consistency.
-    finder_action_keys = {
-        open = "<cr>",
-        vsplit = "<c-v>",
+    keys = {
         split = "<c-x>",
+        vsplit = "<c-v>",
+        open = "<cr>",
     }
 }
 
