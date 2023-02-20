@@ -55,6 +55,7 @@ local function job_with_notify(cmd, last)
             if return_val ~= 0 then
                 notify(j:result(), vim.log.levels.ERROR)
             end
+            notify("job done")
         end,
     }):start()
 end
@@ -122,6 +123,12 @@ function M.run(file, filetype)
         -- TODO: see if a Makefile exists, if it does run `make`
         -- TODO: See if CMakeLists.txt, cmakelists.txt, etc.. exist and run:
         -- `mdkir -p build && cd build && cmake .. && make;`
+        local make_exists = utils.file_exists(cwd .. "/Makefile") or utils.file_exists(cwd .. "/makefile")
+        if make_exists then
+            local instructions = {"make"}
+            job_with_notify(instructions, true)
+            return
+        end
     elseif filetype == "lua" then
         command = "lua"
     else

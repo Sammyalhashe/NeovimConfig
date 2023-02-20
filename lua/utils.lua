@@ -1,5 +1,7 @@
 local M = {}
 
+local io = require("io")
+
 function M.is_buffer_empty()
     -- Check whether the current buffer is empty
     return vim.fn.empty(vim.fn.expand('%:t')) == 1
@@ -65,6 +67,11 @@ function M.rename()
             end
         )
     end
+end
+
+function M.file_exists(path)
+    local f=io.open(path,"r")
+    if f~=nil then io.close(f) return true else return false end
 end
 
 return M

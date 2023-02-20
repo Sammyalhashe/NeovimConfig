@@ -79,4 +79,11 @@ packer.startup(function()
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"
+
+    --> Competitive programming
+    use {
+        'xeluxee/competitest.nvim',
+        requires = 'MunifTanjim/nui.nvim',
+        config = function() require 'competitest'.setup() end
+    }
 end)
