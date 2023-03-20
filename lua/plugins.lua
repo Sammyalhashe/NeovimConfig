@@ -76,6 +76,7 @@ packer.startup(function()
     use "folke/zen-mode.nvim"
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"
+    use "dhruvasagar/vim-table-mode"
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"
