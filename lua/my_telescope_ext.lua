@@ -21,7 +21,6 @@ function M.git_files_grep_symbol()
         on_stdout = function(_, data)
 
             for worktree in data:gmatch("%S+") do
-                print(worktree)
                 local split_string = utils.split_string(worktree, "/")
                 local size = #split_string
                 local escaped_string, _ =

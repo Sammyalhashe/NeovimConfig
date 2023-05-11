@@ -55,6 +55,7 @@ packer.startup(function()
         "luisiacc/gruvbox-baby",
         branch = "main"
     }
+    use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
     use "EdenEast/nightfox.nvim"
 
     --> lsp
@@ -67,13 +68,16 @@ packer.startup(function()
     use "ray-x/lsp_signature.nvim"
     use "L3MON4D3/LuaSnip"
     use "saadparwaiz1/cmp_luasnip"
-    use "glepnir/lspsaga.nvim"
+    use {
+        "glepnir/lspsaga.nvim",
+        commit = "81f2f516139300167f7a78b0bcee6bcffd16937b"
+    }
 
     --> organization/writing
     --> Hopefully I can fully switch to neorg once it matures, but until then,
     --I think orgmode has its place.
     -- use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
-    use "folke/zen-mode.nvim"
+    use "Pocco81//true-zen.nvim"
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"
 

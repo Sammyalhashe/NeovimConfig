@@ -74,4 +74,9 @@ function M.file_exists(path)
     if f~=nil then io.close(f) return true else return false end
 end
 
+
+function M.string_contains(str, pattern)
+    return string.find(str, pattern) ~= nil
+end
+
 return M

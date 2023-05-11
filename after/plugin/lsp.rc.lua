@@ -11,12 +11,23 @@ require "formatter".setup {
     filetype = {
         python = {
             function()
-                return {
+                local black = {
                     exe = "black",
                     args = {
                         "--line-length 79"
-                    },
+                    }
                 }
+                local autopep8 = {
+                    exe = "autopep8",
+                    args = {
+                        "--max-line-length 79",
+                        "--hang-closing",
+                        "--aggressive",
+                        "--in-place",
+
+                    }
+                }
+                return autopep8
             end
         },
         lua = {
@@ -59,7 +70,7 @@ local custom_attach = function(client)
     -- utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
     -- utils.map("n", "<leader>ac", "<cmd>lua vim.lsp.buf.code_action()<CR>")
     -- utils.map("n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()<CR>")
-    utils.map("n", "<leader>ar", "<cmd>lua require('utils').rename()<CR>")
+    -- utils.map("n", "<leader>ar", "<cmd>lua require('utils').rename()<CR>")
     utils.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
     utils.map("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
     utils.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
@@ -112,7 +123,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 local resource_dir = ""
 if vim.g.bb then
-    resource_dir = "/opt/bb/lib/llvm-12.0/lib64/clang/12.0.1"
+    resource_dir = "/opt/bb/lib/llvm-15.0/lib64/clang/15.0.7"
 else
     resource_dir = "/usr/lib/clang/14.0.6/"
 end
@@ -124,7 +135,7 @@ local servers = {
     "tsserver",
     "vimls",
     "bashls",
-    "pylsp",
+    "pyright",
     "hls",
     "cmake",
     "lua_ls"
@@ -146,7 +157,7 @@ for _, s in ipairs(servers) do
                 capabilities = capabilities,
             }
         end
-    elseif (s == "pylsp") then
+    elseif (s == "pyright") then
         nvim_lsp[s].setup {
             on_attach = custom_attach,
             capabilities = capabilities,
