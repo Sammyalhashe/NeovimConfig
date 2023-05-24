@@ -1,6 +1,6 @@
 local utils = require "utils"
 local colorscheme = "default"
-local wanted = "terafox"
+local wanted = "gruvbox-baby"
 
 
 if utils.string_contains(wanted, "fox$") then
