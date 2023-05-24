@@ -80,6 +80,7 @@ packer.startup(function()
     use "Pocco81//true-zen.nvim"
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"
+    use "dhruvasagar/vim-table-mode"
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"
