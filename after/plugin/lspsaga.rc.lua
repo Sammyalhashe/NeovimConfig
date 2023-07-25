@@ -18,7 +18,7 @@ lspsaga.setup {
 }
 
 -- mappings
-utils.map_allbuf("n", "K", "<cmd>Lspsaga peak_definition<CR>")
+utils.map_allbuf("n", "K", "<cmd>Lspsaga peek_definition<CR>")
 utils.map_allbuf("n", "gd", "<cmd>Lspsaga lsp_finder<CR>")
 utils.map_allbuf("n", "<leader>ac", "<cmd>Lspsaga code_action<CR>")
 utils.map_allbuf("n", "<leader>ee", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
