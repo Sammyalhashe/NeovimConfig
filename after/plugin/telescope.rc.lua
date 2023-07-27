@@ -17,6 +17,8 @@ local M = {}
 local telescope_defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
+    layout_strategy = 'vertical',
+    layout_config = { height = 0.95 },
     prompt_prefix = " ",
     mappings = {
         i = {
