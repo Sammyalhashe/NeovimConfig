@@ -69,8 +69,16 @@ function M.rename()
     end
 end
 
+function M.expandFilePath(filepath)
+    return vim.fn.expand(filepath)
+end
+
+function M.mkdir(path, flags, prot)
+    vim.fn.mkdir(M.expandFilePath(path), flags, prot)
+end
+
 function M.file_exists(path)
-    local f=io.open(path,"r")
+    local f=io.open(M.expandFilePath(path),"r")
     if f~=nil then io.close(f) return true else return false end
 end
 
