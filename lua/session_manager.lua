@@ -26,32 +26,22 @@ function M.setup(opts)
                 vim.keymap.set('n', v, M.deleteSession)
             end
         end
+    end
 
-
+    if opts.override_selector then
+        M.override_selector = opts.override_selector
     end
 
     utils.mkdir(session_dir, "p")
 end
 
 --> local functions that depend on the setup state
-local function overwriteSession(sessionName)
-    cmd("mks! " .. utils.expandFilePath(session_dir) .. sessionName)
-end
-
 local function sessionExists(sessionName)
     return utils.file_exists(utils.expandFilePath(session_dir) .. sessionName)
 end
 
 local function getAllSessions()
     return fn.split(fn.glob(session_dir .. "*"))
-end
-
-local function openSession(sessionName)
-    cmd.source(sessionName)
-end
-
-local function deleteSession(sessionName)
-    fn.delete(sessionName)
 end
 
 local function buildSessionPrompt(sessions)
@@ -63,13 +53,37 @@ local function buildSessionPrompt(sessions)
 end
 
 --> exposed module functions.
+function M.openSession(sessionName)
+    cmd.source(sessionName)
+end
+
+function M.removeSession(sessionName)
+    local prompt = "&y\n&n\n"
+    local res = fn.confirm("Confirm deletion: " .. sessionName .. "?", prompt)
+
+    if (res > 1) then
+        return
+    end
+
+    fn.delete(sessionName)
+end
+
+function M.overwriteSession(sessionName)
+    cmd("mks! " .. utils.expandFilePath(session_dir) .. sessionName)
+end
+
+
 function M.chooseSession()
     local sessions = getAllSessions()
+    if M.override_selector then
+        M.override_selector.chooseSession(sessions)
+        return
+    end
     local prompt = buildSessionPrompt(sessions)
-
+    
     local res = fn.confirm("Selected the session to open: ", prompt)
-
-    openSession(sessions[res])
+    
+    M.openSession(sessions[res])
 end
 
 function M.saveSession()
@@ -82,23 +96,21 @@ function M.saveSession()
         return
     end
 
-    overwriteSession(sessionName)
+    M.overwriteSession(sessionName)
 end
 
 function M.deleteSession()
     local sessions = getAllSessions()
+    if M.override_selector then
+        M.override_selector.deleteSession(sessions)
+        return
+    end
     local prompt = buildSessionPrompt(sessions)
     local res = fn.confirm("Choose the session to delete: ", prompt)
 
     local sessionName = sessions[res]
-    local prompt = "&y\n&n\n"
-    local res = fn.confirm("Confirm deletion: " .. sessionName .. "?", prompt)
 
-    if (res > 1) then
-        return
-    end
-
-    deleteSession(sessionName)
+    M.removeSession(sessionName)
 end
 
 return M

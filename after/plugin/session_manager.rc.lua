@@ -8,5 +8,6 @@ session_manager.setup {
         chooseSession = "\\cs",
         saveSession = "\\ss",
         deleteSession = "\\ds"
-    }
+    },
+    override_selector = require("session_manager_telescope_ext")
 }
