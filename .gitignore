@@ -4,3 +4,5 @@ vim-agenda/
 spell/
 bb.vim
 autoload/plug.vim
+.luarc.json
+plugin/packer_compiled.lua
