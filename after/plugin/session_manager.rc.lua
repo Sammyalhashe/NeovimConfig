@@ -7,7 +7,8 @@ session_manager.setup {
     mappings = {
         chooseSession = "\\cs",
         saveSession = "\\ss",
-        deleteSession = "\\ds"
+        deleteSession = "\\ds",
+        newSession = "\\ns"
     },
     override_selector = require("session_manager_telescope_ext")
 }
