@@ -47,6 +47,7 @@ if vim.fn.has("wsl") then
 end
 
 -- other defaults and my own code
-require "plugins"
 require "defaults"
+require "plugins"
 require "runner"
+require "split"
