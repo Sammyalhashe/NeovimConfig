@@ -2,30 +2,29 @@ local M = {}
 
 local io = require("io")
 
+--> Check whether the current buffer is empty
 function M.is_buffer_empty()
-    -- Check whether the current buffer is empty
     return vim.fn.empty(vim.fn.expand('%:t')) == 1
 end
 
-function M.has_width_gt(cols)
-    -- Check if the windows width is greater than a given number of columns
-    return vim.fn.winwidth(0) / 2 > cols
-end
-
+--> create a buffer local mapping
 function M.map(type, key, value)
     vim.api.nvim_buf_set_keymap(0, type, key, value, { noremap = true, silent = true });
 end
 
-function M.map_allbuf(type, key, value)
-    vim.api.nvim_set_keymap(type, key, value, { noremap = true, silent = true });
+--> sets a global keymapping for the given vim 'mode' 
+function M.map_allbuf(mode, key, value)
+    vim.api.nvim_set_keymap(mode, key, value, { noremap = true, silent = true });
 end
 
+--> print a given lua table, 'table'
 function M.printTable(table)
     for k, v in pairs(table) do
         print(k, " -- ", v)
     end
 end
 
+--> split a given 'inputstr' by the given 'sep'
 function M.split_string(inputstr, sep)
     if sep == nil then
         sep = "%s"
@@ -37,7 +36,7 @@ function M.split_string(inputstr, sep)
     return t
 end
 
--- rename
+--> Custom Lsp rename
 function M.rename()
     local position_params = vim.lsp.util.make_position_params()
     local new_name = vim.fn.input " rename to  "
@@ -69,20 +68,24 @@ function M.rename()
     end
 end
 
+--> Given a unix 'filepath', expand it to an absolute path
 function M.expandFilePath(filepath)
     return vim.fn.expand(filepath)
 end
 
+--> mkdir
 function M.mkdir(path, flags, prot)
     vim.fn.mkdir(M.expandFilePath(path), flags, prot)
 end
 
+--> return a boolean indicating that a given file 'path' exists
+--> 'path' can be both absolute and relative.
 function M.file_exists(path)
     local f=io.open(M.expandFilePath(path),"r")
     if f~=nil then io.close(f) return true else return false end
 end
 
-
+--> return if a string 'str' contains a substring 'pattern'
 function M.string_contains(str, pattern)
     return string.find(str, pattern) ~= nil
 end
