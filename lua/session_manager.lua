@@ -17,7 +17,6 @@ function M.setup(opts)
 
     if opts.mappings then
         local mappings = opts.mappings
-        
         for k, v in pairs(mappings) do
             if k == "chooseSession" then
                 vim.keymap.set('n', v, M.chooseSession)
@@ -85,9 +84,7 @@ function M.chooseSession()
         return
     end
     local prompt = buildSessionPrompt(sessions)
-    
     local res = fn.confirm("Selected the session to open: ", prompt)
-    
     M.openSession(sessions[res])
 end
 
@@ -97,7 +94,7 @@ function M.saveSession()
         local split_string = utils.split_string(M.current_session, "/")
         sessionName = split_string[#split_string]
     else
-        local sessionName = fn.input("Enter the name of the session: ")
+        sessionName = fn.input("Enter the name of the session: ")
     end
 
     local prompt = "&y\n&n\n"
