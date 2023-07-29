@@ -21,6 +21,9 @@ packer.startup(function()
     --> used by most plugins
     use "nvim-lua/plenary.nvim"
 
+    --> Misc
+    use "mtth/scratch.vim"
+
     --> auto-close brackets
     use "windwp/nvim-autopairs"
 
@@ -59,6 +62,9 @@ packer.startup(function()
     use "EdenEast/nightfox.nvim"
 
     --> lsp
+    use {
+        "williamboman/mason.nvim"
+    }
     use "neovim/nvim-lspconfig"
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/nvim-cmp"
