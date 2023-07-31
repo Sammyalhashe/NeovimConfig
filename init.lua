@@ -27,24 +27,7 @@ if vim.g.neovide then
     require "neovide"
 end
 
--- setting the clipboard for wsl
 vim.g.wsl = vim.fn.has("wsl")
-if vim.fn.has("wsl") then
-    -- vim.cmd([[
-    --     let g:clipboard = {
-    --                 \   'name': 'WslClipboard',
-    --                 \   'copy': {
-    --                 \      '+': 'clip.exe',
-    --                 \      '*': 'clip.exe',
-    --                 \    },
-    --                 \   'paste': {
-    --                 \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    --                 \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    --                 \   },
-    --                 \   'cache_enabled': 0,
-    --                 \ }
-    -- ]])
-end
 
 -- other defaults and my own code
 require "defaults"
