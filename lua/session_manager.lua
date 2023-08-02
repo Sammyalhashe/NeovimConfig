@@ -82,6 +82,14 @@ end
 function M.overwriteSession(sessionName)
     cmd("mks! " .. utils.expandFilePath(session_dir) .. sessionName)
     M.current_session = sessionName
+    local s, notes = pcall(require, "notes_for_projects")
+    if s then
+        local session_split = utils.split_string(sessionName, "/")
+        local actual_session_name = utils.split_string(session_split[#session_split], ".")[1]
+        notes.setProject(actual_session_name, {
+            createDir = true,
+        })
+    end
 end
 
 function M.chooseSession()

@@ -1,6 +1,6 @@
 local utils = require "utils"
 local colorscheme = "default"
-local wanted = "carbonfox"
+local wanted = "github_dark"
 
 
 if utils.string_contains(wanted, "fox$") then
@@ -32,6 +32,8 @@ elseif utils.string_contains(wanted, "baby$") then
     colorscheme = wanted
 
     vim.g.gruvbox_baby_telescope_theme = 1
+else
+    colorscheme = wanted
 end
 
 vim.cmd("colorscheme " .. colorscheme)
