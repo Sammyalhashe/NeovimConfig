@@ -20,7 +20,7 @@ vim.g.os = utils.split_string(GetOs(), " ")[1]
 
 --> Determine if in work env
 --> This will load if there and not do anything if not
-pcall(require, "bb")
+pcall(require, "local")
 
 -- if running in neovide
 if vim.g.neovide then

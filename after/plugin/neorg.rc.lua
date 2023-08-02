@@ -3,22 +3,25 @@ if (not status) then return end
 
 local utils = require 'utils'
 
+local function loadGlobal(global, default)
+    if global then
+        return global
+    end
+    return default
+end
+
 neorg.setup {
     load = {
         ["core.defaults"] = {},
         ["core.neorgcmd"] = {},
         ["core.keybinds"] = {},
-        ["core.norg.concealer"] = {},
-        ["core.norg.dirman"] = {
+        ["core.concealer"] = {},
+        ["core.dirman"] = {
             config = {
-                workspaces = {
-                    work_dev = "~/neorg",
-                    work = "~/Desktop/what-ive-learned",
-                    personal = "~/Dropbox/Org/Orgzly",
-                }
+                workspaces = loadGlobal(vim.g.workspaces, {})
             }
         },
-        ["core.norg.completion"] = {
+        ["core.completion"] = {
             config = {
                 engine = "nvim-cmp",
             },
@@ -26,20 +29,23 @@ neorg.setup {
         ["core.integrations.nvim-cmp"] = {},
         ["core.syntax"] = {},
         ["core.integrations.treesitter"] = {},
-        ["core.gtd.base"] = {
-            config = {
-                workspace = "work"
-            },
-        },
+        -- ["core.gtd.base"] = {
+        --     config = {
+        --         workspace = "work"
+        --     },
+        -- },
         ["core.export"] = {},
         ["core.presenter"] = {
             config = {
                 zen_mode = "zen-mode"
             },
         },
-        ["core.norg.journal"] = {
+        ["core.journal"] = {
             config = {
-                workspace = "work",
+                journal_folder = utils.expandFilePath(loadGlobal(vim.g.neorg_journal_folder, "")),
+                workspace = "journal",
+                template_name = "template.norg",
+                use_template = true,
                 strategy = "nested",
                 toc_format = function(t)
                     return t
@@ -52,5 +58,6 @@ neorg.setup {
 
 
 vim.api.nvim_create_user_command("EX", function()
-    require('neorg_utils').convertNorgFilesAndPlaceInDirectory('~/Desktop/DesktopHolder/what-ive-learned/', '~/Desktop/test', true)
+    require('neorg_utils').convertNorgFilesAndPlaceInDirectory('~/Desktop/DesktopHolder/what-ive-learned/',
+        '~/Desktop/test', true)
 end, {})
