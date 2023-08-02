@@ -90,4 +90,27 @@ function M.string_contains(str, pattern)
     return string.find(str, pattern) ~= nil
 end
 
+
+function M.getAllFilesInDir(path, directories)
+    local args = M.expandFilePath(path)
+    if directories then
+        args = args .. "*/"
+    else
+        args = args .. "[a-z]*.[a-z]*"
+    end
+    print("args: " .. args)
+    return vim.fn.split(vim.fn.glob(args))
+end
+
+function M.createFile(path, name)
+    path = M.expandFilePath(path)
+    print("creating " .. path .. "/" .. name)
+    local file = io.open(path .. "/" .. name, "w")
+    if file ~= nil then
+        file:close()
+        return true
+    end
+    return false
+end
+
 return M
