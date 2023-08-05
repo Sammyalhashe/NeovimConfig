@@ -21,6 +21,9 @@ packer.startup(function()
     --> used by most plugins
     use "nvim-lua/plenary.nvim"
 
+    --> my plugins
+    use "Sammyalhashe/session_manager.nvim"
+
     --> Misc
     use "mtth/scratch.vim"
 
