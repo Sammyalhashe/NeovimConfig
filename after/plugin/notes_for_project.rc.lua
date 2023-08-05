@@ -9,5 +9,6 @@ notes_for_project.setup {
         openNote = "\\o"
     },
     default_notes_ext = "norg",
-    override_selector = require("notes_for_projects_telescope_ext")
+    override_selector = require("notes_for_projects_telescope_ext"),
+    default_notes_dir = "~/Documents/notes"
 }

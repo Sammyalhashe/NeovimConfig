@@ -4,7 +4,7 @@ local cmd = vim.cmd
 local fn = vim.fn
 
 --> Module level variables
-local projectNotesDir = "~/what-ive-learned/notes"
+local projectNotesDir = nil
 local current_project = nil
 local default_notes_ext = "norg"
 
@@ -13,6 +13,13 @@ local M = {}
 M.override_selector = nil
 
 function M.setup(opts)
+    if not opts.default_notes_dir then
+        print("please provide `default_notes_dir` to use notes_for_project...")
+        return
+    end
+
+    projectNotesDir = opts.default_notes_dir
+
     if opts.projectNotesDir then
         projectNotesDir = opts.projectNotesDir
     end
@@ -51,6 +58,11 @@ local function openProject(projectName)
 end
 
 function M.openNoteFile(note, opts)
+    if not projectNotesDir then
+        print("set `default_notes_dir` in your setup function")
+        return
+    end
+
     if opts and opts.create then
         local project_dir = projectNotesDir .. "/" .. current_project
         local note_split = utils.split_string(note, "/")
@@ -65,6 +77,11 @@ function M.openNoteFile(note, opts)
 end
 
 function M.chooseNote(opts)
+    if not projectNotesDir then
+        print("set `default_notes_dir` in your setup function")
+        return
+    end
+
     M.setProject(current_project)
 
     local project_dir = projectNotesDir .. "/" .. current_project
@@ -98,6 +115,11 @@ function M.chooseNote(opts)
 end
 
 function M.setProject(project, opts)
+    if not projectNotesDir then
+        print("set `default_notes_dir` in your setup function")
+        return
+    end
+
     if project == nil then
         local projects = utils.getAllFilesInDir(projectNotesDir, true)
         projects[#projects+1] = "new"
@@ -131,12 +153,22 @@ function M.setProject(project, opts)
 end
 
 function M.newNote()
+    if not projectNotesDir then
+        print("set `default_notes_dir` in your setup function")
+        return
+    end
+
     M.chooseNote({
         newNote = true,
     })
 end
 
 function M.openNote()
+    if not projectNotesDir then
+        print("set `default_notes_dir` in your setup function")
+        return
+    end
+
     M.chooseNote({
         newNote = false,
     })
