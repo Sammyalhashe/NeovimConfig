@@ -110,24 +110,16 @@ end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- Enable underline, use default values
-    underline = true,
-    -- Enable virtual text only on Warning or above, override spacing to 2
-    virtual_text = {
-        spacing = 2,
-        severity_limit = "Warning",
-    },
-    signs = false,
-}
+        -- Enable underline, use default values
+        underline = true,
+        -- Enable virtual text only on Warning or above, override spacing to 2
+        virtual_text = {
+            spacing = 2,
+            severity_limit = "Warning",
+        },
+        signs = false,
+    }
 )
-
-local resource_dir = ""
-if vim.g.bb then
-    resource_dir = "/opt/bb/lib/llvm-15.0/lib64/clang/15.0.7"
-else
-    resource_dir = "/usr/lib/clang/14.0.6/"
-end
-
 
 local servers = {
     "rust_analyzer",
@@ -141,14 +133,15 @@ local servers = {
     "lua_ls"
 }
 local capabilities =
-require("cmp_nvim_lsp").default_capabilities(
-    vim.lsp.protocol.make_client_capabilities())
+    require("cmp_nvim_lsp").default_capabilities(
+        vim.lsp.protocol.make_client_capabilities())
 for _, s in ipairs(servers) do
     if (s == "clangd") then
         if system_name == "Linux" then
             nvim_lsp[s].setup {
                 on_attach = custom_attach,
-                cmd = { "clangd", "--resource-dir=" .. resource_dir, "-j=5", "--header-insertion=iwyu", "--background-index", "--enable-config" },
+                cmd = { "clangd", "--resource-dir=" .. vim.g.resource_dir, "-j=5", "--header-insertion=iwyu",
+                    "--background-index", "--enable-config" },
                 capabilities = capabilities,
             }
         else
