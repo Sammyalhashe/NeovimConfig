@@ -138,7 +138,7 @@ function M.setProject(project, opts)
             if res > 1 then
                 return
             end
-            utils.mkdir(projectNotesDir .. "/" .. project_name, "p")
+            utils.mkdir(projectNotesDir .. "/" .. project_name, "p", 493)
             project = project_name
         else
             project = project_name
@@ -148,7 +148,7 @@ function M.setProject(project, opts)
     current_project = project
 
     if opts and opts.createDir then
-        utils.mkdir(projectNotesDir .. "/" .. current_project, "p")
+        utils.mkdir(projectNotesDir .. "/" .. current_project, "p", 493)
     end
 end
 

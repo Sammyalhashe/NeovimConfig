@@ -98,19 +98,17 @@ function M.getAllFilesInDir(path, directories)
     else
         args = args .. "[a-z]*.[a-z]*"
     end
-    print("args: " .. args)
     return vim.fn.split(vim.fn.glob(args))
 end
 
 function M.createFile(path, name)
     path = M.expandFilePath(path)
-    print("creating " .. path .. "/" .. name)
-    local file = io.open(path .. "/" .. name, "w")
-    if file ~= nil then
-        file:close()
-        return true
+    local ok, fd = pcall(vim.loop.fs_open, path .. "/" .. name, "w", 420)
+    if not ok then
+        print("Unable to create the file")
+        return false
     end
-    return false
+    return true
 end
 
 return M
