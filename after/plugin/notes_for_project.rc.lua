@@ -10,5 +10,6 @@ notes_for_project.setup {
     },
     default_notes_ext = "norg",
     override_selector = require("notes_for_projects_telescope_ext"),
-    default_notes_dir = "~/Documents/notes"
+    default_notes_dir = vim.g.default_notes_dir,
+    default_notes_project = vim.g.default_notes_project
 }

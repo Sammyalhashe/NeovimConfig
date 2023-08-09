@@ -8,6 +8,8 @@ local projectNotesDir = nil
 local current_project = nil
 local default_notes_ext = "norg"
 
+local previous_dir = nil
+
 
 local M = {}
 M.override_selector = nil
@@ -22,6 +24,10 @@ function M.setup(opts)
 
     if opts.projectNotesDir then
         projectNotesDir = opts.projectNotesDir
+    end
+
+    if opts.default_notes_project then
+        current_project = opts.default_notes_project
     end
 
     if opts.mappings then
@@ -53,10 +59,6 @@ local function buildProjectPrompt(projects)
     return prompt
 end
 
-local function openProject(projectName)
-
-end
-
 function M.openNoteFile(note, opts)
     if not projectNotesDir then
         print("set `default_notes_dir` in your setup function")
@@ -74,6 +76,21 @@ function M.openNoteFile(note, opts)
     end
 
     cmd("topleft split " .. note)
+
+    previous_dir = vim.fn.getcwd()
+    cmd("cd " .. projectNotesDir)
+
+    vim.api.nvim_create_autocmd(
+        {"BufLeave"},
+        {
+            callback = function()
+                if previous_dir then
+                    cmd("cd " .. previous_dir)
+                    previous_dir = nil
+                end
+            end,
+        }
+    )
 end
 
 function M.chooseNote(opts)
