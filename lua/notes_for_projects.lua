@@ -89,6 +89,18 @@ function M.openNoteFile(note, opts)
                     previous_dir = nil
                 end
             end,
+            buffer = vim.fn.bufnr()
+        }
+    )
+
+    vim.api.nvim_create_autocmd(
+        {"BufEnter"},
+        {
+            callback = function()
+                previous_dir = vim.fn.getcwd()
+                cmd("cd " .. projectNotesDir)
+            end,
+            buffer = vim.fn.bufnr()
         }
     )
 end
