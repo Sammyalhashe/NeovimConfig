@@ -1,6 +1,6 @@
 local utils = require "utils"
 local colorscheme = "default"
-local wanted = "github_dark"
+local wanted = "dayfox"
 
 
 if utils.string_contains(wanted, "fox$") then

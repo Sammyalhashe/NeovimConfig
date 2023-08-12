@@ -19,7 +19,8 @@ neorg.setup {
         ["core.dirman"] = {
             config = {
                 workspaces = loadGlobal(vim.g.workspaces, {})
-            }
+            },
+            default_workspace = "personal"
         },
         ["core.completion"] = {
             config = {
