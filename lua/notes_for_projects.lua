@@ -5,6 +5,7 @@ local fn = vim.fn
 
 --> Module level variables
 local projectNotesDir = nil
+local defaultProject = nil
 local current_project = nil
 local default_notes_ext = "norg"
 
@@ -28,6 +29,7 @@ function M.setup(opts)
 
     if opts.default_notes_project then
         current_project = opts.default_notes_project
+        defaultProject = opts.default_notes_project
     end
 
     if opts.mappings then
@@ -149,8 +151,14 @@ function M.setProject(project, opts)
         return
     end
 
+    local projects = utils.getAllFilesInDir(projectNotesDir, true)
+
+    if project ~= nil and (opts and not opts.createDir) and not utils.entryInTable(project, projects) then
+        print("project " .. project .. " does not exist. Aborting...")
+        return
+    end
+
     if project == nil then
-        local projects = utils.getAllFilesInDir(projectNotesDir, true)
         projects[#projects+1] = "new"
         local prompt = buildProjectPrompt(projects)
 
@@ -202,5 +210,40 @@ function M.openNote()
         newNote = false,
     })
 end
+
+vim.api.nvim_create_user_command("NoteDef", function(opts)
+    if defaultProject then
+        M.setProject(defaultProject)
+    end
+end, {
+    bang = true
+})
+
+vim.api.nvim_create_user_command("NoteSetProject", function(opts)
+    if opts.args then
+        local projectToChoose = opts.args
+        M.setProject(projectToChoose)
+        return
+    end
+    M.setProject(nil, { createDir = false })
+end,
+{
+    bang = true,
+    nargs = 1
+})
+
+vim.api.nvim_create_user_command("NoteCreateProject", function(opts)
+    if not opts.args or not #opts.args then
+        print("Please provide a name of the project...")
+        return
+    end
+
+    local project = opts.args
+    M.setProject(project, { createDir = true })
+end,
+{
+    bang = true,
+    nargs = 1
+})
 
 return M

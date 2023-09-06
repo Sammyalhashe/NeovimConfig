@@ -96,7 +96,7 @@ function M.getAllFilesInDir(path, directories)
     if directories then
         args = args .. "*/"
     else
-        args = args .. "[a-z]*.[a-z]*"
+        args = args .. "[a-zA-Z]*.[a-zA-Z]*"
     end
     return vim.fn.split(vim.fn.glob(args))
 end
@@ -109,6 +109,15 @@ function M.createFile(path, name)
         return false
     end
     return true
+end
+
+function M.entryInTable(entry, table)
+    for _, v in ipairs(table) do
+        if v == entry then
+            return true
+        end
+    end
+    return false
 end
 
 return M
