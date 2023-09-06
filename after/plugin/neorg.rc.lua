@@ -16,6 +16,7 @@ neorg.setup {
         ["core.neorgcmd"] = {},
         ["core.keybinds"] = {},
         ["core.concealer"] = {},
+        ["core.looking-glass"] = {},
         ["core.dirman"] = {
             config = {
                 workspaces = loadGlobal(vim.g.workspaces, {})
@@ -56,6 +57,9 @@ neorg.setup {
         ["core.integrations.telescope"] = {},
     }
 }
+
+--> keybinds
+vim.keymap.set("n", "<leader>o'", ":Neorg keybind all core.looking-glass.magnify-code-block<cr>", {silent=true})
 
 
 vim.api.nvim_create_user_command("EX", function()

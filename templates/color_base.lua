@@ -1,4 +1,3 @@
-local wanted = "carbonfox"
 local utils = require "utils"
 
 if utils.string_contains(wanted, "fox$") then
