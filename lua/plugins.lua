@@ -27,6 +27,9 @@ packer.startup(function()
     --> Misc
     use "mtth/scratch.vim"
 
+    --> tmux integration
+    use "christoomey/vim-tmux-navigator"
+
     --> auto-close brackets
     use "windwp/nvim-autopairs"
 
