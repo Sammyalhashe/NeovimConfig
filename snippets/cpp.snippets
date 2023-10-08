@@ -1,0 +1,17 @@
+extends c
+
+# include guards
+snippet <inc Create #include guards for hearder files
+	#ifndef INCLUDED_$1
+	#define INCLUDED_$1
+	
+	$0
+
+	#endif // INCLUDED_$1
+
+
+# namespace with closing comment
+snippet <name Create a namespace and close it with a comment.
+	namespace $1 {
+		$0
+	} // closing namespace $1

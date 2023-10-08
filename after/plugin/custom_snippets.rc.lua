@@ -1,6 +1,8 @@
 local status, luasnip = pcall(require, "luasnip")
 if not status then return end
 
+require("luasnip.loaders.from_snipmate").lazy_load()
+
 --> custom snippets
 --> in luasnip, i(x) nodes are "insert" nodes where you can insert text and
 --> jump to. It starts at the 1st node and goes upwards. The 0th node is special
@@ -33,7 +35,7 @@ local applySnippets = function(lang, table)
             if value[2] == "t" then
                 config[#config + 1] = luasnip.t({ value[1] })
             elseif value[2] == "i" then
-                config[#config + 1] = luasnip.i(0)
+                config[#config + 1] = luasnip.i(value[3])
             end
         end
         luasnip.add_snippets(lang, {
@@ -52,6 +54,9 @@ if handle then
     handle:close()
     bash_snippets["shebang"] = {}
     bash_snippets["shebang"][#bash_snippets["shebang"] + 1] = { "#! " .. sh, "t" }
+else
+    bash_snippets["shebang"] = {}
+    bash_snippets["shebang"][#bash_snippets["shebang"] + 1] = { "#! " .. "/usr/bin/env sh", "t" }
 end
 
 applySnippets("sh", bash_snippets)
@@ -70,10 +75,26 @@ end
 
 local func_snip = {}
 func_snip[1] = { "def function_name():", "t" }
-func_snip[2] = { "", "i" }
+func_snip[2] = { "", "i", 1 }
 python_snippets["func"] = func_snip
 
 applySnippets("python", python_snippets)
 
 --> c/cpp snippets
 local c_snippets = {}
+
+local std = "std"
+if vim.g.bb then
+    std = "bsl"
+end
+
+local map_snippet = {}
+map_snippet[1] = {std .. "::unordered_map<", "t"}
+map_snippet[2] = { "", "i", 1 }
+map_snippet[3] = { ",", "t" }
+map_snippet[4] = { "", "i", 2 }
+map_snippet[5] = { ">::const_iterator", "t" }
+map_snippet[6] = { " ", "t" }
+map_snippet[6] = { "", "i", 0 }
+c_snippets["umap"] = map_snippet
+applySnippets("cpp", c_snippets)
