@@ -3,12 +3,14 @@ local runner = require("runner")
 runner.setup {
     build_directions = {
         [vim.fn.expand("/bb/mom/alhasher/dmp-1")] = {
-            "make",
-            "cd cmake.bld/Linux/full",
-            "make -j16"
+            { cmd = "make" },
+            { cmd = "make -j16", cwd = "|workdir|/cmake.bld/Linux/full" }
         },
         [vim.fn.expand("~/Documents/budgeting")] = {
-            "make"
+            { cmd = "make" }
+        },
+        [vim.fn.expand("~/dmp-1")] = {
+            { cmd = "make -j30", cwd = "|workdir|/cmake.bld/Linux/full", targets = { "it", "all" } }
         }
     }
 }

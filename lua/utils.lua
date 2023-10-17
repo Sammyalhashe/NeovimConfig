@@ -120,4 +120,8 @@ function M.entryInTable(entry, table)
     return false
 end
 
+function M.replaceSubString(string, substr, with)
+    return string:gsub(substr, with)
+end
+
 return M
