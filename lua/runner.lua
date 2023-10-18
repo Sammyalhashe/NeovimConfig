@@ -61,15 +61,15 @@ local function job_with_notify(cmd, opts)
     local notification
 
     -- NOTE: defers callback until NVIM's API is safe to call.
-    local notify_output = vim.schedule_wrap(function(data, last_local, level)
+    local notify_output = vim.schedule_wrap(function(data, opts)
         local notif_timeout
-        if last_local then
+        if opts.last_local then
             notif_timeout = 5000
         else
             notif_timeout = false
         end
         if not notification then
-            notification = notify(data, level, {
+            notification = notify(data, opts.level, {
                 title = "Runner",
                 render = "compact",
                 animation = "slide",
@@ -79,7 +79,7 @@ local function job_with_notify(cmd, opts)
             })
             return
         end
-        notification = notify(data, level, {
+        notification = notify(data, opts.level, {
             hide_from_history = true,
             replace = notification,
             minimum_width = 500,
@@ -91,12 +91,15 @@ local function job_with_notify(cmd, opts)
     local actual_cmd = table.remove(cmd, 1)
     local args = cmd
 
-    local bufnr = utils.makeScratch("/tmp/scratch")
-    utils.clearBufferContents(bufnr)
-    local scratch_index = 0
 
     -- list of errors to put on qflist
     local list = {}
+
+    -- buffer to output everything on in case something can't be decoded onto
+    -- qflist
+    local bufnr = utils.makeScratch("/tmp/scratch")
+    utils.clearBufferContents(bufnr)
+    local scratch_index = 0
 
     job:new({
         command = actual_cmd,
@@ -104,7 +107,7 @@ local function job_with_notify(cmd, opts)
         cwd = opts.cwd,
         on_stdout = function(err, data)
             if not err then
-                notify_output(data, false)
+                notify_output(data, { last_local = false })
             end
         end,
         on_exit = function(j, return_val)
@@ -114,7 +117,7 @@ local function job_with_notify(cmd, opts)
                         vim.fn.setqflist(list)
                         vim.cmd.copen()
                     end)
-                    notify_output("build failed", true, vim.log.levels.ERROR)
+                    notify_output("build failed", { last_local = true, level = vim.log.levels.ERROR })
                     return
                 end
                 local result = j:result()
@@ -129,7 +132,7 @@ local function job_with_notify(cmd, opts)
                     vim.cmd("botright split " .. bufname)
                 end)
             end
-            notify_output("job done", true)
+            notify_output("job done", { last_local = true })
             vim.schedule(function()
                 vim.fn.setqflist({})
                 vim.cmd.cclose()
