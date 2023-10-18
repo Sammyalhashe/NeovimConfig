@@ -36,7 +36,7 @@ require "formatter".setup {
         cpp = {
             function()
                 return {
-                    exe = "bde-format-11",
+                    exe = utils.valueOrDefault(vim.g.cpp_formatter, "bde-format-11"),
                     args = {
 
                     }
@@ -63,8 +63,10 @@ end
 
 
 local custom_attach = function(client)
+    -- utils.map("n", "=f",
+    --     "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { file = '~/.clang-format', tabSize = 4, insertSpaces = true, trimTrailingWhitespace = true,} }<CR>")
     utils.map("n", "=f",
-        "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { file = '~/.clang-format', tabSize = 4, insertSpaces = true, trimTrailingWhitespace = true,} }<CR>")
+        "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { style = 'file' } }<CR>")
     utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
     -- utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
     -- utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -141,7 +143,7 @@ for _, s in ipairs(servers) do
             nvim_lsp[s].setup {
                 on_attach = custom_attach,
                 cmd = { "clangd", "--resource-dir=" .. vim.g.resource_dir, "-j=5", "--header-insertion=iwyu",
-                    "--background-index", "--enable-config" },
+                    "--background-index", "--enable-matrix" },
                 capabilities = capabilities,
             }
         else

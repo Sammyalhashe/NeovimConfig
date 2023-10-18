@@ -124,4 +124,29 @@ function M.replaceSubString(string, substr, with)
     return string:gsub(substr, with)
 end
 
+function M.valueOrDefault(value, default)
+    if not value then
+        return default
+    end
+    return value
+end
+
+function M.makeScratch (scratchpath)
+  local uri = vim.uri_from_fname(scratchpath)
+  local bufnr = vim.uri_to_bufnr(uri)
+  vim.bo[bufnr].bufhidden = "hide"
+  vim.bo[bufnr].buflisted = true
+  vim.bo[bufnr].buftype = "nofile"
+  vim.bo[bufnr].readonly = false
+  vim.bo[bufnr].swapfile = false
+  return bufnr
+end
+
+function M.clearBufferContents(bufnr)
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)
+    for i = 0, #lines - 1 do
+        vim.api.nvim_buf_set_lines(bufnr, i, i, true, {})
+    end
+end
+
 return M

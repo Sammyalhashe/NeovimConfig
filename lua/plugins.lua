@@ -80,18 +80,18 @@ packer.startup(function()
     use "ray-x/lsp_signature.nvim"
     use "L3MON4D3/LuaSnip"
     use "saadparwaiz1/cmp_luasnip"
-    use {
-        "glepnir/lspsaga.nvim",
-        commit = "81f2f516139300167f7a78b0bcee6bcffd16937b"
-    }
+    -- use {
+    --     "nvimdev/lspsaga.nvim",
+    --     after = "nvim-lspconfig"
+    -- }
 
     --> organization/writing
     --> Hopefully I can fully switch to neorg once it matures, but until then,
     --I think orgmode has its place.
     use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
     use "Pocco81//true-zen.nvim"
-    use "nvim-orgmode/orgmode"
-    use "akinsho/org-bullets.nvim"
+    -- use "nvim-orgmode/orgmode"
+    -- use "akinsho/org-bullets.nvim"
     use "dhruvasagar/vim-table-mode"
 
     --> C++ Formatting

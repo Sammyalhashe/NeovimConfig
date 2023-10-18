@@ -41,10 +41,6 @@ local function getTargets(cwd, opts)
             end,
         }):start())
         local prompt = buildTargetPrompt(targets)
-        print("targets size: " .. #targets)
-        for index, value in ipairs(targets) do
-            print(index, value)
-        end
         local res = vim.fn.confirm("Selected the target to build: ", prompt)
     end
 end
@@ -53,7 +49,6 @@ local function getCppErrorBuildLineBreakDown(line)
     local filenamePattern = "[-./%w%d_]+"
     local lineAndColumnPattern = "[%d]+:[%d]+"
     local errMessagePattern = "error:[%d%s'%w’‘_]+"
-    -- local pattern =  "[\\-./%w_]+:[%d]+:[%d]+: error:[%d%s'%w’‘_]+"
 
     local filenameMatch = string.match(line, filenamePattern)
     if filenameMatch ~= nil then
@@ -62,7 +57,7 @@ local function getCppErrorBuildLineBreakDown(line)
     return filenameMatch, string.match(line, lineAndColumnPattern), string.match(line, errMessagePattern)
 end
 
-local function job_with_notify(cmd, cwd, last)
+local function job_with_notify(cmd, opts)
     local notification
 
     -- NOTE: defers callback until NVIM's API is safe to call.
@@ -96,11 +91,17 @@ local function job_with_notify(cmd, cwd, last)
     local actual_cmd = table.remove(cmd, 1)
     local args = cmd
 
+    local bufnr = utils.makeScratch("/tmp/scratch")
+    utils.clearBufferContents(bufnr)
+    local scratch_index = 0
+
+    -- list of errors to put on qflist
     local list = {}
+
     job:new({
         command = actual_cmd,
         args = args,
-        cwd = cwd,
+        cwd = opts.cwd,
         on_stdout = function(err, data)
             if not err then
                 notify_output(data, false)
@@ -111,16 +112,22 @@ local function job_with_notify(cmd, cwd, last)
                 if #list ~= 0 then
                     vim.schedule(function()
                         vim.fn.setqflist(list)
+                        vim.cmd.copen()
                     end)
                     notify_output("build failed", true, vim.log.levels.ERROR)
                     return
                 end
                 local result = j:result()
                 if #result ~= 0 then
-                    for key, value in ipairs(result) do
-                        print(key, value)
-                    end
+                    vim.schedule(function()
+                        vim.api.nvim_buf_set_lines(bufnr, scratch_index, scratch_index, true, result)
+                        scratch_index = scratch_index + 1
+                    end)
                 end
+                vim.schedule(function()
+                    local bufname = vim.fn.bufname(bufnr)
+                    vim.cmd("botright split " .. bufname)
+                end)
             end
             notify_output("job done", true)
             vim.schedule(function()
@@ -129,6 +136,10 @@ local function job_with_notify(cmd, cwd, last)
             end)
         end,
         on_stderr = function(err, data)
+            vim.schedule(function()
+                vim.api.nvim_buf_set_lines(bufnr, scratch_index, scratch_index, true, { data })
+                scratch_index = scratch_index + 1
+            end)
             local filenameMatch, lineNumMatch, errMessageMatch = getCppErrorBuildLineBreakDown(data)
 
             if filenameMatch ~= nil and lineNumMatch ~= nil and errMessageMatch ~= nil then
@@ -146,12 +157,16 @@ end
 
 -- module level variables
 local build_directions = {}
+local prepare_directions = {}
 
 local M = {}
 
 function M.setup(opts)
     if opts.build_directions then
         build_directions = opts.build_directions
+    end
+    if opts.prepare_directions then
+        prepare_directions = opts.prepare_directions
     end
 end
 
@@ -164,8 +179,7 @@ function M.get_current_working_directory()
     return vim.fn.getcwd()
 end
 
-function M.run(file, filetype)
-    -- TODO: given a filepath and filetype runs the file.
+function M.run(file, filetype, opts)
     local command = nil
 
     if filetype == "python" then
@@ -177,17 +191,15 @@ function M.run(file, filetype)
     elseif filetype == "cpp" or filetype == "make" or filetype == "cmake" then
         -- get cwd
         local cwd = M.get_current_working_directory()
-        -- TODO: see if there is a project build strategy that you should be able to configure
-        if build_directions[cwd] ~= nil then
-            local instructions = build_directions[cwd]
 
-            local instructions_size = 0
-            for _, _ in pairs(instructions) do
-                instructions_size = instructions_size + 1
-            end
+        local directions = build_directions
+        if opts and opts.prepare then
+            directions = prepare_directions
+        end
 
+        local instructions = directions[cwd]
+        if instructions ~= nil then
             -- Go through each instruction and run it.
-            local instruction_idx = 0
             for _, instr in pairs(instructions) do
                 local modified_cwd = cwd
                 if instr.cwd ~= nil then
@@ -201,8 +213,9 @@ function M.run(file, filetype)
                     local res = vim.fn.confirm("Choose target to build: ", prompt)
                     split_instr[#split_instr + 1] = instr.targets[res]
                 end
-                job_with_notify(split_instr, modified_cwd, instruction_idx == (instructions_size - 1))
-                instruction_idx = instruction_idx + 1
+
+                -- run the actual command
+                job_with_notify(split_instr, { cwd = modified_cwd })
             end
             return
         end
@@ -212,7 +225,7 @@ function M.run(file, filetype)
         local make_exists = utils.file_exists(cwd .. "/Makefile") or utils.file_exists(cwd .. "/makefile")
         if make_exists then
             local instructions = { "make" }
-            job_with_notify(instructions, cwd, true)
+            job_with_notify(instructions, { cwd = cwd })
             return
         end
     elseif filetype == "lua" then
