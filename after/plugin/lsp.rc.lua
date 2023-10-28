@@ -143,7 +143,7 @@ for _, s in ipairs(servers) do
             nvim_lsp[s].setup {
                 on_attach = custom_attach,
                 cmd = { "clangd", "--resource-dir=" .. vim.g.resource_dir, "-j=5", "--header-insertion=iwyu",
-                    "--background-index", "--enable-matrix" },
+                    "--background-index" },
                 capabilities = capabilities,
             }
         else

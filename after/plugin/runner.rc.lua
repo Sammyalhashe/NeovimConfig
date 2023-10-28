@@ -28,5 +28,5 @@ vim.keymap.set("n", "<leader>/", function()
 end)
 
 vim.keymap.set("n", "<leader>//", function()
-    runner.run(vim.fn.expand("%:p"), vim.bo.filetype, {prepare=true})
+    runner.run(vim.fn.expand("%:p"), vim.bo.filetype, { prepare = true })
 end)

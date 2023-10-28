@@ -107,6 +107,17 @@ local function job_with_notify(cmd, opts)
         cwd = opts.cwd,
         on_stdout = function(err, data)
             if not err then
+                local filenameMatch, lineNumMatch, errMessageMatch = getCppErrorBuildLineBreakDown(data)
+
+                if filenameMatch ~= nil and lineNumMatch ~= nil and errMessageMatch ~= nil then
+                    local split_line_column_num = utils.split_string(lineNumMatch, ":")
+                    list[#list + 1] = {
+                        filename = filenameMatch,
+                        lnum = split_line_column_num[1],
+                        col = split_line_column_num[2],
+                        text = errMessageMatch
+                    }
+                end
                 notify_output(data, { last_local = false })
             end
         end,
@@ -133,9 +144,12 @@ local function job_with_notify(cmd, opts)
                 end)
             end
             notify_output("job done", { last_local = true })
+
             vim.schedule(function()
-                vim.fn.setqflist({})
-                vim.cmd.cclose()
+                vim.fn.setqflist(list)
+                if #list ~= 0 then
+                    vim.cmd.cclose()
+                end
             end)
         end,
         on_stderr = function(err, data)
@@ -240,7 +254,7 @@ function M.run(file, filetype, opts)
 
     if command ~= nil then
         job:new({
-            command,
+            command = command,
             file,
             on_stdout = function(err, data)
                 if not err then
