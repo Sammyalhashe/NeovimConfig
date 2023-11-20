@@ -58,7 +58,7 @@ cmp.setup {
     sources = {
         -- { name = "gh_issues" },
 
-        { name = "emoji", insert = true },
+        { name = "emoji",    insert = true },
         -- Youtube: Could enable this only for lua, but nvim_lua handles that already.
         { name = "nvim_lua" },
         { name = "zsh" },
@@ -66,7 +66,7 @@ cmp.setup {
         { name = "nvim_lsp", priority = 100 }, -- lsp results on top
         { name = "path" },
         { name = "luasnip" },
-        { name = "buffer", keyword_length = 5 },
+        { name = "buffer",   keyword_length = 5 },
         { name = "neorg" },
     },
 
@@ -80,20 +80,19 @@ cmp.setup {
     formatting = {
         -- Youtube: How to set up nice formatting for your sources.
         format = function(entry, vim_item)
-
-          -- set a name for each source
-          vim_item.menu = ({
-            buffer = "",
-            emoji = "",
-            nvim_lsp = "",
-            path = "",
-            spell = "﬜",
-            treesitter = "",
-            nvim_lua = "",
-            orgmode = "",
-            neorg = "",
-          })[entry.source.name]
-          return vim_item
+            -- set a name for each source
+            vim_item.menu = ({
+                buffer = "",
+                emoji = "",
+                nvim_lsp = "",
+                path = "",
+                spell = "﬜",
+                treesitter = "",
+                nvim_lua = "",
+                orgmode = "",
+                neorg = "",
+            })[entry.source.name]
+            return vim_item
         end,
     },
 
@@ -107,6 +106,11 @@ cmp.setup {
     window = {
         documentation = cmp.config.window.bordered(),
         completion = cmp.config.window.bordered(),
+        -- completion = {
+        --     winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+        --     col_offset = -3,
+        --     side_padding = 0,
+        -- },
     }
 }
 

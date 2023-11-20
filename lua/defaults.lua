@@ -61,6 +61,9 @@ keymap.set("n", "<c-k>", "<c-w>k")
 keymap.set("n", "<c-j>", "<c-w>j")
 keymap.set("n", "<c-h>", "<c-w>h")
 
+--> mouse
+set.mouse = "a"
+
 --> nowrap
 set.wrap = false
 

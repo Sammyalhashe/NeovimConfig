@@ -14,7 +14,13 @@ neorg.setup {
     load = {
         ["core.defaults"] = {},
         ["core.neorgcmd"] = {},
-        ["core.keybinds"] = {},
+        ["core.keybinds"] = {
+            config = {
+                hook = function(keybinds)
+                    keybinds.remap_key("norg", "n", "<C-Space>", "<Leader>tn")
+                end,
+            }
+        },
         ["core.concealer"] = {},
         ["core.looking-glass"] = {},
         ["core.dirman"] = {
@@ -36,7 +42,7 @@ neorg.setup {
         --         workspace = "work"
         --     },
         -- },
-        ["core.export"] = {},
+        ["core.export"] = {config = {extensions = "all"}},
         ["core.presenter"] = {
             config = {
                 zen_mode = "zen-mode"

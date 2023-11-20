@@ -66,6 +66,7 @@ packer.startup(function()
     }
     use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
     use "EdenEast/nightfox.nvim"
+    use "polirritmico/monokai-nightasty.nvim"
 
     --> lsp
     use {
@@ -89,8 +90,8 @@ packer.startup(function()
     --I think orgmode has its place.
     use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
     use "Pocco81//true-zen.nvim"
-    use "nvim-orgmode/orgmode"
-    use "akinsho/org-bullets.nvim"
+    -- use "nvim-orgmode/orgmode"
+    -- use "ainsho/org-bullets.nvim"
     use "dhruvasagar/vim-table-mode"
 
     --> C++ Formatting

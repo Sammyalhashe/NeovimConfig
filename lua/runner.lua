@@ -15,8 +15,10 @@ end
 
 local function buildTargetPrompt(targets)
     local prompt = ""
-    for i, target in pairs(targets) do
-        prompt = prompt .. "&" .. i .. " " .. target .. "\n"
+    local idx = 1
+    for target, _ in pairs(targets) do
+        prompt = prompt .. "&" .. idx .. " " .. target .. "\n"
+        idx = idx + 1
     end
     return prompt
 end
@@ -196,6 +198,18 @@ function M.get_current_working_directory()
     return vim.fn.getcwd()
 end
 
+local function getKeyFromPromptIndex(promptIndex, table)
+    local idx = 1
+    for key, _ in pairs(table) do
+        if idx == promptIndex then
+            return key
+        end
+
+        idx = idx + 1
+    end
+    return nil
+end
+
 function M.run(file, filetype, opts)
     local command = nil
 
@@ -228,7 +242,22 @@ function M.run(file, filetype, opts)
                 if instr.targets ~= nil then
                     local prompt = buildTargetPrompt(instr.targets)
                     local res = vim.fn.confirm("Choose target to build: ", prompt)
-                    split_instr[#split_instr + 1] = instr.targets[res]
+                    local key = getKeyFromPromptIndex(res, instr.targets)
+
+                    if key == nil then
+                        print("key found was nil")
+                        return
+                    end
+
+                    split_instr[#split_instr + 1] = key
+
+                    local args = instr.targets[key].args
+
+                    if args ~= nil then
+                        for _, v in ipairs(args) do
+                            split_instr[#split_instr + 1] = v
+                        end
+                    end
                 end
 
                 -- run the actual command
@@ -248,7 +277,7 @@ function M.run(file, filetype, opts)
     elseif filetype == "lua" then
         command = "lua"
     else
-        notify("Unable to run filetype", "error")
+        notify_output("Unable to run filetype", "error", true)
         return
     end
 

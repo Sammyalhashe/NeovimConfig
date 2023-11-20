@@ -10,15 +10,21 @@ runner.setup {
             { cmd = "make" }
         },
         [vim.fn.expand("~/dmp-1")] = {
-            { cmd = "make -j30", cwd = "|workdir|/cmake.bld/Linux/full", targets = { "it", "all" } }
-        },
-        [vim.fn.expand("~/crypto_trader")] = {
-            { cmd = "make -j30", cwd = "|workdir|/cmake.bld/Linux/full" }
-        }
-    },
-    prepare_directions = {
-        [vim.fn.expand("~/crypto_trader")] = {
-            { cmd = "make -j30" }
+            {
+                cmd = "make -j30",
+                cwd = "|workdir|/cmake.bld/Linux/full",
+                targets = {
+                    it = {
+                        args = {"-j30"}
+                    },
+                    all = {
+                        args = {"-j30"}
+                    },
+                    test = {
+                        
+                    }
+                }
+            }
         }
     }
 }
