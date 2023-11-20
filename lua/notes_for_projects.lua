@@ -7,7 +7,7 @@ local fn = vim.fn
 local projectNotesDir = nil
 local defaultProject = nil
 local current_project = nil
-local default_notes_ext = "norg"
+local default_notes_ext = "md"
 
 local previous_dir = nil
 

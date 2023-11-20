@@ -5,49 +5,51 @@ local configs = require "lspconfig/configs"
 local utils = require "utils"
 
 -- formatter
-local futil = require "formatter.util"
+local status, futil = pcall(require, "formatter.util")
 
-require "formatter".setup {
-    filetype = {
-        python = {
-            function()
-                local black = {
-                    exe = "black",
-                    args = {
-                        "--line-length 79"
+if status then
+    require "formatter".setup {
+        filetype = {
+            python = {
+                function()
+                    local black = {
+                        exe = "black",
+                        args = {
+                            "--line-length 79"
+                        }
                     }
-                }
-                local autopep8 = {
-                    exe = "autopep8",
-                    args = {
-                        "--max-line-length 79",
-                        "--hang-closing",
-                        "--aggressive",
-                        "--in-place",
+                    local autopep8 = {
+                        exe = "autopep8",
+                        args = {
+                            "--max-line-length 79",
+                            "--hang-closing",
+                            "--aggressive",
+                            "--in-place",
 
+                        }
                     }
-                }
-                return autopep8
-            end
-        },
-        lua = {
-            require "formatter.filetypes.lua".stylelua,
-        },
-        cpp = {
-            function()
-                return {
-                    exe = utils.valueOrDefault(vim.g.cpp_formatter, "bde-format-11"),
-                    args = {
+                    return autopep8
+                end
+            },
+            lua = {
+                require "formatter.filetypes.lua".stylelua,
+            },
+            cpp = {
+                function()
+                    return {
+                        exe = utils.valueOrDefault(vim.g.cpp_formatter, "bde-format-11"),
+                        args = {
 
+                        }
                     }
-                }
-            end
-        },
-        ["*"] = {
-            require("formatter.filetypes.any").remove_trailing_whitespace
+                end
+            },
+            ["*"] = {
+                require("formatter.filetypes.any").remove_trailing_whitespace
+            }
         }
     }
-}
+end
 
 vim.lsp.set_log_level("error")
 
@@ -132,7 +134,8 @@ local servers = {
     "pyright",
     "hls",
     "cmake",
-    "lua_ls"
+    "lua_ls",
+    "zls"
 }
 local capabilities =
     require("cmp_nvim_lsp").default_capabilities(

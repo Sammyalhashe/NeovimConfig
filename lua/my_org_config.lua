@@ -4,27 +4,22 @@
 local _org_default_inbox = nil
 local _org_base_directory = nil
 local _org_default_notes = nil
-if (vim.g.os == "Linux" and vim.g.wsl == true) then
-    _org_base_directory = "/mnt/c/Users/sammy/"
-    _org_default_inbox = _org_base_directory .. 'Dropbox/Org/Orgzly/inbox.org'
-    _org_default_notes = _org_base_directory .. 'Dropbox/Org/Orgzly/notes.org'
-else
-    if vim.g.os == "Darwin" and vim.g.bb == true then
-        _org_base_directory = "~/Desktop/DesktopHolder/what-ive-learned/"
-        _org_default_inbox = _org_base_directory .. 'README.org'
-        _org_default_notes = _org_base_directory .. 'notes.org'
-    else
-        _org_base_directory = "~/Dropbox/Org/Orgzly/"
-        _org_default_inbox = _org_base_directory .. 'inbox.org'
-        _org_default_notes = _org_base_directory .. 'notes.org'
-    end
+local _org_journal_dir = nil
+
+_org_base_directory = vim.g.orgmode_base
+if not _org_base_directory then
+    print("_org_base_directory required in local.lua")
+    return
 end
+
+_org_default_inbox = _org_base_directory .. "/" .. "inbox.org"
+_org_default_notes = _org_base_directory .. "/" .. "notes.org"
 
 --> Commands that will open my important directories directory.
 local dir_mappings = {}
 dir_mappings["Zshrc"] = "~/.zshrc"
 dir_mappings["Nvim"] = "~/.config/nvim/"
-dir_mappings["Org"] = _org_default_inbox
+dir_mappings["Org"] = _org_default_inbox 
 dir_mappings["Journal"] = _org_base_directory .. "journal"
 
 function OpenDir(name)
@@ -41,9 +36,32 @@ for key, _ in pairs(dir_mappings) do
     vim.api.nvim_create_user_command("Open" .. key, OpenDir(key), opts)
 end
 
+local _org_capture_templates = {
+    p = {
+        description = "Personal",
+        template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
+        target = _org_default_inbox
+    },
+}
+
+if vim.g.orgmode_workdir then
+    _org_capture_templates.w = {
+        description = "Work",
+        template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
+        target = "~/Desktop/DesktopHolder/what-ive-learned/bb/todo.org"
+    }
+end
+
+if vim.g.orgmode_journal then
+    _org_capture_templates.j = {
+        description = "Journal",
+        template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
+        target = _org_journal_dir .. os.date("%A_%B_%d_%Y") .. ".org"
+    }
+end
+
 return {
-    org_agenda_files = { _org_default_inbox, _org_default_notes,
-        '~/Desktop/DesktopHolder/what-ive-learned/**/*' },
+    org_agenda_files = { _org_default_inbox, _org_default_notes},
     org_default_notes_file = _org_default_inbox,
     -- org_hide_leading_stars = true,
     org_todo_keywords = { 'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },
@@ -91,23 +109,6 @@ return {
             end
         end
     },
-    org_capture_templates = {
-        w = {
-            description = "Work",
-            template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-            target = "~/Desktop/DesktopHolder/what-ive-learned/bb/todo.org"
-        },
-
-        p = {
-            description = "Personal",
-            template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-            target = _org_default_inbox
-        },
-        j = {
-            description = "Journal",
-            template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
-            target = _org_base_directory .. "journal/" .. os.date("%A_%B_%d_%Y") .. ".org"
-        },
-    },
+    org_capture_templates = _org_capture_templates,
     win_split_mode = "float"
 }
