@@ -128,14 +128,13 @@ local setup_initializations = function()
     utils.map_allbuf('n', '<leader>ff', tbi .. ".find_files()" .. cr)
     utils.map_allbuf('n', '<leader>pf', tbi .. ".git_files()" .. cr)
     utils.map_allbuf('n', '<leader>b', tbi .. ".buffers()" .. cr)
-    utils.map_allbuf('n', '<leader>ag', tbi .. ".live_grep()" .. cr)
     utils.map_allbuf('n', '<leader>gc', tbi .. ".git_commits()" .. cr)
     utils.map_allbuf('n', '<leader>m', tbi .. ".man_pages()" .. cr)
     utils.map_allbuf('n', '<leader>wc', tex .. ".git_worktree.git_worktrees()" .. cr)
     utils.map_allbuf('n', '<leader>wn', tex .. ".git_worktree.create_git_worktree()" .. cr)
     utils.map_allbuf('n', '<leader>fb', tex .. ".file_browser.file_browser()" .. cr)
     utils.map_allbuf('n', '<leader>sa', tcfg .. ".find_sah_marks()" .. cr)
-    -- utils.map_allbuf('n', '<leader>ag', tcfg .. ".git_files_grep_symbol()" .. cr)
+    utils.map_allbuf('n', '<leader>ag', tcfg .. ".git_files_grep_symbol()" .. cr)
 
     -- setup extensions
     for _, extension in ipairs(extensions) do
