@@ -9,7 +9,7 @@ local _org_journal_dir = nil
 _org_base_directory = vim.g.orgmode_base
 if not _org_base_directory then
     print("_org_base_directory required in local.lua")
-    return
+    return {}
 end
 
 _org_default_inbox = _org_base_directory .. "/" .. "inbox.org"
