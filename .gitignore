@@ -2,7 +2,7 @@ plugged/
 .netrwhist
 vim-agenda/
 spell/
-lua/local.lua
+lua/local*.lua
 autoload/plug.vim
 .luarc.json
 plugin/packer_compiled.lua

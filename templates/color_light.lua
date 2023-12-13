@@ -1,1 +1,1 @@
-local wanted = "dayfox"
+vim.g.color = "dayfox"

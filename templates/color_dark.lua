@@ -1,1 +1,1 @@
-local wanted = "carbonfox"
+vim.g.color = "adwaita"

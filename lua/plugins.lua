@@ -67,6 +67,7 @@ packer.startup(function()
     use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
     use "EdenEast/nightfox.nvim"
     use "polirritmico/monokai-nightasty.nvim"
+    use "Mofiqul/adwaita.nvim"
 
     --> lsp
     use {

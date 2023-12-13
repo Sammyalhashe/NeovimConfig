@@ -1,5 +1,5 @@
-local wanted = "dayfox"
 local utils = require "utils"
+local wanted = utils.valueOrDefault(vim.g.color, "carbonfox")
 
 if utils.string_contains(wanted, "fox$") then
     local status, nightfox = pcall(require, "nightfox")

@@ -149,4 +149,21 @@ function M.clearBufferContents(bufnr)
     end
 end
 
+
+function M.readFileSync(path)
+    local fd = assert(vim.uv.fs_open(path, "r", 438))
+    local stat = assert(vim.uv.fs_fstat(fd))
+    local data = assert(vim.uv.fs_read(fd, stat.size, 0))
+    assert(vim.uv.fs_close(fd))
+    return data
+end
+
+function M.writeFileSync(path, data, start)
+    local fd = assert(vim.uv.fs_open(path, "a+", 438))
+    local offset = assert(vim.uv.fs_write(fd, data, start or -1))
+    assert(vim.uv.fs_close(fd))
+    return offset
+end
+
+
 return M
