@@ -5,9 +5,9 @@ local configs = require "lspconfig/configs"
 local utils = require "utils"
 
 -- formatter
-local status, futil = pcall(require, "formatter.util")
+local formatter_status, futil = pcall(require, "formatter.util")
 
-if status then
+if formatter_status then
     require "formatter".setup {
         filetype = {
             python = {
@@ -145,7 +145,7 @@ for _, s in ipairs(servers) do
         if system_name == "Linux" then
             nvim_lsp[s].setup {
                 on_attach = custom_attach,
-                cmd = { "clangd", "--resource-dir=" .. vim.g.resource_dir, "-j=5", "--header-insertion=iwyu",
+                cmd = { "clangd", "--resource-dir=" .. utils.valueOrDefault(vim.g.resource_dir, ""), "-j=5", "--header-insertion=iwyu",
                     "--background-index" },
                 capabilities = capabilities,
             }
@@ -184,7 +184,7 @@ for _, s in ipairs(servers) do
                             workspace = {
                                 checkThirdParty = false,
                                 library = {
-                                    vim.env.VIMRUNTIME
+                                    vim.env.VIMRUNTIME,
                                     -- "${3rd}/luv/library"
                                     -- "${3rd}/busted/library",
                                 }
@@ -198,27 +198,6 @@ for _, s in ipairs(servers) do
                 end
                 return true
             end,
-            -- settings = {
-            --     Lua = {
-            --         runtime = {
-            --             -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            --             version = 'LuaJIT',
-            --         },
-            --         diagnostics = {
-            --             -- Get the language server to recognize the `vim` global
-            --             -- also `use`
-            --             globals = { 'vim', 'use' },
-            --         },
-            --         workspace = {
-            --             -- Make the server aware of Neovim runtime files
-            --             library = vim.api.nvim_get_runtime_file("", true),
-            --         },
-            --         -- Do not send telemetry data containing a randomized but unique identifier
-            --         telemetry = {
-            --             enable = false,
-            --         },
-            --     },
-            -- },
             on_attach = custom_attach,
             capabilities = capabilities
         }

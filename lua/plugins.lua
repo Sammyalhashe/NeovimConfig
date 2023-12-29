@@ -57,7 +57,7 @@ packer.startup(function()
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use "nvim-telescope/telescope-file-browser.nvim"
     use "ThePrimeagen/git-worktree.nvim"
-    use "folke/trouble.nvim"
+    use "ThePrimeagen/harpoon"
 
     --> colorscheme
     use {

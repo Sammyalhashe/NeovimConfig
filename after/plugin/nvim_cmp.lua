@@ -15,6 +15,11 @@ local has_words_before = function()
 end
 
 cmp.setup {
+    view = {
+        entries = {
+            native = true,
+        },
+    },
     mapping = {
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -84,7 +89,7 @@ cmp.setup {
             vim_item.menu = ({
                 buffer = "",
                 emoji = "",
-                nvim_lsp = "",
+                nvim_lsp = "⚡",
                 path = "",
                 spell = "﬜",
                 treesitter = "",
@@ -97,9 +102,6 @@ cmp.setup {
     },
 
     experimental = {
-        -- I like the new menu better! Nice work hrsh7th
-        native_menu = false,
-
         -- Let's play with this for a day or two
         ghost_text = true,
     },

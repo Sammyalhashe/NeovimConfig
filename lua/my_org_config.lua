@@ -8,7 +8,7 @@ local _org_journal_dir = nil
 
 _org_base_directory = vim.g.orgmode_base
 if not _org_base_directory then
-    print("_org_base_directory required in local.lua")
+    print("orgmode_base required in local.lua")
     return {}
 end
 
