@@ -67,15 +67,38 @@ local _org_capture_templates = {
                 template =
                 '\n*** %^{What state?||TODO|IDEA|} %U %^{Item||}%? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}:',
                 target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) ..
-                "/" .. os.date("%B_%Y") .. ".org",
+                    "/" .. os.date("%B_%Y") .. ".org",
             },
             u = {
                 description = "Not scheduled",
                 template =
                 [[*** %^{What state?||TODO|IDEA|} %U %^{Item||}%? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}:]],
                 target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) ..
-                "/" .. os.date("%B_%Y") .. ".org",
+                    "/" .. os.date("%B_%Y") .. ".org",
             }
+        }
+    },
+    l = {
+        description = "links",
+        subtemplates = {
+            s = {
+                description = "Shopping",
+                template = "- [[%^{Link||}]]",
+                headline = "Shopping links",
+                target = _org_base_directory .. "/links.org",
+            },
+            r = {
+                description = "Useful resource links",
+                template = "- [[%^{Link||}]]",
+                headline = "Useful resource links",
+                target = _org_base_directory .. "/links.org",
+            },
+            w = {
+                description = "Wants",
+                template = "- [[%^{Link||}]]",
+                headline = "Wants",
+                target = _org_base_directory .. "/links.org",
+            },
         }
     },
     w = {
