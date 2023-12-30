@@ -1,6 +1,8 @@
 --> NOTE: No need to check if org exists here, since this file should only be
 --  included with orgmode.rc.lua.
 
+local utils = require "utils"
+
 local _org_default_inbox = nil
 local _org_base_directory = nil
 local _org_default_notes = nil
@@ -14,13 +16,14 @@ end
 
 _org_default_inbox = _org_base_directory .. "/" .. "inbox.org"
 _org_default_notes = _org_base_directory .. "/" .. "notes.org"
+_org_journal_dir = _org_base_directory .. "/" .. "journal/"
 
 --> Commands that will open my important directories directory.
 local dir_mappings = {}
 dir_mappings["Zshrc"] = "~/.zshrc"
 dir_mappings["Nvim"] = "~/.config/nvim/"
-dir_mappings["Org"] = _org_default_inbox 
-dir_mappings["Journal"] = _org_base_directory .. "journal"
+dir_mappings["Org"] = _org_default_inbox
+dir_mappings["Journal"] = _org_journal_dir
 
 function OpenDir(name)
     return function()
@@ -42,26 +45,21 @@ local _org_capture_templates = {
         template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
         target = _org_default_inbox
     },
-}
-
-if vim.g.orgmode_workdir then
-    _org_capture_templates.w = {
+    j = {
+        description = "Journal",
+        template = '\n*** %^{What state?||TODO|IDEA|} %U %?',
+        target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) .. "/" .. os.date("%B_%Y") .. ".org",
+    },
+    w = {
         description = "Work",
         template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-        target = "~/Desktop/DesktopHolder/what-ive-learned/bb/todo.org"
+        target = utils.valueOrDefault(vim.g.orgmode_workdir, utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) .. "/" .. os.date("%B_%Y") .. ".org"),
     }
-end
 
-if vim.g.orgmode_journal then
-    _org_capture_templates.j = {
-        description = "Journal",
-        template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
-        target = _org_journal_dir .. os.date("%A_%B_%d_%Y") .. ".org"
-    }
-end
+}
 
 return {
-    org_agenda_files = { _org_default_inbox, _org_default_notes},
+    org_agenda_files = { _org_default_inbox, _org_default_notes, _org_journal_dir .. "**/*", _org_journal_dir .. "*" },
     org_default_notes_file = _org_default_inbox,
     -- org_hide_leading_stars = true,
     org_todo_keywords = { 'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },

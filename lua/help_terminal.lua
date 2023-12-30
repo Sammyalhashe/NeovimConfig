@@ -11,24 +11,73 @@ local most_recent_rel_dir = nil
 local most_recent_cmd = nil
 local command_cache = {}
 
+local save_cmd_cache = function(rel_dir, cmds)
+    if command_cache[rel_dir] == nil then
+        command_cache[rel_dir] = {}
+    end
+    local cmdArr = command_cache[rel_dir]
+
+    -- don't add twice
+    for _, value in ipairs(cmdArr) do
+        if value == cmds then
+            return
+        end
+    end
+    cmdArr[#cmdArr + 1] = cmds
+end
+
+
+local open_scratch = function(rel_dir, cmds)
+    local job_status, job = pcall(require, "plenary.job")
+    if not job_status then return end
+
+    local bufnr = utils.makeScratch("/tmp/scratch")
+    utils.clearBufferContents(bufnr)
+    local scratch_index = 0
+
+    vim.schedule(function()
+        local bufname = vim.fn.bufname(bufnr)
+        vim.cmd("botright split " .. bufname)
+    end)
+    job:new({
+        command = cmds,
+        args = {},
+        cwd = rel_dir,
+        on_stdout = function(err, data)
+            if not err then
+                vim.schedule(function()
+                    vim.api.nvim_buf_set_lines(bufnr, scratch_index, scratch_index, true, { data })
+                    scratch_index = scratch_index + 1
+                end)
+            end
+        end,
+        on_exit = function(j, return_val)
+            if return_val ~= 0 then
+                local result = j:result()
+                if #result ~= 0 then
+                    vim.schedule(function()
+                        vim.api.nvim_buf_set_lines(bufnr, scratch_index, scratch_index, true, result)
+                        scratch_index = scratch_index + 1
+                    end)
+                end
+            end
+            save_cmd_cache(rel_dir, cmds)
+        end,
+        on_stderr = function(err, data)
+            vim.schedule(function()
+                vim.api.nvim_buf_set_lines(bufnr, scratch_index, scratch_index, true, { data })
+                scratch_index = scratch_index + 1
+            end)
+        end
+    }):start()
+end
 
 local open_terminal = function(rel_dir, cmds, opts)
     local split_command = (opts and opts["split_command"]) or "split"
     vim.cmd(split_command .. ' term://' .. rel_dir .. '/' .. cmds)
 
     if vim.v.shell_error ~= "0" then
-        if command_cache[rel_dir] == nil then
-            command_cache[rel_dir] = {}
-        end
-        local cmdArr = command_cache[rel_dir]
-
-        -- don't add twice
-        for _, value in ipairs(cmdArr) do
-            if value == cmds then
-                return
-            end
-        end
-        cmdArr[#cmdArr + 1] = cmds
+        save_cmd_cache(rel_dir, cmds)
     end
 end
 
@@ -70,8 +119,8 @@ M.open_terminal_prompt = function()
     }
     local command = fn.input(opts)
     open_terminal(relative_dir, command)
+    -- open_scratch(relative_dir, command)
 end
 
-vim.api.nvim_buf_set_keymap(0, 'n', '<F7>', ":lua require'help_terminal'.open_terminal_prompt()<CR>",
-    { noremap = true, silent = true })
+vim.api.nvim_create_user_command("Command", M.open_terminal_prompt, {})
 return M
