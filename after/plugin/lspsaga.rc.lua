@@ -25,3 +25,12 @@ utils.map_allbuf("n", "<leader>ee", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
 utils.map_allbuf("n", "]g", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 utils.map_allbuf("n", "[g", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 utils.map_allbuf("n", "<leader>ar", "<cmd>Lspsaga rename<CR>")
+
+
+-- disable in man/vimdocs
+vim.cmd [[
+augroup lspsaga_disable
+    autocmd!
+    au BufEnter *.txt unmap K " unmap 'K'
+augroup END
+]]
