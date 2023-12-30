@@ -30,3 +30,9 @@ orgmode_bullets.setup {
         },
     }
 }
+
+--> orgmode headlines
+local headline_status, headlines = pcall(require, "headlines")
+if not headline_status then return end
+
+headlines.setup({})
