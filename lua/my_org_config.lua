@@ -42,18 +42,49 @@ end
 local _org_capture_templates = {
     p = {
         description = "Personal",
-        template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-        target = _org_default_inbox
+        subtemplates = {
+            u = {
+                description = "Not scheduled",
+                template =
+                [[* %^{What state?|TODO|TODO|FIX|OPTIMIZE} %n %^{Item||}%? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}:]],
+                target = _org_default_inbox
+            },
+            s = {
+                description = "Scheduled",
+                template =
+                [[* %^{What state?|TODO|TODO|FIX|OPTIMIZE} %n %^{Item||}%? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}:
+                %(local hour = vim.fn.input('scheudled hour: ');
+                if not hour then return '' else return 'SCHEDULED: <' .. os.date('%Y-%m-%d') .. ' ' .. hour .. ':00' .. '>' end )]],
+                target = _org_default_inbox
+            },
+        }
     },
     j = {
         description = "Journal",
-        template = '\n*** %^{What state?||TODO|IDEA|} %U %?',
-        target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) .. "/" .. os.date("%B_%Y") .. ".org",
+        subtemplates = {
+            s = {
+                description = "Scheduled",
+                template =
+                '\n*** %^{What state?||TODO|IDEA|} %U %? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}',
+                target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) ..
+                "/" .. os.date("%B_%Y") .. ".org",
+            },
+            u = {
+                description = "Not scheduled",
+                template =
+                [[\n*** %^{What state?||TODO|IDEA|} %U %? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}
+                %(local hour = vim.fn.input('scheudled hour: ');
+                if not hour then return '' else return 'SCHEDULED: <' .. os.date('%Y-%m-%d') .. ' ' .. hour .. ':00' .. '>' end )]],
+                target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) ..
+                "/" .. os.date("%B_%Y") .. ".org",
+            }
+        }
     },
     w = {
         description = "Work",
-        template = "* %^{TODO|FIX|OPTIMIZE} %n %?\n  %T",
-        target = utils.valueOrDefault(vim.g.orgmode_workdir, utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) .. "/" .. os.date("%B_%Y") .. ".org"),
+        template = "* %^{State|TODO|TODO|FIX|OPTIMIZE} %n %?\n  %T",
+        target = utils.valueOrDefault(vim.g.orgmode_workdir,
+            utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) .. "/" .. os.date("%B_%Y") .. ".org"),
     }
 
 }
@@ -62,11 +93,10 @@ return {
     org_agenda_files = { _org_default_inbox, _org_default_notes, _org_journal_dir .. "**/*", _org_journal_dir .. "*" },
     org_default_notes_file = _org_default_inbox,
     -- org_hide_leading_stars = true,
-    org_todo_keywords = { 'TODO(t)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },
+    org_todo_keywords = { 'TODO(t)', 'IDEA(t)', 'FIX(f)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },
     org_todo_keyword_faces = {
-        -- WAITING = ':foreground blue :weight bold',
-        -- DELEGATED = ':background #FFFFFF :slant italic :underline on',
-        -- TODO = ':foreground red', -- overrides builtin color for `TODO` keyword
+        FIX = ':foreground red',
+        IDEA = ':foreground green :weight bold',
     },
     -- org_ellipsis = " ==="
     notifications = {
