@@ -65,16 +65,14 @@ local _org_capture_templates = {
             s = {
                 description = "Scheduled",
                 template =
-                '\n*** %^{What state?||TODO|IDEA|} %U %? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}',
+                '\n*** %^{What state?||TODO|IDEA|} %U %^{Item||}%? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}:',
                 target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) ..
                 "/" .. os.date("%B_%Y") .. ".org",
             },
             u = {
                 description = "Not scheduled",
                 template =
-                [[\n*** %^{What state?||TODO|IDEA|} %U %? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}
-                %(local hour = vim.fn.input('scheudled hour: ');
-                if not hour then return '' else return 'SCHEDULED: <' .. os.date('%Y-%m-%d') .. ' ' .. hour .. ':00' .. '>' end )]],
+                [[*** %^{What state?||TODO|IDEA|} %U %^{Item||}%? :%^{Tag?|personal|coding|sheff|work|travel|tennis|workout|wants}:]],
                 target = utils.valueOrDefault(vim.g.orgmode_journal, _org_journal_dir) ..
                 "/" .. os.date("%B_%Y") .. ".org",
             }
