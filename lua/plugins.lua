@@ -94,6 +94,7 @@ packer.startup(function()
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"
     use "dhruvasagar/vim-table-mode"
+    use "lukas-reineke/headlines.nvim"
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"
