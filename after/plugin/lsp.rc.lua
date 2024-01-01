@@ -63,15 +63,41 @@ local get_diagnostics = function()
 end
 
 
+local saga_status, lspsaga = pcall(require, "lspsaga")
+if saga_status then
+    lspsaga.setup {
+        border_style = "rounded",
+        -- Action keys should be:
+        -- o/<cr>: open in current
+        -- <c-x>: open in split
+        -- <c-v>: open in vsplit
+        -- They seem more complicated than the defaults but it's for consistency.
+        keys = {
+            split = "<c-x>",
+            vsplit = "<c-v>",
+            open = "<cr>",
+        }
+    }
+end
 
 local custom_attach = function(client)
     -- utils.map("n", "=f",
     --     "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { file = '~/.clang-format', tabSize = 4, insertSpaces = true, trimTrailingWhitespace = true,} }<CR>")
     utils.map("n", "=f",
         "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { style = 'file' } }<CR>")
+    if not saga_status then
+        utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+    else
+        utils.map_allbuf("n", "K", "<cmd>Lspsaga peek_definition<CR>")
+        utils.map_allbuf("n", "gd", "<cmd>Lspsaga finder<CR>")
+        utils.map_allbuf("n", "<leader>ac", "<cmd>Lspsaga code_action<CR>")
+        utils.map_allbuf("n", "<leader>ee", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+        utils.map_allbuf("n", "]g", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+        utils.map_allbuf("n", "[g", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+        utils.map_allbuf("n", "<leader>ar", "<cmd>Lspsaga rename<CR>")
+    end
     utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
     -- utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-    -- utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
     -- utils.map("n", "<leader>ac", "<cmd>lua vim.lsp.buf.code_action()<CR>")
     -- utils.map("n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()<CR>")
     -- utils.map("n", "<leader>ar", "<cmd>lua require('utils').rename()<CR>")

@@ -109,7 +109,7 @@ function GetCommands(_, _, _)
     return result
 end
 
-M.open_terminal_prompt = function()
+M.open_terminal_prompt = function(split_command)
     local relative_dir = fn.input("relative directory: ", "", "file")
     most_recent_rel_dir = relative_dir
     local opts = {
@@ -118,9 +118,11 @@ M.open_terminal_prompt = function()
         completion = "customlist,v:lua.GetCommands"
     }
     local command = fn.input(opts)
-    open_terminal(relative_dir, command)
+    open_terminal(relative_dir, command, {split_command = split_command})
     -- open_scratch(relative_dir, command)
 end
 
-vim.api.nvim_create_user_command("Command", M.open_terminal_prompt, {})
+vim.api.nvim_create_user_command("Command", function() M.open_terminal_prompt("split") end, {})
+vim.api.nvim_create_user_command("CommandV", function() M.open_terminal_prompt("vsplit") end, {})
+vim.api.nvim_create_user_command("CommandT", function() M.open_terminal_prompt("tabnew") end, {})
 return M
