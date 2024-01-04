@@ -22,7 +22,7 @@ packer.startup(function()
     use "nvim-lua/plenary.nvim"
 
     --> my plugins
-    use "Sammyalhashe/session_manager.nvim"
+    use "/home/sammyalhashemi/Documents/personal/session_manager.nvim"
 
     --> Misc
     use "folke/which-key.nvim"
