@@ -78,12 +78,24 @@ local open_terminal = function(rel_dir, cmds, opts)
     if split_command == "rerun" then
         split_command = most_recent_split or "split"
     end
-    vim.cmd(split_command .. ' term://' .. rel_dir .. '/' .. cmds)
+
+    -- add a trailing '/' if there isn't one. If there is already one don't add
+    -- because too many breaks the `term://` syntax
+    if #rel_dir == 0 or rel_dir == '' then
+        -- no-op
+        -- to run a command in the current directory the syntax is
+        -- `term://cmd`
+    elseif string.sub(rel_dir, #rel_dir, #rel_dir) ~= '/' then
+        rel_dir = rel_dir .. "//"
+    elseif string.sub(rel_dir, #rel_dir - 1, #rel_dir - 1) ~= '/' then
+        rel_dir = rel_dir .. "/"
+    end
+    vim.cmd(split_command .. ' term://' .. rel_dir .. cmds)
     vim.cmd.norm("A")
     vim.cmd.startinsert()
 
     if vim.v.shell_error ~= "0" then
-        save_cmd_cache(rel_dir, cmds)
+        save_cmd_cache(string.gsub(rel_dir, "//$", ""), cmds)
     end
 end
 
@@ -108,7 +120,7 @@ function GetCommands(_, _, _)
         result[#result + 1] = "./" .. split[#split]
     end
 
-    for _, value in ipairs(command_cache[most_recent_rel_dir]) do
+    for _, value in ipairs(command_cache[string.gsub(most_recent_rel_dir, "[//]+$", "")]) do
         result[#result + 1] = value
     end
     fn.inputrestore()
@@ -143,7 +155,6 @@ M.open_terminal_prompt = function(split_command)
     end
 
     open_terminal(relative_dir, command, {split_command = split_command})
-    -- open_scratch(relative_dir, command)
 end
 
 vim.api.nvim_create_user_command("Command", function() M.open_terminal_prompt("split") end, {})
