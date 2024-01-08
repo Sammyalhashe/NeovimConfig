@@ -9,6 +9,7 @@ local M = {}
 
 local most_recent_rel_dir = nil
 local most_recent_cmd = nil
+local most_recent_split = nil
 local command_cache = {}
 
 local save_cmd_cache = function(rel_dir, cmds)
@@ -74,7 +75,12 @@ end
 
 local open_terminal = function(rel_dir, cmds, opts)
     local split_command = (opts and opts["split_command"]) or "split"
+    if split_command == "rerun" then
+        split_command = most_recent_split or "split"
+    end
     vim.cmd(split_command .. ' term://' .. rel_dir .. '/' .. cmds)
+    vim.cmd.norm("A")
+    vim.cmd.startinsert()
 
     if vim.v.shell_error ~= "0" then
         save_cmd_cache(rel_dir, cmds)
@@ -110,14 +116,32 @@ function GetCommands(_, _, _)
 end
 
 M.open_terminal_prompt = function(split_command)
-    local relative_dir = fn.input("relative directory: ", "", "file")
-    most_recent_rel_dir = relative_dir
-    local opts = {
-        prompt = "command to run: ",
-        default = "",
-        completion = "customlist,v:lua.GetCommands"
-    }
-    local command = fn.input(opts)
+    local relative_dir = nil
+    local command = nil
+    if split_command == "rerun" then
+        if not (most_recent_cmd and most_recent_rel_dir) then
+            print("need to run something first...")
+            return
+        end
+
+        local rerun_split = most_recent_split or "split"
+
+        relative_dir = most_recent_rel_dir
+        command = most_recent_cmd
+    else
+        relative_dir = fn.input("relative directory: ", "", "file")
+        most_recent_rel_dir = relative_dir
+
+        local opts = {
+            prompt = "command to run: ",
+            default = "",
+            completion = "customlist,v:lua.GetCommands"
+        }
+        command = fn.input(opts)
+        most_recent_cmd = command
+        most_recent_split = split_command
+    end
+
     open_terminal(relative_dir, command, {split_command = split_command})
     -- open_scratch(relative_dir, command)
 end
@@ -125,4 +149,5 @@ end
 vim.api.nvim_create_user_command("Command", function() M.open_terminal_prompt("split") end, {})
 vim.api.nvim_create_user_command("CommandV", function() M.open_terminal_prompt("vsplit") end, {})
 vim.api.nvim_create_user_command("CommandT", function() M.open_terminal_prompt("tabnew") end, {})
+vim.api.nvim_create_user_command("ReRun", function() M.open_terminal_prompt("rerun") end, {})
 return M
