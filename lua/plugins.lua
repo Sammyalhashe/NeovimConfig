@@ -41,6 +41,10 @@ packer.startup(function()
     use "nvim-lualine/lualine.nvim"
     use "folke/todo-comments.nvim"
     use "rcarriga/nvim-notify"
+    use {
+        "folke/noice.nvim",
+        requires = "MunifTanjim/nui.nvim",
+    }
 
     --> git gud
     use "tpope/vim-fugitive"
@@ -85,7 +89,6 @@ packer.startup(function()
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-emoji"
-    use "ray-x/lsp_signature.nvim"
     use "L3MON4D3/LuaSnip"
     use "saadparwaiz1/cmp_luasnip"
     use {

@@ -81,8 +81,6 @@ if saga_status then
 end
 
 local custom_attach = function(client)
-    -- utils.map("n", "=f",
-    --     "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { file = '~/.clang-format', tabSize = 4, insertSpaces = true, trimTrailingWhitespace = true,} }<CR>")
     utils.map("n", "=f",
         "<cmd>lua vim.lsp.buf.format{ async = true, formatting_options = { style = 'file' } }<CR>")
     if not saga_status then
@@ -97,10 +95,6 @@ local custom_attach = function(client)
         utils.map_allbuf("n", "<leader>ar", "<cmd>Lspsaga rename<CR>")
     end
     utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-    -- utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-    -- utils.map("n", "<leader>ac", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-    -- utils.map("n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()<CR>")
-    -- utils.map("n", "<leader>ar", "<cmd>lua require('utils').rename()<CR>")
     utils.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
     utils.map("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
     utils.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
@@ -114,10 +108,10 @@ local custom_attach = function(client)
     utils.map("n", "[q", ":cprev<CR>")
     utils.map("n", "]h", ":ClangdSwitchSourceHeader<CR>")
 
-    require "lsp_signature".on_attach({
-        hint_prefix = "=> ",
-        floating_window = false,
-    })
+    -- require "lsp_signature".on_attach({
+    --     hint_prefix = "=> ",
+    --     floating_window = false,
+    -- })
 end
 
 vim.fn.sign_define("LspDiagnosticsSignError",
@@ -169,7 +163,7 @@ local capabilities =
         vim.lsp.protocol.make_client_capabilities())
 for _, s in ipairs(servers) do
     if (s == "clangd") then
-        if system_name == "Linux" then
+        if system_name == "Linux" or "macOS" then
             nvim_lsp[s].setup {
                 on_attach = custom_attach,
                 cmd = { "clangd", "--resource-dir=" .. utils.valueOrDefault(vim.g.resource_dir, ""), "-j=5", "--header-insertion=iwyu",
