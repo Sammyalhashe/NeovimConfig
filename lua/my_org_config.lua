@@ -111,7 +111,7 @@ local _org_capture_templates = {
 }
 
 return {
-    org_agenda_files = { _org_default_inbox, _org_default_notes, _org_journal_dir .. "**/*", _org_journal_dir .. "*" },
+    org_agenda_files = { _org_default_inbox, _org_default_notes, _org_journal_dir .. "**/*", _org_journal_dir .. "*", _org_base_directory .. "/notes/*" },
     org_default_notes_file = _org_default_inbox,
     -- org_hide_leading_stars = true,
     org_todo_keywords = { 'TODO(t)', 'IDEA(t)', 'FIX(f)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },
