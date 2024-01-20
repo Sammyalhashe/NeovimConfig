@@ -64,10 +64,17 @@ packer.startup(function()
         "luisiacc/gruvbox-baby",
         branch = "main"
     }
-    use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
+    use({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
     use "EdenEast/nightfox.nvim"
     use "polirritmico/monokai-nightasty.nvim"
     use "Mofiqul/adwaita.nvim"
+    use {
+        "mcchrish/zenbones.nvim",
+        -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+        -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+        -- In Vim, compat mode is turned on as Lush only works in Neovim.
+        requires = "rktjmp/lush.nvim"
+    }
 
     --> lsp
     use {

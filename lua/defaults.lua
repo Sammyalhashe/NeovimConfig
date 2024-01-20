@@ -13,6 +13,8 @@ keymap.set("n", "<leader>r", ":luafile %<cr>", { silent = true })
 set.ignorecase = true
 set.smartcase = true
 
+set.termguicolors = true
+
 --> encoding
 set.encoding       = "utf-8"
 vim.scriptencoding = "utf-8"
