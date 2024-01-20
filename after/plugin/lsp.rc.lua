@@ -161,7 +161,8 @@ local servers = {
     "hls",
     "cmake",
     "lua_ls",
-    "zls"
+    "zls",
+    "gopls"
 }
 local capabilities =
     require("cmp_nvim_lsp").default_capabilities(

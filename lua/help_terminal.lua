@@ -73,10 +73,28 @@ local open_scratch = function(rel_dir, cmds)
     }):start()
 end
 
+-- returns -1 on failure
+function GetXPercentWindowWidth(X)
+    local window_width = vim.fn.winwidth(0) -- 0 means current window
+    return math.floor((X / 100) * window_width)
+end
+
+-- returns -1 on failure
+function GetYPercentWindowHeight(Y)
+    local window_height = vim.fn.winheight(0) -- 0 means current window
+    return math.floor((Y / 100) * window_height)
+end
+
 local open_terminal = function(rel_dir, cmds, opts)
     local split_command = (opts and opts["split_command"]) or "split"
     if split_command == "rerun" then
         split_command = most_recent_split or "split"
+    elseif split_command == "split" then
+        local split_cols = GetYPercentWindowHeight(20)
+        split_command = split_cols .. split_command
+    elseif split_command == "vsplit" then
+        local split_rows = GetXPercentWindowWidth(30)
+        split_command = split_rows .. split_command
     end
 
     -- add a trailing '/' if there isn't one. If there is already one don't add
