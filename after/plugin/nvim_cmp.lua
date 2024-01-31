@@ -89,7 +89,7 @@ cmp.setup {
             vim_item.menu = ({
                 buffer = "",
                 emoji = "",
-                nvim_lsp = "⚡",
+                nvim_lsp = '󰊕',
                 path = "",
                 spell = "﬜",
                 treesitter = "",
