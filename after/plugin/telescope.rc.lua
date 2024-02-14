@@ -29,6 +29,7 @@ local telescope_defaults = {
             ["<C-k>"] = "move_selection_previous",
             ["<C-j>"] = "move_selection_next",
             ["<C-q>"] = actions.send_to_qflist,
+            ["<C-d>"] = actions.delete_buffer
         },
         n = {
             -- map actions.which_key to <C-h> (default: <C-/>)
@@ -38,6 +39,7 @@ local telescope_defaults = {
             ["<C-k>"] = "move_selection_previous",
             ["<C-j>"] = "move_selection_next",
             ["<C-q>"] = actions.send_to_qflist,
+            ["<C-d>"] = actions.delete_buffer
         },
     },
     borderchars = {

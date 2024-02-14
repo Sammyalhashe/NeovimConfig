@@ -86,9 +86,11 @@ function GetYPercentWindowHeight(Y)
 end
 
 local open_terminal = function(rel_dir, cmds, opts)
-    local split_command = (opts and opts["split_command"]) or "split"
+    local split_command = (opts and opts["split_command"]) or "edit"
     if split_command == "rerun" then
-        split_command = most_recent_split or "split"
+        split_command = most_recent_split or "edit"
+    elseif split_command == "edit" then
+        split_command = "edit"
     elseif split_command == "split" then
         local split_cols = GetYPercentWindowHeight(20)
         split_command = split_cols .. split_command
@@ -154,7 +156,7 @@ M.open_terminal_prompt = function(split_command)
             return
         end
 
-        local rerun_split = most_recent_split or "split"
+        local rerun_split = most_recent_split or "edit"
 
         relative_dir = most_recent_rel_dir
         command = most_recent_cmd
@@ -175,7 +177,8 @@ M.open_terminal_prompt = function(split_command)
     open_terminal(relative_dir, command, {split_command = split_command})
 end
 
-vim.api.nvim_create_user_command("Command", function() M.open_terminal_prompt("split") end, {})
+vim.api.nvim_create_user_command("Command", function() M.open_terminal_prompt(nil) end, {})
+vim.api.nvim_create_user_command("CommandS", function() M.open_terminal_prompt("split") end, {})
 vim.api.nvim_create_user_command("CommandV", function() M.open_terminal_prompt("vsplit") end, {})
 vim.api.nvim_create_user_command("CommandT", function() M.open_terminal_prompt("tabnew") end, {})
 vim.api.nvim_create_user_command("ReRun", function() M.open_terminal_prompt("rerun") end, {})
