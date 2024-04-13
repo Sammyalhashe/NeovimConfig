@@ -67,6 +67,9 @@ local saga_status, lspsaga = pcall(require, "lspsaga")
 if saga_status then
     lspsaga.setup {
         border_style = "rounded",
+        lightbulb = {
+            enable = false
+        },
         -- Action keys should be:
         -- o/<cr>: open in current
         -- <c-x>: open in split
