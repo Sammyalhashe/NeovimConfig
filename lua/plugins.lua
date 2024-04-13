@@ -24,9 +24,6 @@ packer.startup(function()
     --> my plugins
     use "/home/sammyalhashemi/Documents/personal/session_manager.nvim"
 
-    --> Misc
-    use "folke/which-key.nvim"
-
     --> tmux integration
     use "christoomey/vim-tmux-navigator"
 
@@ -36,15 +33,13 @@ packer.startup(function()
     --> comments plugin
     use "terrortylor/nvim-comment"
 
+    --> substitution
+    use "tpope/vim-abolish"
+
     --> aesthetics
     use "kyazdani42/nvim-web-devicons"
     use "nvim-lualine/lualine.nvim"
-    use "folke/todo-comments.nvim"
     use "rcarriga/nvim-notify"
-    use {
-        "folke/noice.nvim",
-        requires = "MunifTanjim/nui.nvim",
-    }
 
     --> git gud
     use "tpope/vim-fugitive"
@@ -100,11 +95,10 @@ packer.startup(function()
     --> Hopefully I can fully switch to neorg once it matures, but until then,
     --I think orgmode has its place.
     use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
-    use "Pocco81//true-zen.nvim"
+    use "Pocco81/true-zen.nvim"
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"
     use "dhruvasagar/vim-table-mode"
-    use "lukas-reineke/headlines.nvim"
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"
