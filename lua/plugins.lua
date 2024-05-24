@@ -84,6 +84,7 @@ packer.startup(function()
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-emoji"
+    use "hrsh7th/cmp-nvim-lsp-signature-help"
     use "L3MON4D3/LuaSnip"
     use "saadparwaiz1/cmp_luasnip"
     use {
@@ -91,10 +92,18 @@ packer.startup(function()
         after = "nvim-lspconfig"
     }
 
+    --> dap
+    use "mfussenegger/nvim-dap"
+    use "jay-babu/mason-nvim-dap.nvim"
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = { "mfussenegger/nvim-dap" }
+    }
+
     --> organization/writing
     --> Hopefully I can fully switch to neorg once it matures, but until then,
     --I think orgmode has its place.
-    use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
+    -- use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
     use "Pocco81/true-zen.nvim"
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"

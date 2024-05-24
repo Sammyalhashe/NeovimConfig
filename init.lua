@@ -3,7 +3,7 @@ local utils = require("utils")
 --> Determine the os
 function GetOs()
 
-    -- Unix, Linux varients
+    --> Unix, Linux varients
     local fh, _ = io.popen("uname -a 2>/dev/null", "r")
     if not fh then return "unknown" end
     local osname = nil
@@ -12,7 +12,7 @@ function GetOs()
     end
     if osname then return osname end
 
-    -- Add code for other operating systems here
+    --> Add code for other operating systems here
     return "unknown"
 end
 
@@ -43,16 +43,19 @@ if not exists then
     end
 end
 
+--> enable termdebug
+vim.cmd("packadd termdebug")
+
 pcall(require, "local")
 
--- if running in neovide
+--> if running in neovide
 if vim.g.neovide then
     require "neovide"
 end
 
 vim.g.wsl = vim.fn.has("wsl")
 
--- other defaults and my own code
+--> other defaults and my own code
 require "defaults"
 require "plugins"
 require "runner"

@@ -3,8 +3,6 @@ local status1, TSconfigs = pcall(require, "nvim-treesitter.configs")
 local status2, orgmode_bullets = pcall(require, "org-bullets")
 if not (status and status1) then return end
 
-orgmode.setup_ts_grammar()
-
 TSconfigs.setup {
     -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
     highlight = {
@@ -15,7 +13,6 @@ TSconfigs.setup {
     ensure_installed = { 'org' }, -- Or run :TSUpdate org
 }
 
-orgmode.setup_ts_grammar()
 orgmode.setup(require("my_org_config"))
 orgmode_bullets.setup {
     concealcursor = false, -- If false then when the cursor is on a line underlying characters are visible

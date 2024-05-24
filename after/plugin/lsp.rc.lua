@@ -52,6 +52,7 @@ if formatter_status then
 end
 
 vim.lsp.set_log_level("error")
+vim.lsp.inlay_hint.enable()
 
 local get_diagnostics = function()
     local diags = vim.lsp.diagnostic.get_all()
@@ -92,9 +93,9 @@ local custom_attach = function(server)
         if not saga_status then
             utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
         else
-            utils.map_allbuf("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-            utils.map_allbuf("n", "pd", "<cmd>Lspsaga peek_definition<CR>")
-            utils.map_allbuf("n", "pt", "<cmd>Lspsaga peek_type_definition<CR>")
+            utils.map_allbuf("n", "Kk", "<cmd>Lspsaga hover_doc<CR>")
+            utils.map_allbuf("n", "Kd", "<cmd>Lspsaga peek_definition<CR>")
+            utils.map_allbuf("n", "Kt", "<cmd>Lspsaga peek_type_definition<CR>")
             utils.map_allbuf("n", "gd", "<cmd>Lspsaga finder<CR>")
             utils.map_allbuf("n", "<leader>ac", "<cmd>Lspsaga code_action<CR>")
             utils.map_allbuf("n", "<leader>ee", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
@@ -148,7 +149,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         -- Enable virtual text only on Warning or above, override spacing to 2
         virtual_text = {
             spacing = 2,
-            severity_limit = "Warning",
+            min = "Warning",
         },
         signs = false,
     }
