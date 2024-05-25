@@ -79,31 +79,20 @@ function M.openNoteFile(note, opts)
 
     cmd("topleft split " .. note)
 
-    -- previous_dir = vim.fn.getcwd()
     cmd("lcd " .. projectNotesDir)
 
-    vim.api.nvim_create_autocmd(
-        {"BufLeave"},
-        {
-            callback = function()
-                if previous_dir then
-                    -- cmd("cd " .. previous_dir)
-                    -- previous_dir = nil
-                end
-            end,
-            buffer = vim.fn.bufnr()
-        }
-    )
+    local bufenter_augroup = vim.api.nvim_create_augroup("change_to_notes_dir_group", {
+        clear = true
+    })
 
     vim.api.nvim_create_autocmd(
         {"BufEnter"},
         {
             callback = function()
-                -- previous_dir = vim.fn.getcwd()
-                -- cmd("cd " .. projectNotesDir)
                 cmd("lcd " .. projectNotesDir)
             end,
-            buffer = vim.fn.bufnr()
+            buffer = vim.fn.bufnr(),
+            group = bufenter_augroup
         }
     )
 end
