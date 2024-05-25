@@ -52,7 +52,7 @@ if formatter_status then
 end
 
 vim.lsp.set_log_level("error")
-vim.lsp.inlay_hint.enable()
+vim.keymap.set('n', "<leader>iht", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
 local get_diagnostics = function()
     local diags = vim.lsp.diagnostic.get_all()
