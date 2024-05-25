@@ -43,4 +43,5 @@ else
 end
 
 
+vim.o.background = "light"
 vim.cmd("colorscheme " .. colorscheme)
