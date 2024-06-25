@@ -1,3 +1,5 @@
+local telescope_status, telescope = pcall(require, "telescope")
+
 local utils = require("utils")
 
 -- alias fn/cmd
@@ -119,6 +121,57 @@ local open_terminal = function(rel_dir, cmds, opts)
     end
 end
 
+function GetPreviouslyRunCommands()
+    local ret = {};
+
+    for path, map in pairs(command_cache) do
+        for _, cmd in ipairs(map) do
+            ret[#ret + 1] = {}
+            ret[#ret] = cmd .. " run at " .. path
+        end
+    end
+
+    return ret;
+end
+
+function TelescopeRunCommand()
+    if not telescope_status then return end
+    local actions = require("telescope.actions")
+    local action_state = require "telescope.actions.state"
+    local conf = require("telescope.config").values
+    local finders = require("telescope.finders")
+    local pickers = require "telescope.pickers"
+
+    local entry_maker = function(entry)
+        return {
+            value = entry,
+            display = entry,
+            ordinal = entry,
+        }
+    end
+
+    pickers.new({}, {
+        prompt_title = "Choose command",
+        finder = finders.new_table {
+            results = GetPreviouslyRunCommands(),
+            entry_maker = entry_maker
+        },
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_bufnr, _)
+            actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+
+                local split_string = utils.split_string(selection.value, " run at")
+
+                local cmd = split_string[1]
+                local path = split_string[2]
+                open_terminal(path, cmd, {})
+            end)
+            return true
+        end
+    }):find()
+end
 
 function GetCommands(_, _, _)
     fn.inputsave()
@@ -174,7 +227,7 @@ M.open_terminal_prompt = function(split_command)
         most_recent_split = split_command
     end
 
-    open_terminal(relative_dir, command, {split_command = split_command})
+    open_terminal(relative_dir, command, { split_command = split_command })
 end
 
 vim.api.nvim_create_user_command("Command", function() M.open_terminal_prompt(nil) end, {})
@@ -182,4 +235,5 @@ vim.api.nvim_create_user_command("CommandS", function() M.open_terminal_prompt("
 vim.api.nvim_create_user_command("CommandV", function() M.open_terminal_prompt("vsplit") end, {})
 vim.api.nvim_create_user_command("CommandT", function() M.open_terminal_prompt("tabnew") end, {})
 vim.api.nvim_create_user_command("ReRun", function() M.open_terminal_prompt("rerun") end, {})
+vim.api.nvim_create_user_command("TR", function() TelescopeRunCommand() end, {})
 return M
