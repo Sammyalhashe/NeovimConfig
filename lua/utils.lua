@@ -12,7 +12,7 @@ function M.map(type, key, value)
     vim.api.nvim_buf_set_keymap(0, type, key, value, { noremap = true, silent = true });
 end
 
---> sets a global keymapping for the given vim 'mode' 
+--> sets a global keymapping for the given vim 'mode'
 function M.map_allbuf(mode, key, value)
     vim.api.nvim_set_keymap(mode, key, value, { noremap = true, silent = true });
 end
@@ -34,6 +34,22 @@ function M.split_string(inputstr, sep)
         table.insert(t, str)
     end
     return t
+end
+
+function M.split_string_by_substr(inputstr, sep)
+    local sep_start, sep_end = string.find(inputstr, sep)
+
+    local ret = {}
+
+    if sep_start ~= nil and sep_end ~= nil then
+        local first_segment = string.sub(inputstr, 0, sep_start)
+        local second_segment = string.sub(inputstr, sep_end)
+
+        ret[#ret + 1] = first_segment
+        ret[#ret + 1] = second_segment
+    end
+
+    return ret
 end
 
 --> Custom Lsp rename
@@ -81,15 +97,19 @@ end
 --> return a boolean indicating that a given file 'path' exists
 --> 'path' can be both absolute and relative.
 function M.file_exists(path)
-    local f=io.open(M.expandFilePath(path),"r")
-    if f~=nil then io.close(f) return true else return false end
+    local f = io.open(M.expandFilePath(path), "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else
+        return false
+    end
 end
 
 --> return if a string 'str' contains a substring 'pattern'
 function M.string_contains(str, pattern)
     return string.find(str, pattern) ~= nil
 end
-
 
 function M.getAllFilesInDir(path, directories)
     local args = M.expandFilePath(path)
@@ -131,15 +151,15 @@ function M.valueOrDefault(value, default)
     return value
 end
 
-function M.makeScratch (scratchpath)
-  local uri = vim.uri_from_fname(scratchpath)
-  local bufnr = vim.uri_to_bufnr(uri)
-  vim.bo[bufnr].bufhidden = "hide"
-  vim.bo[bufnr].buflisted = true
-  vim.bo[bufnr].buftype = "nofile"
-  vim.bo[bufnr].readonly = false
-  vim.bo[bufnr].swapfile = false
-  return bufnr
+function M.makeScratch(scratchpath)
+    local uri = vim.uri_from_fname(scratchpath)
+    local bufnr = vim.uri_to_bufnr(uri)
+    vim.bo[bufnr].bufhidden = "hide"
+    vim.bo[bufnr].buflisted = true
+    vim.bo[bufnr].buftype = "nofile"
+    vim.bo[bufnr].readonly = false
+    vim.bo[bufnr].swapfile = false
+    return bufnr
 end
 
 function M.clearBufferContents(bufnr)
@@ -148,7 +168,6 @@ function M.clearBufferContents(bufnr)
         vim.api.nvim_buf_set_lines(bufnr, i, i, true, {})
     end
 end
-
 
 function M.readFileSync(path)
     local fd = assert(vim.uv.fs_open(path, "r", 438))
@@ -164,6 +183,5 @@ function M.writeFileSync(path, data, start)
     assert(vim.uv.fs_close(fd))
     return offset
 end
-
 
 return M

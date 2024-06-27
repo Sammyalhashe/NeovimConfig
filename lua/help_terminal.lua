@@ -150,24 +150,73 @@ function TelescopeRunCommand()
         }
     end
 
+    local results = GetPreviouslyRunCommands()
+    results[#results + 1] = "new";
+    results[#results + 1] = "new_vert";
+    results[#results + 1] = "new_sp";
+
+    local picker_cb = function(split_command)
+        return function(prompt_bufnr)
+            actions.close(prompt_bufnr)
+            local selection = action_state.get_selected_entry()
+
+            if selection.value == "new" then
+                M.open_terminal_prompt(nil)
+                return
+            elseif selection.value == "new_vert" then
+                M.open_terminal_prompt("vsplit")
+                return
+            elseif selection.value == "new_sp" then
+                M.open_terminal_prompt("vsplit")
+                return
+            end
+
+            local split_string = utils.split_string_by_substr(selection.value, " run at ")
+
+            if (#split_string >= 2) then
+                local trim = function (s)
+                    return string.gsub(s, "^%s*(.-)%s*$", "%1")
+                end
+                local cmd = trim(split_string[1])
+                local path = trim(split_string[2])
+                print(cmd .. " " .. #cmd .. " " .. path ..  " " .. #cmd)
+                open_terminal(path, cmd, { split_command = split_command or nil })
+            end
+        end
+    end
+
     pickers.new({}, {
         prompt_title = "Choose command",
         finder = finders.new_table {
-            results = GetPreviouslyRunCommands(),
+            results = results,
             entry_maker = entry_maker
         },
         sorter = conf.generic_sorter({}),
-        attach_mappings = function(prompt_bufnr, _)
-            actions.select_default:replace(function()
-                actions.close(prompt_bufnr)
-                local selection = action_state.get_selected_entry()
-
-                local split_string = utils.split_string(selection.value, " run at")
-
-                local cmd = split_string[1]
-                local path = split_string[2]
-                open_terminal(path, cmd, {})
-            end)
+        attach_mappings = function(_, map)
+            map({ "i", "n" }, "<C-v>", picker_cb("vsp"))
+            map({ "i", "n" }, "<C-x>", picker_cb("sp"))
+            map({ "i", "n" }, "<CR>", picker_cb(nil))
+            -- actions.select_default:replace(function()
+            --     actions.close(prompt_bufnr)
+            --     local selection = action_state.get_selected_entry()
+            --
+            --     if selection.value == "new" then
+            --         M.open_terminal_prompt(nil)
+            --         return
+            --     elseif selection.value == "new_vert" then
+            --         M.open_terminal_prompt("vsplit")
+            --         return
+            --     elseif selection.value == "new_sp" then
+            --         M.open_terminal_prompt("vsplit")
+            --         return
+            --     end
+            --
+            --     local split_string = utils.split_string(selection.value, " run at ")
+            --
+            --     local cmd = split_string[1]
+            --     local path = split_string[2]
+            --     open_terminal(path, cmd, {})
+            -- end)
             return true
         end
     }):find()
