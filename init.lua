@@ -2,7 +2,6 @@ local utils = require("utils")
 
 --> Determine the os
 function GetOs()
-
     --> Unix, Linux varients
     local fh, _ = io.popen("uname -a 2>/dev/null", "r")
     if not fh then return "unknown" end
@@ -43,9 +42,6 @@ if not exists then
     end
 end
 
---> enable termdebug
-vim.cmd("packadd termdebug")
-
 pcall(require, "local")
 
 --> if running in neovide
@@ -61,3 +57,4 @@ require "plugins"
 require "runner"
 require "split"
 require "help_terminal"
+require "termdebug"

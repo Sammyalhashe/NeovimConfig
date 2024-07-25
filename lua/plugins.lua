@@ -1,6 +1,8 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
+local utils = require("utils")
+
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
     execute("!git clone --depth 1 https://github.com/wbthomason/packer.nvim "
@@ -22,7 +24,7 @@ packer.startup(function()
     use "nvim-lua/plenary.nvim"
 
     --> my plugins
-    use "/home/sammyalhashemi/Documents/personal/session_manager.nvim"
+    use "Sammyalhashe/session_manager.nvim"
 
     --> tmux integration
     use "christoomey/vim-tmux-navigator"
@@ -32,6 +34,9 @@ packer.startup(function()
 
     --> comments plugin
     use "terrortylor/nvim-comment"
+
+    --> teriminal stuff
+    use "akinsho/toggleterm.nvim"
 
     --> substitution
     use "tpope/vim-abolish"

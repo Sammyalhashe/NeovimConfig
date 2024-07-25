@@ -39,7 +39,6 @@ local on_attach = function(bufnr)
     map('n', '<leader>gn', gs.toggle_deleted)
     map('n', '<leader>gh', gs.next_hunk)
     map('n', '<leader>gH', gs.prev_hunk)
-    map('n', '<leader>gtd', gs.toggle_deleted)
 
     --> Text object
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
