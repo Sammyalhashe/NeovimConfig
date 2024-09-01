@@ -48,6 +48,7 @@ packer.startup(function()
 
     --> git gud
     use "tpope/vim-fugitive"
+    use "tpope/vim-rhubarb"
     use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
     use "lewis6991/gitsigns.nvim"
     use "pwntester/octo.nvim"
@@ -113,6 +114,15 @@ packer.startup(function()
     use "nvim-orgmode/orgmode"
     use "akinsho/org-bullets.nvim"
     use "dhruvasagar/vim-table-mode"
+    use {
+        "chipsenkbeil/org-roam.nvim",
+        tag = "0.1.0",
+        dependencies = {
+          {
+            "nvim-orgmode/orgmode",
+          },
+        },
+    }
 
     --> C++ Formatting
     use "MovEaxEsp/bdeformat"

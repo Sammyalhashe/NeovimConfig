@@ -7,6 +7,7 @@ local _org_default_inbox = nil
 local _org_base_directory = nil
 local _org_default_notes = nil
 local _org_journal_dir = nil
+local _org_roam_dir = nil
 
 _org_base_directory = vim.g.orgmode_base
 if not _org_base_directory then
@@ -17,6 +18,7 @@ end
 _org_default_inbox = _org_base_directory .. "/" .. "inbox.org"
 _org_default_notes = _org_base_directory .. "/" .. "notes.org"
 _org_journal_dir = _org_base_directory .. "/" .. "journal/"
+_org_roam_dir = _org_base_directory .. "/" .. utils.valueOrDefault(vim.g.org_roam_dir, "roam/")
 
 --> Commands that will open my important directories directory.
 local dir_mappings = {}
@@ -111,7 +113,7 @@ local _org_capture_templates = {
 }
 
 return {
-    org_agenda_files = { _org_default_inbox, _org_default_notes, _org_journal_dir .. "**/*", _org_journal_dir .. "*", _org_base_directory .. "/notes/*" },
+    org_agenda_files = { _org_roam_dir .. "*", _org_default_inbox, _org_default_notes, _org_journal_dir .. "**/*", _org_journal_dir .. "*", _org_base_directory .. "/notes/*" },
     org_default_notes_file = _org_default_inbox,
     -- org_hide_leading_stars = true,
     org_todo_keywords = { 'TODO(t)', 'IDEA(t)', 'FIX(f)', 'OPTIMIZE(o)', 'WAITING(w)', 'DELEGATED(z)', '|', 'DONE(d)' },
@@ -159,5 +161,4 @@ return {
         end
     },
     org_capture_templates = _org_capture_templates,
-    win_split_mode = "float"
 }
