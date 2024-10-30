@@ -1,6 +1,8 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
+vim.g.minimal = false
+
 local utils = require("utils")
 
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
@@ -19,111 +21,127 @@ packer.init({
     package_root = util.join_paths(fn.stdpath("data"), "site", "pack")
 })
 
-packer.startup(function()
+local main_plugins = {
     --> used by most plugins
-    use "nvim-lua/plenary.nvim"
-
-    --> my plugins
-    use "Sammyalhashe/session_manager.nvim"
+    "nvim-lua/plenary.nvim",
 
     --> tmux integration
-    use "christoomey/vim-tmux-navigator"
+    "christoomey/vim-tmux-navigator",
 
     --> auto-close brackets
-    use "windwp/nvim-autopairs"
-
-    --> comments plugin
-    use "terrortylor/nvim-comment"
+    "windwp/nvim-autopairs",
 
     --> teriminal stuff
-    use "akinsho/toggleterm.nvim"
-
-    --> substitution
-    use "tpope/vim-abolish"
+    "akinsho/toggleterm.nvim",
 
     --> aesthetics
-    use "kyazdani42/nvim-web-devicons"
-    use "nvim-lualine/lualine.nvim"
-    use "rcarriga/nvim-notify"
+    "nvim-lualine/lualine.nvim",
 
     --> git gud
-    use "tpope/vim-fugitive"
-    use "tpope/vim-rhubarb"
-    use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
-    use "lewis6991/gitsigns.nvim"
-    use "pwntester/octo.nvim"
+    "tpope/vim-fugitive",
+    "pwntester/octo.nvim",
 
     --> treesitter
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+    { "nvim-treesitter/nvim-treesitter",          run = ":TSUpdate" },
 
     --> project navigation
-    use "kyazdani42/nvim-tree.lua"
-    use "nvim-telescope/telescope.nvim"
-    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    use "nvim-telescope/telescope-file-browser.nvim"
-    use "ThePrimeagen/git-worktree.nvim"
-    use "ThePrimeagen/harpoon"
+    "nvim-telescope/telescope.nvim",
+    { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+    "nvim-telescope/telescope-file-browser.nvim",
+    "ThePrimeagen/harpoon",
 
     --> colorscheme
-    use {
-        "luisiacc/gruvbox-baby",
-        branch = "main"
-    }
-    use({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
-    use "EdenEast/nightfox.nvim"
-    use "polirritmico/monokai-nightasty.nvim"
-    use "Mofiqul/adwaita.nvim"
-    use {
+    "EdenEast/nightfox.nvim",
+    "polirritmico/monokai-nightasty.nvim",
+    "Mofiqul/adwaita.nvim",
+
+    --> lsp
+    {
+        "williamboman/mason.nvim",
+    },
+    "neovim/nvim-lspconfig",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
+    {
+        "nvimdev/lspsaga.nvim",
+        after = "nvim-lspconfig",
+    },
+
+    --> organization/writing
+    "nvim-orgmode/orgmode",
+    "akinsho/org-bullets.nvim",
+    {
+        "chipsenkbeil/org-roam.nvim",
+        tag = "0.1.0",
+        dependencies = {
+            {
+                "nvim-orgmode/orgmode",
+            },
+        },
+    },
+
+    --> C++ Formatting
+    "MovEaxEsp/bdeformat"
+}
+
+local bloated_plugins = {
+    --> my plugins
+    "Sammyalhashe/session_manager.nvim",
+
+    --> aesthetics
+    "kyazdani42/nvim-web-devicons",
+
+    --> git gud
+    { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
+    "tpope/vim-rhubarb",
+    "lewis6991/gitsigns.nvim",
+
+    --> project navigation
+    "kyazdani42/nvim-tree.lua",
+    "ThePrimeagen/git-worktree.nvim",
+
+    --> colorscheme
+    {
         "mcchrish/zenbones.nvim",
         -- Optionally install Lush. Allows for more configuration or extending the colorscheme
         -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
         -- In Vim, compat mode is turned on as Lush only works in Neovim.
-        requires = "rktjmp/lush.nvim"
-    }
+        requires = "rktjmp/lush.nvim",
+    },
+
 
     --> lsp
-    use {
-        "williamboman/mason.nvim"
-    }
-    use "neovim/nvim-lspconfig"
-    use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/nvim-cmp"
-    use "hrsh7th/cmp-buffer"
-    use "hrsh7th/cmp-emoji"
-    use "hrsh7th/cmp-nvim-lsp-signature-help"
-    use "L3MON4D3/LuaSnip"
-    use "saadparwaiz1/cmp_luasnip"
-    use {
-        "nvimdev/lspsaga.nvim",
-        after = "nvim-lspconfig"
-    }
+    "hrsh7th/cmp-emoji",
 
     --> dap
-    use "mfussenegger/nvim-dap"
-    use "jay-babu/mason-nvim-dap.nvim"
-    use {
+    "mfussenegger/nvim-dap",
+    "jay-babu/mason-nvim-dap.nvim",
+    {
         "rcarriga/nvim-dap-ui",
         requires = { "mfussenegger/nvim-dap" }
-    }
+    },
 
     --> organization/writing
-    --> Hopefully I can fully switch to neorg once it matures, but until then,
-    --I think orgmode has its place.
-    -- use { "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope" } }
-    use "Pocco81/true-zen.nvim"
-    use "nvim-orgmode/orgmode"
-    use "akinsho/org-bullets.nvim"
-    use "dhruvasagar/vim-table-mode"
-    use {
-        "chipsenkbeil/org-roam.nvim",
-        tag = "0.1.0",
-        dependencies = {
-          {
-            "nvim-orgmode/orgmode",
-          },
-        },
-    }
+    "Pocco81/true-zen.nvim",
+    "lukas-reineke/headlines.nvim",
+    "dhruvasagar/vim-table-mode",
 
-    --> C++ Formatting
-    use "MovEaxEsp/bdeformat"
+}
+
+local plugins = { main_plugins }
+
+if not vim.g.minimal then
+    table.insert(plugins, bloated_plugins)
+end
+
+packer.startup(function()
+    for _, plugins_table in ipairs(plugins) do
+        for _, plugin in ipairs(plugins_table) do
+            pcall(use, plugin)
+        end
+    end
 end)
