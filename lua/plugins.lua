@@ -76,7 +76,6 @@ local main_plugins = {
     "akinsho/org-bullets.nvim",
     {
         "chipsenkbeil/org-roam.nvim",
-        tag = "0.1.0",
         dependencies = {
             {
                 "nvim-orgmode/orgmode",

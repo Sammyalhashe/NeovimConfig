@@ -1,6 +1,6 @@
 local status, roam = pcall(require, "org-roam")
 if not status then return end
 
-roam.setup({
-    directory = "~/Roam"
-})
+local utils = require("utils")
+
+roam.setup(utils.valueOrDefault(vim.g.roam_config, { directory = "~/Roam" }))
