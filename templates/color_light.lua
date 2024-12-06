@@ -1,1 +1,1 @@
-vim.g.color = "dayfox"
+vim.g.color = "zenwritten"

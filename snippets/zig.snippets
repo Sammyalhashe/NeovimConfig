@@ -1,0 +1,33 @@
+# advent of code
+snippet aoc Create starter template for advent of code
+    const std = @import("std");
+    const FU = @import("fileutils");
+    const print = std.log.info;
+
+    pub fn part_1(input: []const u8, allocator: std.mem.Allocator) !void {
+        var iter = try FU.get_file_iter().init(input, allocator);
+        defer iter.deinit();
+
+        while (try iter.readToNextDelim('\n')) |line| {
+            print("line: {s}", .{line});$0
+        }
+    }
+
+    pub fn main() !void {
+        @import("runner").run_parts(@This(), false);
+    }
+
+# question template for aoc
+snippet aoc_partx Question template for aoc
+    pub fn part_$1(input: []const u8, allocator: std.mem.Allocator) !void {
+        var iter = try FU.get_file_iter().init(input, allocator);
+        defer iter.deinit();
+
+        while (try iter.readToNextDelim('\n')) |line| {
+            print("line: {s}", .{line});$0
+        }
+    }
+
+# List of type
+snippet listT Create a list of type T
+    const List$1 = std.ArrayList($1);$0

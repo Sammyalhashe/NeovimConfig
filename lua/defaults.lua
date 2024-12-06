@@ -109,3 +109,19 @@ keymap.set("n", "<leader>3", "3gt")
 keymap.set("n", "<leader>4", "4gt")
 keymap.set("n", "<leader>5", "5gt")
 keymap.set("n", "<leader>6", "6gt")
+
+--> Commands that will open my important directories directory.
+local dir_mappings = {}
+dir_mappings["Zshrc"] = "~/.zshrc"
+dir_mappings["Nvim"] = "~/.config/nvim/"
+
+function OpenDir(name)
+    return function()
+        vim.api.nvim_command("edit " .. dir_mappings[name])
+        vim.api.nvim_command("cd %:h")
+    end
+end
+
+for key, _ in pairs(dir_mappings) do
+    vim.api.nvim_create_user_command("Open" .. key, OpenDir(key), {})
+end

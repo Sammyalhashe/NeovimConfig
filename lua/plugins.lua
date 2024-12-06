@@ -82,6 +82,7 @@ local main_plugins = {
             },
         },
     },
+    { 'michaelb/sniprun', run = 'sh ./install.sh'},
 
     --> C++ Formatting
     "MovEaxEsp/bdeformat"
@@ -93,6 +94,7 @@ local bloated_plugins = {
 
     --> aesthetics
     "kyazdani42/nvim-web-devicons",
+    { "shortcuts/no-neck-pain.nvim", tag = "*"},
 
     --> git gud
     { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },

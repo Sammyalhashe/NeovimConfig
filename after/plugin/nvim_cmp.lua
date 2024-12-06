@@ -68,7 +68,7 @@ cmp.setup {
         { name = "nvim_lua" },
         { name = "zsh" },
         { name = "orgmode" },
-        { name = "nvim_lsp", priority = 100 }, -- lsp results on top
+        -- { name = "nvim_lsp", priority = 100 }, -- lsp results on top
         { name = "nvim_lsp_signature_help" },
         { name = "path" },
         { name = "luasnip" },
