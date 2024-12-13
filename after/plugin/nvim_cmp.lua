@@ -61,14 +61,14 @@ cmp.setup {
     --        max_item_count
     --        (more?)
     sources = {
-        -- { name = "gh_issues" },
+        { name = "gh_issues" },
 
         { name = "emoji",    insert = true },
         -- Youtube: Could enable this only for lua, but nvim_lua handles that already.
         { name = "nvim_lua" },
         { name = "zsh" },
         { name = "orgmode" },
-        -- { name = "nvim_lsp", priority = 100 }, -- lsp results on top
+        { name = "nvim_lsp", priority = 100 }, -- lsp results on top
         { name = "nvim_lsp_signature_help" },
         { name = "path" },
         { name = "luasnip" },

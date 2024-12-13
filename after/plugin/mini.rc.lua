@@ -14,8 +14,12 @@ require("mini.pick").setup({
 })
 require("mini.extra").setup()
 
+--> mini.files
+require("mini.files").setup()
 
-local setup_pick_initializations = function()
+
+local setup_initializations = function()
+    --> mini.pick
     local pick = "<cmd>Pick "
     local cr = "<cr>"
 
@@ -23,7 +27,12 @@ local setup_pick_initializations = function()
     utils.map_allbuf('n', '<leader>ff', pick .. "files" .. cr)
     utils.map_allbuf('n', '<leader>pf', pick .. " git_files" .. cr)
     utils.map_allbuf('n', '<leader>ag', pick .. " grep_live" .. cr)
+
+    --> mini.files
+    local minifiles = "<cmd>lua MiniFiles"
+    utils.map_allbuf('n', '<leader>c', minifiles .. ".open()" .. cr)
 end
 
 
-setup_pick_initializations()
+setup_initializations()
+
