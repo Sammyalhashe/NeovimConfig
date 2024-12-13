@@ -1,149 +1,118 @@
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-vim.g.minimal = false
-
 local utils = require("utils")
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-    execute("!git clone --depth 1 https://github.com/wbthomason/packer.nvim "
-        .. install_path)
-    execute("packadd packer.nvim")
+-- Put this at the top of 'init.lua'
+local path_package = vim.fn.stdpath('data') .. '/site'
+local mini_path = path_package .. '/pack/deps/start/mini.nvim'
+if not vim.loop.fs_stat(mini_path) then
+    vim.cmd('echo "Installing `mini.nvim`" | redraw')
+    local clone_cmd = {
+        'git', 'clone', '--filter=blob:none',
+        -- Uncomment next line to use 'stable' branch
+        -- '--branch', 'stable',
+        'https://github.com/echasnovski/mini.nvim', mini_path
+    }
+    vim.fn.system(clone_cmd)
+    vim.cmd('packadd mini.nvim | helptags ALL')
 end
 
-vim.cmd("packadd packer.nvim")
-
-local packer = require("packer")
-local util = require("packer.util")
-
-packer.init({
-    package_root = util.join_paths(fn.stdpath("data"), "site", "pack")
-})
+require("mini.deps").setup({ path = { package = path_package } })
+local add = MiniDeps.add
 
 local main_plugins = {
     --> used by most plugins
-    "nvim-lua/plenary.nvim",
+    { source = "nvim-lua/plenary.nvim" },
 
     --> tmux integration
-    "christoomey/vim-tmux-navigator",
+    { source = "christoomey/vim-tmux-navigator" },
 
     --> auto-close brackets
-    "windwp/nvim-autopairs",
+    { source = "windwp/nvim-autopairs" },
 
     --> teriminal stuff
-    "akinsho/toggleterm.nvim",
+    { source = "akinsho/toggleterm.nvim" },
 
     --> aesthetics
-    "nvim-lualine/lualine.nvim",
+    { source = "nvim-lualine/lualine.nvim" },
 
     --> git gud
-    "tpope/vim-fugitive",
-    "pwntester/octo.nvim",
+    { source = "tpope/vim-fugitive" },
+    { source = "pwntester/octo.nvim" },
 
     --> treesitter
-    { "nvim-treesitter/nvim-treesitter",          run = ":TSUpdate" },
+    { source = "nvim-treesitter/nvim-treesitter", hooks = { post_checkout = function() vim.cmd("TSUpdate") end } },
 
     --> project navigation
-    "nvim-telescope/telescope.nvim",
-    { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-    "nvim-telescope/telescope-file-browser.nvim",
-    "ThePrimeagen/harpoon",
+    { source = "nvim-telescope/telescope.nvim" },
+    {
+        source = "nvim-telescope/telescope-fzf-native.nvim",
+        hooks = {
+            post_install = function()
+                print("running make!")
+                vim.fn.system("make")
+                print("after make!")
+            end
+        }
+    },
+    { source = "nvim-telescope/telescope-file-browser.nvim" },
+    { source = "ThePrimeagen/harpoon" },
 
     --> colorscheme
-    "EdenEast/nightfox.nvim",
-    "polirritmico/monokai-nightasty.nvim",
-    "Mofiqul/adwaita.nvim",
+    { source = "EdenEast/nightfox.nvim" },
+    { source = "polirritmico/monokai-nightasty.nvim" },
+    { source = "Mofiqul/adwaita.nvim" },
 
     --> lsp
-    {
-        "williamboman/mason.nvim",
-    },
-    "neovim/nvim-lspconfig",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/nvim-cmp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-nvim-lsp-signature-help",
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
-    {
-        "nvimdev/lspsaga.nvim",
-        after = "nvim-lspconfig",
-    },
+    { source = "williamboman/mason.nvim" },
+    { source = "neovim/nvim-lspconfig" },
+    { source = "hrsh7th/cmp-nvim-lsp" },
+    { source = "hrsh7th/nvim-cmp" },
+    { source = "hrsh7th/cmp-buffer" },
+    { source = "hrsh7th/cmp-nvim-lsp-signature-help" },
+    { source = "L3MON4D3/LuaSnip" },
+    { source = "saadparwaiz1/cmp_luasnip" },
+    { source = "nvimdev/lspsaga.nvim",                      depends = { "nvim-lspconfig" } },
 
     --> organization/writing
-    "nvim-orgmode/orgmode",
-    "akinsho/org-bullets.nvim",
+    { source = "nvim-orgmode/orgmode" },
+    { source = "akinsho/org-bullets.nvim" },
+    { source = "chipsenkbeil/org-roam.nvim",                depends = { "nvim-orgmode/orgmode" } },
     {
-        "chipsenkbeil/org-roam.nvim",
-        dependencies = {
-            {
-                "nvim-orgmode/orgmode",
-            },
-        },
+        source = 'michaelb/sniprun',
+        hooks = {
+            post_install = function()
+                vim.fn.system(
+                    'sh ./install.sh')
+            end
+        }
     },
-    { 'michaelb/sniprun', run = 'sh ./install.sh'},
-    "nvim-orgmode/telescope-orgmode.nvim",
+    { source = "nvim-orgmode/telescope-orgmode.nvim" },
 
     --> C++ Formatting
-    "MovEaxEsp/bdeformat"
+    { source = "MovEaxEsp/bdeformat" }
+}
+
+local my_plugins = {
+    { source = "Sammyalhashe/session_manager.nvim" }
 }
 
 local bloated_plugins = {
-    --> my plugins
-    "Sammyalhashe/session_manager.nvim",
-
     --> aesthetics
-    "kyazdani42/nvim-web-devicons",
-    { "shortcuts/no-neck-pain.nvim", tag = "*"},
-
-    --> git gud
-    { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
-    "tpope/vim-rhubarb",
-    "lewis6991/gitsigns.nvim",
-
-    --> project navigation
-    "kyazdani42/nvim-tree.lua",
-    "ThePrimeagen/git-worktree.nvim",
-
-    --> colorscheme
-    {
-        "mcchrish/zenbones.nvim",
-        -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-        -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-        -- In Vim, compat mode is turned on as Lush only works in Neovim.
-        requires = "rktjmp/lush.nvim",
-    },
-
-
-    --> lsp
-    "hrsh7th/cmp-emoji",
-
-    --> dap
-    "mfussenegger/nvim-dap",
-    "jay-babu/mason-nvim-dap.nvim",
-    {
-        "rcarriga/nvim-dap-ui",
-        requires = { "mfussenegger/nvim-dap" }
-    },
+    { "shortcuts/no-neck-pain.nvim", tag = "*" },
 
     --> organization/writing
     "Pocco81/true-zen.nvim",
     "lukas-reineke/headlines.nvim",
     "dhruvasagar/vim-table-mode",
-
 }
 
-local plugins = { main_plugins }
+local plugins = { main_plugins, my_plugins }
 
-if not vim.g.minimal then
+if not utils.valueOrDefault(vim.g.minimal, false) then
     table.insert(plugins, bloated_plugins)
 end
 
-packer.startup(function()
-    for _, plugins_table in ipairs(plugins) do
-        for _, plugin in ipairs(plugins_table) do
-            pcall(use, plugin)
-        end
+for _, plugins_table in ipairs(plugins) do
+    for _, plugin in ipairs(plugins_table) do
+        pcall(add, plugin)
     end
-end)
+end

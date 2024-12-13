@@ -36,6 +36,7 @@ function M.git_files_grep_symbol()
 end
 
 -- trouble extension
+
 function M.send_to_trouble(telescope_defaults)
     local status2, trouble = pcall(require, "trouble")
     if not status2 then return end
