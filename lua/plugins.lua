@@ -83,6 +83,7 @@ local main_plugins = {
         },
     },
     { 'michaelb/sniprun', run = 'sh ./install.sh'},
+    "nvim-orgmode/telescope-orgmode.nvim",
 
     --> C++ Formatting
     "MovEaxEsp/bdeformat"
