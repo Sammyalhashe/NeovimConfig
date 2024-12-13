@@ -27,6 +27,7 @@ local setup_initializations = function()
     utils.map_allbuf('n', '<leader>ff', pick .. "files" .. cr)
     utils.map_allbuf('n', '<leader>pf', pick .. " git_files" .. cr)
     utils.map_allbuf('n', '<leader>ag', pick .. " grep_live" .. cr)
+    utils.map_allbuf('n', '<leader>b', pick .. " buffers" .. cr)
 
     --> mini.files
     local minifiles = "<cmd>lua MiniFiles"
