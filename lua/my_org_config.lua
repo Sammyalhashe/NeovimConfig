@@ -106,7 +106,6 @@ return {
     org_agenda_files = {
         _org_work_base_directory .. "/**/*",
         _org_base_directory .. "/**/*",
-        _org_default_inbox,
         _org_default_notes,
         _org_journal_dir .. "**/*",
         _org_journal_dir .. "*",
