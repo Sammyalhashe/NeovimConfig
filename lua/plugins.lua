@@ -97,12 +97,12 @@ local my_plugins = {
 
 local bloated_plugins = {
     --> aesthetics
-    { "shortcuts/no-neck-pain.nvim", tag = "*" },
+    { source = "shortcuts/no-neck-pain.nvim", checkout = "main" },
 
     --> organization/writing
-    "Pocco81/true-zen.nvim",
-    "lukas-reineke/headlines.nvim",
-    "dhruvasagar/vim-table-mode",
+    { source = "Pocco81/true-zen.nvim" },
+    { source = "lukas-reineke/headlines.nvim" },
+    { source = "dhruvasagar/vim-table-mode" },
 }
 
 local plugins = { main_plugins, my_plugins }
