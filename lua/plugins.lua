@@ -33,10 +33,12 @@ local main_plugins = {
 
     --> aesthetics
     { source = "nvim-lualine/lualine.nvim" },
+    { source = "nanozuki/tabby.nvim" },
 
     --> git gud
     { source = "tpope/vim-fugitive" },
     { source = "pwntester/octo.nvim" },
+    { source = "lewis6991/gitsigns.nvim" },
 
     --> treesitter
     { source = "nvim-treesitter/nvim-treesitter", hooks = { post_checkout = function() vim.cmd("TSUpdate") end } },
