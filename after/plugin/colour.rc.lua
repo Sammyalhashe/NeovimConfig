@@ -17,9 +17,14 @@ if utils.string_contains(wanted, "fox$") then
             dim_inactive = true,
         },
         specs = {},
+        palettes = {
+            all = {
+                _green = "#90ee90",
+            }
+        },
         groups = {
             all = {
-                Search = { bg = "palette.red" },
+                debugPC = { bg = "palette._green" }
             },
         },
     }
